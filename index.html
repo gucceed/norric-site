@@ -509,7 +509,7 @@
     </div>
     <div class="holding-stats">
       <div class="stat">
-        <div class="stat-val">7</div>
+        <div class="stat-val">8</div>
         <div class="stat-label">Products</div>
       </div>
       <div class="stat">
@@ -603,27 +603,49 @@
 
   <!-- TIER 2: ACTIVE BUILD -->
   <div class="section-label" style="margin-top:8px;">Active build · this week</div>
-  <div class="grid grid-2">
+  <div class="grid grid-3">
 
-    <!-- Betalningskollen / Kreditvakt -->
+    <!-- Norric Kreditvakt -->
     <div class="card">
       <div class="card-accent accent-blue"></div>
       <div class="card-top">
         <div>
-          <div class="card-name">Betalningskollen</div>
-          <div class="card-brand">Norric Kreditvakt · payment risk</div>
+          <div class="card-name">Norric Kreditvakt</div>
+          <div class="card-brand">Norric · B2B credit risk API</div>
         </div>
-        <span class="status-pill pill-blue">Building · week 1 of 8</span>
+        <span class="status-pill pill-blue">Building · kreditvakt.com</span>
       </div>
-      <div class="card-desc">Payment risk signal embedded in Fortnox invoice creation. Green / Amber / Red at invoice moment. Powered by Kreditvakt engine reading Kronofogden, Skatteverket restanslängd, Bolagsverket filings. Pre-fetch/cache architecture — no live external calls in webhook path. 299 kr/mo per Fortnox account. GTM via redovisningskonsulter in Malmö.</div>
+      <div class="card-desc">Swedish B2B credit risk API reading Kronofogden betalningsförelägganden and Bolagsverket bankruptcy filings. Backtest validated: 6x lift factor, 9-month median warning, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Nightly batch ingestion, sub-200ms scoring. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI async</span>
         <span class="tag">PostgreSQL</span>
         <span class="tag">Celery + Redis</span>
-        <span class="tag">Fortnox webhook</span>
         <span class="tag">Kronofogden</span>
         <span class="tag">Skatteverket</span>
+        <span class="tag">Bolagsverket</span>
+      </div>
+    </div>
+
+    <!-- Betalningskollen -->
+    <div class="card">
+      <div class="card-accent accent-blue"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Betalningskollen</div>
+          <div class="card-brand">Norric Kreditvakt · Fortnox product</div>
+        </div>
+        <span class="status-pill pill-blue">Building · week 1 of 8</span>
+      </div>
+      <div class="card-desc">Payment risk signal embedded in Fortnox invoice creation. Green / Amber / Red at invoice moment. Powered by the Kreditvakt engine. No live external calls in webhook path. 299 kr/mo per Fortnox account. GTM via redovisningskonsulter in Malmö. RED badge withheld until > 75% precision on 50 logged outcomes.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">Fortnox webhook</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Celery + Redis</span>
+        <span class="tag">299 kr/mo</span>
+        <span class="tag">Konsult GTM</span>
       </div>
     </div>
 

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norric AB — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #161616;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --text: #e8e4dc;
+    --muted: #6b6560;
+    --dim: #3a3530;
+
+    --green: #22c55e;
+    --green-bg: #0d1f14;
+    --green-border: #1a4028;
+
+    --amber: #f59e0b;
+    --amber-bg: #1a1400;
+    --amber-border: #3d2e00;
+
+    --blue: #3b82f6;
+    --blue-bg: #0a1628;
+    --blue-border: #1a3456;
+
+    --red: #ef4444;
+    --red-bg: #1a0a0a;
+    --red-border: #3d1212;
+
+    --purple: #a78bfa;
+    --purple-bg: #120e1f;
+    --purple-border: #2a1f4a;
+
+    --teal: #2dd4bf;
+    --teal-bg: #0a1a18;
+    --teal-border: #153330;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────────────────── */
+  header {
+    padding: 52px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .logo-block {}
+
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .logo span {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .tagline {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header-meta {
+    text-align: right;
+  }
+
+  .header-meta .date {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .header-meta .entity {
+    font-size: 11px;
+    color: var(--dim);
+    font-family: 'Geist Mono', monospace;
+  }
+
+  /* ── HOLDING BOX ────────────────────────────────────────────────────── */
+  .holding {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 20px 28px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holding::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--muted), transparent);
+    opacity: 0.3;
+  }
+
+  .holding-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+
+  .holding-desc {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .holding-stats {
+    display: flex;
+    gap: 36px;
+  }
+
+  .stat { text-align: right; }
+
+  .stat-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTION LABELS ─────────────────────────────────────────────────── */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── PRODUCT GRID ───────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-1 { grid-template-columns: 1fr; }
+
+  @media (max-width: 800px) {
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── PRODUCT CARD ───────────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 22px 18px;
+    position: relative;
+    transition: border-color 0.15s ease;
+    animation: fadeUp 0.4s ease both;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.20s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.30s; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .card-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
+  }
+
+  .card-brand {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .status-pill {
+    font-size: 9px;
+    font-family: 'Geist Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .pill-green  { color: var(--green);  border-color: var(--green-border);  background: var(--green-bg); }
+  .pill-amber  { color: var(--amber);  border-color: var(--amber-border);  background: var(--amber-bg); }
+  .pill-blue   { color: var(--blue);   border-color: var(--blue-border);   background: var(--blue-bg); }
+  .pill-red    { color: var(--red);    border-color: var(--red-border);    background: var(--red-bg); }
+  .pill-purple { color: var(--purple); border-color: var(--purple-border); background: var(--purple-bg); }
+  .pill-teal   { color: var(--teal);   border-color: var(--teal-border);   background: var(--teal-bg); }
+  .pill-muted  { color: var(--muted);  border-color: var(--dim);           background: var(--surface2); }
+
+  .card-desc {
+    font-size: 12px;
+    color: #9a948c;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .card-rule {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 12px;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 10px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .accent-green  { background: linear-gradient(90deg, var(--green), transparent); opacity: 0.5; }
+  .accent-amber  { background: linear-gradient(90deg, var(--amber), transparent); opacity: 0.5; }
+  .accent-blue   { background: linear-gradient(90deg, var(--blue), transparent); opacity: 0.4; }
+  .accent-red    { background: linear-gradient(90deg, var(--red), transparent); opacity: 0.4; }
+  .accent-purple { background: linear-gradient(90deg, var(--purple), transparent); opacity: 0.4; }
+  .accent-teal   { background: linear-gradient(90deg, var(--teal), transparent); opacity: 0.4; }
+  .accent-muted  { background: linear-gradient(90deg, var(--muted), transparent); opacity: 0.3; }
+
+  /* ── GATING DEPENDENCY ─────────────────────────────────────────────── */
+  .gate-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .gate-icon { flex-shrink: 0; color: var(--dim); margin-top: 1px; }
+
+  .gate-row.blocking .gate-icon { color: var(--red); }
+  .gate-row.blocking { color: #7a5050; }
+
+  /* ── IP STRUCTURE ───────────────────────────────────────────────────── */
+  .ip-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+  }
+
+  .ip-title {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+
+  .ip-desc {
+    font-size: 12px;
+    color: #9a948c;
+    line-height: 1.7;
+  }
+
+  /* ── MOAT SECTION ───────────────────────────────────────────────────── */
+  .moat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 40px;
+  }
+
+  .moat-cell {
+    background: var(--surface);
+    padding: 16px 14px;
+    text-align: center;
+  }
+
+  .moat-icon {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .moat-name {
+    font-size: 10px;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .moat-desc {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ─────────────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .left {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  footer .right {
+    font-size: 10px;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* ── VISION STRIP ───────────────────────────────────────────────────── */
+  .vision {
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    position: relative;
+    background: var(--surface);
+  }
+
+  .vision-quote {
+    font-family: 'Instrument Serif', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 800px;
+  }
+
+  .vision-attr {
+    margin-top: 10px;
+    font-size: 10px;
+    color: var(--dim);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* ── PRIORITY STACK ─────────────────────────────────────────────────── */
+  .priority-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .priority-num {
+    background: var(--surface2);
+    border-right: 1px solid var(--border);
+    padding: 14px 18px;
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    color: var(--muted);
+    min-width: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .priority-body {
+    padding: 14px 18px;
+    flex: 1;
+  }
+
+  .priority-title {
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-family: 'Geist Mono', monospace;
+  }
+
+  .priority-detail {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .priority-badge {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-left: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-block">
+      <div class="logo">Norric <span>AB</span></div>
+      <div class="tagline">Portfolio overview · April 2026</div>
+    </div>
+    <div class="header-meta">
+      <div class="date">16 April 2026</div>
+      <div class="entity">Org.nr: [Norric AB] · Malmö, SE</div>
+    </div>
+  </header>
+
+  <!-- HOLDING -->
+  <div class="holding">
+    <div>
+      <div class="holding-name">Norric AB</div>
+      <div class="holding-desc">Holding company · owns all IP, software, data schemas, brand assets, and algorithms · operating subsidiaries license upward via intercompany IP agreements</div>
+    </div>
+    <div class="holding-stats">
+      <div class="stat">
+        <div class="stat-val">7</div>
+        <div class="stat-label">Products</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">4</div>
+        <div class="stat-label">Live</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">1</div>
+        <div class="stat-label">Founder</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISION -->
+  <div class="vision">
+    <div class="vision-quote">"Build Sweden's private epistemic infrastructure — a bottom-up, real-time model of Swedish economic reality compounding sensor by sensor into something more accurate than official SCB statistics in the domains it covers."</div>
+    <div class="vision-attr">Long-term thesis · each product is a sensor feeding a shared intelligence core</div>
+  </div>
+
+  <!-- TIER 1: ACTIVE / REVENUE -->
+  <div class="section-label">Revenue &amp; active — live products</div>
+  <div class="grid grid-2">
+
+    <!-- Jarvis -->
+    <div class="card">
+      <div class="card-accent accent-amber"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Jarvis</div>
+          <div class="card-brand">Standalone · algo trading</div>
+        </div>
+        <span class="status-pill pill-amber">Live · capital deployed</span>
+      </div>
+      <div class="card-desc">Autonomous algo trading agent on Hyperliquid perpetuals. WOLF orchestrator, HOWL nightly self-improvement loop, DSL trailing stops. 14 strategies, 263 passing tests. Polymarket integration. 100-trade validation quarantine active.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">Railway</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Hyperliquid</span>
+        <span class="tag">Polymarket</span>
+        <span class="tag">MCP · 13 tools</span>
+        <span class="tag">HOWL loop</span>
+      </div>
+    </div>
+
+    <!-- SiteLoop -->
+    <div class="card">
+      <div class="card-accent accent-green"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">SiteLoop</div>
+          <div class="card-brand">Standalone · web agency SaaS</div>
+        </div>
+        <span class="status-pill pill-green">Malmö pilot live</span>
+      </div>
+      <div class="card-desc">Automated SMB web agency. Targets 4.5-star+ rated businesses with poor websites. Builds speculatively, offers at 14,900 kr one-off or 299 kr/mo managed. Göteborg Q2 · Stockholm Q3 2026. Design quality is the core moat.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">Next.js</span>
+        <span class="tag">Vercel</span>
+        <span class="tag">Google Maps API</span>
+        <span class="tag">46elks SMS</span>
+        <span class="tag">Airtable</span>
+        <span class="tag">Stripe / Swish</span>
+      </div>
+    </div>
+
+    <!-- Sigvik -->
+    <div class="card">
+      <div class="card-accent accent-teal"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Sigvik</div>
+          <div class="card-brand">Standalone · BRF intelligence</div>
+        </div>
+        <span class="status-pill pill-teal">Live · gating active</span>
+      </div>
+      <div class="card-desc">Sweden's BRF intelligence API surfacing via a website. 3,582 active Skåne BRFs from Bolagsverket bulk parse. Energiklass prediction ~83% accuracy. Dual surface: human UI + agent-native API/MCP. Bolagsverket API test credentials secured. Boverket pending AB registration.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">React / TypeScript</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Celery</span>
+        <span class="tag">Supabase</span>
+        <span class="tag">Railway</span>
+        <span class="tag">Bolagsverket API</span>
+      </div>
+    </div>
+
+  </div><!-- end tier 1 grid -->
+
+  <!-- TIER 2: ACTIVE BUILD -->
+  <div class="section-label" style="margin-top:8px;">Active build · this week</div>
+  <div class="grid grid-2">
+
+    <!-- Betalningskollen / Kreditvakt -->
+    <div class="card">
+      <div class="card-accent accent-blue"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Betalningskollen</div>
+          <div class="card-brand">Norric Kreditvakt · payment risk</div>
+        </div>
+        <span class="status-pill pill-blue">Building · week 1 of 8</span>
+      </div>
+      <div class="card-desc">Payment risk signal embedded in Fortnox invoice creation. Green / Amber / Red at invoice moment. Powered by Kreditvakt engine reading Kronofogden, Skatteverket restanslängd, Bolagsverket filings. Pre-fetch/cache architecture — no live external calls in webhook path. 299 kr/mo per Fortnox account. GTM via redovisningskonsulter in Malmö.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">FastAPI async</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Celery + Redis</span>
+        <span class="tag">Fortnox webhook</span>
+        <span class="tag">Kronofogden</span>
+        <span class="tag">Skatteverket</span>
+      </div>
+    </div>
+
+    <!-- Norric SIGNAL -->
+    <div class="card">
+      <div class="card-accent accent-green"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Norric SIGNAL</div>
+          <div class="card-brand">Norric · procurement intelligence</div>
+        </div>
+        <span class="status-pill pill-green">Live · rebrand pending</span>
+      </div>
+      <div class="card-desc">13 signal sources across 290 Swedish municipalities. Operates at procurement step 1 (intent signals) vs Mercell/Opic at step 4. Live at <a href="https://munisignal.polsia.app/" target="_blank" style="color:var(--teal);text-decoration:none;">munisignal.polsia.app</a> — rebrand to Norric SIGNAL not yet applied. Priority: connect ingestion database to activate live data for MCP weekly call list tool.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Playwright</span>
+        <span class="tag">OCR</span>
+        <span class="tag">Alembic</span>
+        <span class="tag">Railway · live</span>
+        <span class="tag">MCP · SIGNAL tool</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TIER 3: PARKED -->
+  <div class="section-label" style="margin-top:8px;">Parked · pending gating items</div>
+  <div class="grid grid-2">
+
+    <!-- LeadFlow -->
+    <div class="card">
+      <div class="card-accent accent-muted"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">LeadFlow AI</div>
+          <div class="card-brand">Standalone · B2B lead response</div>
+        </div>
+        <span class="status-pill pill-muted">Parked · 0 clients</span>
+      </div>
+      <div class="card-desc">Fully built B2B lead response SaaS for Swedish electricians at €500/month. Core bottleneck is closing the first client, not engineering. Outreach not yet executed. Parked until first client signed. Zero further engineering needed.</div>
+      <div class="card-rule"></div>
+      <div class="gate-row blocking">
+        <span class="gate-icon">⊘</span>
+        <span>Gate: first paying client. No further build until signed.</span>
+      </div>
+      <div class="card-meta" style="margin-top:10px;">
+        <span class="tag">Next.js</span>
+        <span class="tag">Fortnox / Bankgirot</span>
+        <span class="tag">46elks</span>
+        <span class="tag">Airtable</span>
+      </div>
+    </div>
+
+    <!-- Vigil -->
+    <div class="card">
+      <div class="card-accent accent-muted"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Norric Vigil</div>
+          <div class="card-brand">Norric · B2B lifecycle signals</div>
+        </div>
+        <span class="status-pill pill-muted">Specced · no live data</span>
+      </div>
+      <div class="card-desc">Three signals: F-skatt registration (business birth), building permits (expansion), Bolagsverket ownership velocity (transition). Lifecycle arc detection across signals is the core moat. 10 code files, 45 tests. No live data ingestion. Replit Agent 4 flagged as prototyping layer before committing to production stack.</div>
+      <div class="card-rule"></div>
+      <div class="gate-row blocking">
+        <span class="gate-icon">⊘</span>
+        <span>Gate: Bolagsverket ingestion live (shared dependency with Sigvik + Kreditvakt).</span>
+      </div>
+      <div class="card-meta" style="margin-top:10px;">
+        <span class="tag">FastAPI</span>
+        <span class="tag">Celery</span>
+        <span class="tag">Bolagsverket API</span>
+        <span class="tag">45 tests passing</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MCP INFRASTRUCTURE -->
+  <div class="section-label" style="margin-top:8px;">MCP infrastructure</div>
+  <div class="grid grid-1" style="margin-bottom:40px;">
+    <div class="card">
+      <div class="card-accent accent-green"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Norric MCP Server</div>
+          <div class="card-brand">norric-mcp-production.up.railway.app</div>
+        </div>
+        <span class="status-pill pill-green">Live · 19 tools · 5 products</span>
+      </div>
+      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Connected globally via ~/.claude.json · Universal NorricResponse Pydantic v2 envelope · Capability-scoped API key auth (nk_{env}_{capabilities}_{random}) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Immediate priority: connect SIGNAL ingestion database to activate live data for signal_weekly_call_list_v1 tool.</div>
+      <div class="card-rule"></div>
+      <div class="card-meta">
+        <span class="tag">FastMCP 3.2.3</span>
+        <span class="tag">Railway</span>
+        <span class="tag">Streamable HTTP</span>
+        <span class="tag">Pydantic v2</span>
+        <span class="tag">19 tools</span>
+        <span class="tag">OrgnrStr · KommunkodStr</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRATEGIC MOATS -->
+  <div class="section-label">Strategic moats · elapsed-time-dependent assets</div>
+  <div class="moat-grid" style="margin-bottom:40px;">
+    <div class="moat-cell">
+      <div class="moat-icon">📡</div>
+      <div class="moat-name">Compounding data</div>
+      <div class="moat-desc">Each invoice checked, signal scraped, BRF record parsed adds to a corpus no competitor can replicate quickly</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🔒</div>
+      <div class="moat-name">Regulatory access</div>
+      <div class="moat-desc">Bolagsverket API credentials, Skatteverket ingestion, Kronofogden enforcement data — permissioned and built</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🧠</div>
+      <div class="moat-name">Swedish calibration</div>
+      <div class="moat-desc">Kollektivavtal, personnummer, F-skatt, ROT/RUT, Bankgirot — no generic AI product handles these natively</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🔗</div>
+      <div class="moat-name">Shared data spine</div>
+      <div class="moat-desc">Bolagsverket ingestion shared across Sigvik + Kreditvakt + Vigil. Each product amortises the same infrastructure cost</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🏗️</div>
+      <div class="moat-name">IP holding structure</div>
+      <div class="moat-desc">All IP owned by Norric AB. Subsidiaries license upward. Tax-efficient via näringsbetingade andelar. Clean exit per subsidiary.</div>
+    </div>
+  </div>
+
+  <!-- BUILD PRIORITIES -->
+  <div class="section-label">Current build priorities · gating dependency order</div>
+
+  <div class="priority-row">
+    <div class="priority-num">1</div>
+    <div class="priority-body">
+      <div class="priority-title">Betalningskollen — Fortnox webhook + Kreditvakt scoring engine</div>
+      <div class="priority-detail">This week. Pre-fetch/cache architecture. Hard-gate logic (Kronofogden → Bolagsverket → Skatteverket trajectory). RED badge withheld until > 75% precision on 50 logged outcomes. GTM: 3 konsulter in Malmö. Revenue from week 2.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-blue">Active</span>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-num">2</div>
+    <div class="priority-body">
+      <div class="priority-title">Norric SIGNAL — connect ingestion database + apply rebrand</div>
+      <div class="priority-detail">Live at munisignal.polsia.app. Rebrand to Norric SIGNAL not yet applied. Priority: connect ingestion database to activate live data for signal_weekly_call_list_v1 MCP tool. Scrapers and Alembic migrations already written.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-green">Live · rebrand pending</span>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-num">3</div>
+    <div class="priority-body">
+      <div class="priority-title">Sigvik — Bolagsverket ingestion pipeline</div>
+      <div class="priority-detail">Gating dependency for both Sigvik live data refresh and Vigil. API test credentials secured. Boverket pending AB registration. Shared infrastructure with Kreditvakt Bolagsverket fetcher — build once, serve both.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-teal">Queued</span>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-num">4</div>
+    <div class="priority-body">
+      <div class="priority-title">Jarvis — exception thresholds codified + HOWL VIX regime filter</div>
+      <div class="priority-detail">Drawdown > 12%, test count < 263, win rate < 38% over 50 trades. VIX regime filter via yfinance in HOWL loop. Autoresearch (Karpathy pattern) for overnight parameter optimisation against Sharpe scalar.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-amber">Maintenance</span>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-num">5</div>
+    <div class="priority-body">
+      <div class="priority-title">LeadFlow AI — first outreach to Swedish electricians</div>
+      <div class="priority-detail">Product fully built. Zero sales effort executed. One paying client unlocks this product. No further engineering until signed.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-muted">Parked</span>
+    </div>
+  </div>
+
+  <!-- BRAND SYSTEM -->
+  <div class="section-label" style="margin-top: 40px;">Brand system</div>
+  <div class="ip-box" style="margin-bottom:12px;">
+    <div class="ip-title">Norric-prefixed brands (carry the holding identity)</div>
+    <div class="ip-desc">
+      <strong style="color:var(--text);">Norric SIGNAL</strong> · procurement intelligence &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Norric Kreditvakt</strong> · credit risk API &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Norric Vigil</strong> · B2B lifecycle signals
+    </div>
+  </div>
+  <div class="ip-box" style="margin-bottom:40px;">
+    <div class="ip-title">Standalone brands (own identities, no prefix)</div>
+    <div class="ip-desc">
+      <strong style="color:var(--text);">SiteLoop</strong> · web agency SaaS &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Sigvik</strong> · BRF intelligence &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Jarvis</strong> · algo trading &nbsp;·&nbsp;
+      <strong style="color:var(--text);">LeadFlow AI</strong> · lead response
+      <br><br>
+      <span style="color:var(--muted);">Domains: norric.io (Vercel) · kreditvakt.com · sigvik.com · GitHub: gucceed</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="left">Norric AB · Portfolio snapshot · 16 April 2026</div>
+    <div class="right">
+      Solo founder · Edgar Mutebi · Malmö, SE<br>
+      <span style="color:var(--dim);">Formerly Polsia Holding AB</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

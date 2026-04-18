@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norric AB — Architecture Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #1e1e1e;
+    --text: #e8e4dc;
+    --muted: #6b6560;
+    --teal-fill: #0d2e22;
+    --teal-stroke: #1a6b50;
+    --teal-text: #5dcaa5;
+    --purple-fill: #1a1430;
+    --purple-stroke: #4a3a8a;
+    --purple-text: #a78bfa;
+    --blue-fill: #0a1628;
+    --blue-stroke: #1a3456;
+    --blue-text: #60a5fa;
+    --coral-fill: #2a1410;
+    --coral-stroke: #7a3020;
+    --coral-text: #f0997b;
+    --green-fill: #0a1f14;
+    --green-stroke: #1a4028;
+    --green-text: #4ade80;
+    --amber-fill: #1a1200;
+    --amber-stroke: #4a3200;
+    --amber-text: #fbbf24;
+    --gray-fill: #161616;
+    --gray-stroke: #2a2a2a;
+    --gray-text: #9a948c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 24px 80px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+
+  .logo span { font-style: italic; color: var(--muted); }
+
+  .meta {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .diagram-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+  }
+
+  svg { display: block; width: 100%; }
+
+  /* SVG node styles */
+  .node { cursor: pointer; }
+  .node:hover rect, .node:hover .box-rect { opacity: 0.85; }
+
+  .teal-box   { fill: var(--teal-fill);   stroke: var(--teal-stroke);   }
+  .purple-box { fill: var(--purple-fill); stroke: var(--purple-stroke); }
+  .blue-box   { fill: var(--blue-fill);   stroke: var(--blue-stroke);   }
+  .coral-box  { fill: var(--coral-fill);  stroke: var(--coral-stroke);  }
+  .green-box  { fill: var(--green-fill);  stroke: var(--green-stroke);  }
+  .amber-box  { fill: var(--amber-fill);  stroke: var(--amber-stroke);  }
+  .gray-box   { fill: var(--gray-fill);   stroke: var(--gray-stroke);   }
+
+  .teal-title   { fill: var(--teal-text);   font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .purple-title { fill: var(--purple-text); font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .blue-title   { fill: var(--blue-text);   font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .coral-title  { fill: var(--coral-text);  font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .green-title  { fill: var(--green-text);  font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .amber-title  { fill: var(--amber-text);  font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+  .gray-title   { fill: var(--gray-text);   font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500; }
+
+  .sub { fill: #6b6560; font-family: 'Geist Mono', monospace; font-size: 10px; }
+
+  .layer-label { fill: #3a3530; font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: 0.15em; }
+
+  .connector { stroke: #2a2a2a; stroke-width: 1; fill: none; }
+  .connector-arrow { stroke: #2a2a2a; stroke-width: 1; fill: none; marker-end: url(#arr); }
+
+  .legend-label { fill: var(--muted); font-family: 'Geist Mono', monospace; font-size: 10px; }
+
+  footer {
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo">Norric <span>AB</span></div>
+    <div class="meta">
+      Architecture overview · Agent economy included<br>
+      April 2026 · norric.io
+    </div>
+  </header>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 852 1060" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#2a2a2a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <!-- ── LAYER LABELS ────────────────────────────────────────── -->
+      <text class="layer-label" x="10" y="90"  text-anchor="middle" transform="rotate(-90,10,90)">DATA</text>
+      <text class="layer-label" x="10" y="218" text-anchor="middle" transform="rotate(-90,10,218)">INTEL</text>
+      <text class="layer-label" x="10" y="400" text-anchor="middle" transform="rotate(-90,10,400)">PRODUCTS</text>
+      <text class="layer-label" x="10" y="548" text-anchor="middle" transform="rotate(-90,10,548)">DISTRIB</text>
+      <text class="layer-label" x="10" y="672" text-anchor="middle" transform="rotate(-90,10,672)">AGENTS</text>
+      <text class="layer-label" x="10" y="820" text-anchor="middle" transform="rotate(-90,10,820)">INSTIT</text>
+
+      <!-- ── HOLDING ────────────────────────────────────────────── -->
+      <rect class="gray-box" x="30" y="16" width="814" height="30" rx="6" stroke-width="0.5"/>
+      <text class="gray-title" x="437" y="31" text-anchor="middle" dominant-baseline="central">Norric AB — holding company · all IP, data schemas, brand assets, algorithms</text>
+
+      <!-- ── DATA SPINE ─────────────────────────────────────────── -->
+      <rect class="teal-box" x="30" y="55" width="814" height="54" rx="8" stroke-width="0.5"/>
+      <text class="teal-title" x="437" y="72" text-anchor="middle" dominant-baseline="central">Unified ingestion platform — nightly batch · Celery + Redis · Railway · PostgreSQL</text>
+      <text class="sub" x="437" y="92" text-anchor="middle" dominant-baseline="central">Bolagsverket · Skatteverket · Kronofogden · Boverket · Lantmäteriet · SCB · IVO · Skolinspektionen · 290 municipality DIARIET systems</text>
+
+      <!-- ── INTELLIGENCE ───────────────────────────────────────── -->
+      <rect class="purple-box" x="30"  y="124" width="396" height="56" rx="8" stroke-width="0.5"/>
+      <text class="purple-title" x="228" y="143" text-anchor="middle" dominant-baseline="central">Graph engine</text>
+      <text class="sub" x="228" y="162" text-anchor="middle" dominant-baseline="central">Ownership chains · counterparty network · entity relationships</text>
+
+      <rect class="purple-box" x="438" y="124" width="406" height="56" rx="8" stroke-width="0.5"/>
+      <text class="purple-title" x="641" y="143" text-anchor="middle" dominant-baseline="central">Embedding index + scoring engine</text>
+      <text class="sub" x="641" y="162" text-anchor="middle" dominant-baseline="central">pgvector · årsredovisning NLP · payment distress classifier · sub-200ms</text>
+
+      <!-- arrows data → intel -->
+      <line x1="228" y1="109" x2="228" y2="122" class="connector-arrow"/>
+      <line x1="641" y1="109" x2="641" y2="122" class="connector-arrow"/>
+
+      <!-- ── PRODUCTS ROW A ─────────────────────────────────────── -->
+      <g class="node">
+        <rect class="blue-box" x="30"  y="200" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="126" y="218" text-anchor="middle" dominant-baseline="central">Betalningskollen</text>
+        <text class="sub" x="126" y="237" text-anchor="middle" dominant-baseline="central">Fortnox webhook · 299 kr/mo</text>
+      </g>
+      <g class="node">
+        <rect class="blue-box" x="230" y="200" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="326" y="218" text-anchor="middle" dominant-baseline="central">Norric Kreditvakt</text>
+        <text class="sub" x="326" y="237" text-anchor="middle" dominant-baseline="central">Credit risk API · kreditvakt.com</text>
+      </g>
+      <g class="node">
+        <rect class="blue-box" x="430" y="200" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="526" y="218" text-anchor="middle" dominant-baseline="central">Norric SIGNAL</text>
+        <text class="sub" x="526" y="237" text-anchor="middle" dominant-baseline="central">Procurement intel · live</text>
+      </g>
+      <g class="node">
+        <rect class="blue-box" x="630" y="200" width="214" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="737" y="218" text-anchor="middle" dominant-baseline="central">Sigvik</text>
+        <text class="sub" x="737" y="237" text-anchor="middle" dominant-baseline="central">BRF intelligence · sigvik.com</text>
+      </g>
+
+      <!-- ── PRODUCTS ROW B ─────────────────────────────────────── -->
+      <g class="node">
+        <rect class="blue-box" x="30"  y="260" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="126" y="278" text-anchor="middle" dominant-baseline="central">Norric Vigil</text>
+        <text class="sub" x="126" y="297" text-anchor="middle" dominant-baseline="central">B2B lifecycle signals</text>
+      </g>
+      <g class="node">
+        <rect class="blue-box" x="230" y="260" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="326" y="278" text-anchor="middle" dominant-baseline="central">ComplianceKit EU</text>
+        <text class="sub" x="326" y="297" text-anchor="middle" dominant-baseline="central">EU AI Act · €49/mo</text>
+      </g>
+      <g class="node">
+        <rect class="blue-box" x="430" y="260" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="blue-title" x="526" y="278" text-anchor="middle" dominant-baseline="central">Norric Juridik</text>
+        <text class="sub" x="526" y="297" text-anchor="middle" dominant-baseline="central">Legal intelligence layer</text>
+      </g>
+      <g class="node">
+        <rect class="amber-box" x="630" y="260" width="214" height="52" rx="6" stroke-width="0.5"/>
+        <text class="amber-title" x="737" y="278" text-anchor="middle" dominant-baseline="central">Jarvis</text>
+        <text class="sub" x="737" y="297" text-anchor="middle" dominant-baseline="central">Algo trading · HOWL loop</text>
+      </g>
+
+      <!-- arrow intel → products -->
+      <line x1="437" y1="180" x2="437" y2="198" class="connector-arrow"/>
+
+      <!-- ── DISTRIBUTION ───────────────────────────────────────── -->
+      <g class="node">
+        <rect class="coral-box" x="30"  y="332" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="coral-title" x="126" y="350" text-anchor="middle" dominant-baseline="central">Fortnox marketplace</text>
+        <text class="sub" x="126" y="369" text-anchor="middle" dominant-baseline="central">3 apps · 400k SMBs</text>
+      </g>
+      <g class="node">
+        <rect class="coral-box" x="230" y="332" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="coral-title" x="326" y="350" text-anchor="middle" dominant-baseline="central">Konsult platform</text>
+        <text class="sub" x="326" y="369" text-anchor="middle" dominant-baseline="central">499 kr/mo · 50 clients</text>
+      </g>
+      <g class="node">
+        <rect class="coral-box" x="430" y="332" width="192" height="52" rx="6" stroke-width="0.5"/>
+        <text class="coral-title" x="526" y="350" text-anchor="middle" dominant-baseline="central">Branschorg white-label</text>
+        <text class="sub" x="526" y="369" text-anchor="middle" dominant-baseline="central">EIO · Byggindustrier · Visita</text>
+      </g>
+      <g class="node">
+        <rect class="coral-box" x="630" y="332" width="214" height="52" rx="6" stroke-width="0.5"/>
+        <text class="coral-title" x="737" y="350" text-anchor="middle" dominant-baseline="central">Norric MCP marketplace</text>
+        <text class="sub" x="737" y="369" text-anchor="middle" dominant-baseline="central">19 tools · agent-native · live</text>
+      </g>
+
+      <!-- arrow products → distrib -->
+      <line x1="437" y1="314" x2="437" y2="330" class="connector-arrow"/>
+
+      <!-- ── AGENT ECONOMY HEADER ───────────────────────────────── -->
+      <rect class="green-box" x="30" y="400" width="814" height="26" rx="6" stroke-width="0.5"/>
+      <text class="green-title" x="437" y="413" text-anchor="middle" dominant-baseline="central">Agent economy — MCP · per-call pricing · versioned API · sub-100ms · NorricResponse envelope</text>
+
+      <!-- arrow distrib → agent -->
+      <line x1="437" y1="386" x2="437" y2="398" class="connector-arrow"/>
+
+      <!-- ── AGENT PERSONAS ─────────────────────────────────────── -->
+      <g class="node">
+        <rect class="green-box" x="30"  y="434" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="green-title" x="126" y="452" text-anchor="middle" dominant-baseline="central">Due diligence agent</text>
+        <text class="sub" x="126" y="469" text-anchor="middle" dominant-baseline="central">Entity + ownership graph</text>
+        <text class="sub" x="126" y="485" text-anchor="middle" dominant-baseline="central">25–50 kr/call</text>
+      </g>
+      <g class="node">
+        <rect class="green-box" x="230" y="434" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="green-title" x="326" y="452" text-anchor="middle" dominant-baseline="central">Procurement agent</text>
+        <text class="sub" x="326" y="469" text-anchor="middle" dominant-baseline="central">SIGNAL webhook feed</text>
+        <text class="sub" x="326" y="485" text-anchor="middle" dominant-baseline="central">4,900 kr/mo</text>
+      </g>
+      <g class="node">
+        <rect class="green-box" x="430" y="434" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="green-title" x="526" y="452" text-anchor="middle" dominant-baseline="central">Monitoring agent</text>
+        <text class="sub" x="526" y="469" text-anchor="middle" dominant-baseline="central">Watchlist diff API</text>
+        <text class="sub" x="526" y="485" text-anchor="middle" dominant-baseline="central">10 kr/entity/mo</text>
+      </g>
+      <g class="node">
+        <rect class="green-box" x="630" y="434" width="214" height="64" rx="6" stroke-width="0.5"/>
+        <text class="green-title" x="737" y="452" text-anchor="middle" dominant-baseline="central">Market entry agent</text>
+        <text class="sub" x="737" y="469" text-anchor="middle" dominant-baseline="central">Sector brief composite</text>
+        <text class="sub" x="737" y="485" text-anchor="middle" dominant-baseline="central">5,000 kr/brief</text>
+      </g>
+
+      <!-- ── AGENT INFRASTRUCTURE ───────────────────────────────── -->
+      <g class="node">
+        <rect class="gray-box" x="30"  y="508" width="260" height="44" rx="6" stroke-width="0.5"/>
+        <text class="gray-title" x="160" y="526" text-anchor="middle" dominant-baseline="central">Agent registry</text>
+        <text class="sub" x="160" y="542" text-anchor="middle" dominant-baseline="central">Open-source templates · gucceed/norric-agent-templates</text>
+      </g>
+      <g class="node">
+        <rect class="gray-box" x="298" y="508" width="258" height="44" rx="6" stroke-width="0.5"/>
+        <text class="gray-title" x="427" y="526" text-anchor="middle" dominant-baseline="central">Webhook stream</text>
+        <text class="sub" x="427" y="542" text-anchor="middle" dominant-baseline="central">Real-time signal events · push · 9,900 kr/mo</text>
+      </g>
+      <g class="node">
+        <rect class="gray-box" x="564" y="508" width="280" height="44" rx="6" stroke-width="0.5"/>
+        <text class="gray-title" x="704" y="526" text-anchor="middle" dominant-baseline="central">Agent sandbox</text>
+        <text class="sub" x="704" y="542" text-anchor="middle" dominant-baseline="central">Free 10k calls/mo · developer acquisition funnel</text>
+      </g>
+
+      <!-- ── MODEL LAYER ────────────────────────────────────────── -->
+      <rect class="purple-box" x="30" y="568" width="814" height="52" rx="8" stroke-width="0.5"/>
+      <text class="purple-title" x="437" y="587" text-anchor="middle" dominant-baseline="central">Norric intelligence model — fine-tuned on proprietary Swedish outcome data (month 12+)</text>
+      <text class="sub" x="437" y="606" text-anchor="middle" dominant-baseline="central">Payment distress · bankruptcy prediction · procurement intent · BRF health · licensable model API</text>
+
+      <!-- arrow agent → model -->
+      <line x1="437" y1="554" x2="437" y2="566" class="connector-arrow"/>
+
+      <!-- ── INSTITUTIONAL ──────────────────────────────────────── -->
+      <g class="node">
+        <rect class="amber-box" x="30"  y="638" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="amber-title" x="126" y="656" text-anchor="middle" dominant-baseline="central">Factoring companies</text>
+        <text class="sub" x="126" y="673" text-anchor="middle" dominant-baseline="central">Svea · Resurs · Hoist</text>
+        <text class="sub" x="126" y="689" text-anchor="middle" dominant-baseline="central">0.1% of invoice value</text>
+      </g>
+      <g class="node">
+        <rect class="amber-box" x="230" y="638" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="amber-title" x="326" y="656" text-anchor="middle" dominant-baseline="central">Banks</text>
+        <text class="sub" x="326" y="673" text-anchor="middle" dominant-baseline="central">Swedbank · Handelsbanken</text>
+        <text class="sub" x="326" y="689" text-anchor="middle" dominant-baseline="central">200–500k kr/year</text>
+      </g>
+      <g class="node">
+        <rect class="amber-box" x="430" y="638" width="192" height="64" rx="6" stroke-width="0.5"/>
+        <text class="amber-title" x="526" y="656" text-anchor="middle" dominant-baseline="central">Insurance</text>
+        <text class="sub" x="526" y="673" text-anchor="middle" dominant-baseline="central">Atradius · Coface · Euler</text>
+        <text class="sub" x="526" y="689" text-anchor="middle" dominant-baseline="central">Trade credit underwriting</text>
+      </g>
+      <g class="node">
+        <rect class="amber-box" x="630" y="638" width="214" height="64" rx="6" stroke-width="0.5"/>
+        <text class="amber-title" x="737" y="656" text-anchor="middle" dominant-baseline="central">Private equity</text>
+        <text class="sub" x="737" y="673" text-anchor="middle" dominant-baseline="central">Portfolio monitoring</text>
+        <text class="sub" x="737" y="689" text-anchor="middle" dominant-baseline="central">5,000 kr/company/mo</text>
+      </g>
+
+      <!-- arrow model → institutional -->
+      <line x1="437" y1="622" x2="437" y2="636" class="connector-arrow"/>
+
+      <!-- ── INTELLIGENCE PLATFORM ──────────────────────────────── -->
+      <rect class="gray-box" x="30" y="720" width="814" height="52" rx="8" stroke-width="0.5"/>
+      <text class="gray-title" x="437" y="739" text-anchor="middle" dominant-baseline="central">Norric intelligence platform — year 3 · 50–200k kr/year</text>
+      <text class="sub" x="437" y="758" text-anchor="middle" dominant-baseline="central">Real-time Swedish economic intelligence · company graph · procurement · property · enforcement · 290 municipalities</text>
+
+      <!-- arrow institutional → platform -->
+      <line x1="437" y1="704" x2="437" y2="718" class="connector-arrow"/>
+
+      <!-- ── IP STRUCTURE ───────────────────────────────────────── -->
+      <rect class="gray-box" x="30" y="790" width="814" height="44" rx="6" stroke-width="0.5"/>
+      <text class="gray-title" x="437" y="808" text-anchor="middle" dominant-baseline="central">IP structure — Norric AB holds all IP · subsidiaries license upward · näringsbetingade andelar</text>
+      <text class="sub" x="437" y="825" text-anchor="middle" dominant-baseline="central">Norric-prefix: SIGNAL · Kreditvakt · Vigil · Juridik    Standalone: SiteLoop · Sigvik · Jarvis · LeadFlow · ComplianceKit EU</text>
+
+      <!-- ── LEGEND ─────────────────────────────────────────────── -->
+      <text class="legend-label" x="30" y="862">Legend</text>
+
+      <rect class="teal-box"   x="30"  y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="48" y="881">Data / infra</text>
+
+      <rect class="purple-box" x="130" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="148" y="881">Intelligence</text>
+
+      <rect class="blue-box"   x="240" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="258" y="881">Products</text>
+
+      <rect class="coral-box"  x="330" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="348" y="881">Distribution</text>
+
+      <rect class="green-box"  x="430" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="448" y="881">Agent economy</text>
+
+      <rect class="amber-box"  x="550" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="568" y="881">Institutional</text>
+
+      <rect class="gray-box"   x="650" y="870" width="12" height="12" rx="2" stroke-width="0.5"/>
+      <text class="legend-label" x="668" y="881">Platform / infra</text>
+
+    </svg>
+  </div>
+</div>
+
+<footer>
+  <span>Norric AB · Architecture overview · April 2026</span>
+  <span>norric.io · github: gucceed</span>
+</footer>
+
+</body>
+</html>

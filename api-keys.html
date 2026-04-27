@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get API Access — Norric</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #09090b;
+    --s1: #111113;
+    --s2: #18181b;
+    --s3: #1f1f23;
+    --border: #27272a;
+    --border2: #3f3f46;
+    --text: #fafafa;
+    --muted: #71717a;
+    --dim: #3f3f46;
+    --green: #4ade80;
+    --green-bg: #052e16;
+    --green-b: #14532d;
+    --blue: #60a5fa;
+    --blue-bg: #0c1a3a;
+    --blue-b: #1e3a6e;
+    --amber: #fbbf24;
+    --amber-bg: #1c1300;
+    --amber-b: #3d2800;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    background: var(--s1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .topbar-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .topbar-logo span { font-style: italic; color: var(--muted); }
+
+  .topbar-nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .topbar-nav a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: color 0.15s;
+  }
+
+  .topbar-nav a:hover { color: var(--text); }
+  .topbar-nav a.active { color: var(--text); }
+
+  /* Main */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 32px 120px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-header {
+    margin-bottom: 56px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 48px;
+    align-items: start;
+  }
+
+  @media (max-width: 720px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar-info { order: -1; }
+  }
+
+  /* Form */
+  .form-card {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 32px;
+  }
+
+  .form-card h2 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--border2);
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: var(--muted);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  select option {
+    background: var(--s2);
+    color: var(--text);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+    margin-top: 8px;
+  }
+
+  .btn:hover { opacity: 0.88; }
+
+  .form-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 16px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* Sidebar info */
+  .sidebar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .info-card {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .info-card h3 {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .tier-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-row:last-child { border-bottom: none; }
+
+  .tier-name {
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .tier-detail {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-b); }
+  .badge-blue  { background: var(--blue-bg);  color: var(--blue);  border: 1px solid var(--blue-b); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-b); }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .feature-list li {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .feature-list li::before {
+    content: '→';
+    color: var(--dim);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 80px;
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .footer-links a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="topbar-logo">Norric <span>AB</span></a>
+    <nav class="topbar-nav">
+      <a href="/docs">Docs</a>
+      <a href="/developer-docs">Pricing</a>
+      <a href="/api-keys" class="active">API Keys</a>
+    </nav>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="page-header">
+    <div class="eyebrow">Access</div>
+    <h1>Get API access</h1>
+    <p class="subtitle">Sandbox keys are free and issued immediately. Professional and higher tiers are reviewed within 24 hours.</p>
+  </div>
+
+  <div class="layout">
+
+    <!-- Form -->
+    <div class="form-card">
+      <h2>Request access</h2>
+      <form id="access-form">
+
+        <div class="field">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" placeholder="Anna Lindqvist" required>
+        </div>
+
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Acme Kredit AB" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" placeholder="anna@acmekredit.se" required>
+        </div>
+
+        <div class="field">
+          <label for="use-case">Use case</label>
+          <select id="use-case" name="use_case" required>
+            <option value="" disabled selected>Select a use case…</option>
+            <option value="credit">Credit risk monitoring</option>
+            <option value="procurement">Procurement intelligence</option>
+            <option value="brf">BRF renovation intelligence</option>
+            <option value="multiple">Multiple products</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Request access</button>
+
+        <p class="form-note">
+          By submitting you agree to the Norric&nbsp;<a href="#" style="color:var(--muted);text-decoration:underline">Terms of Service</a>.
+          Sandbox keys are issued automatically. We respond to all other requests within 24 hours.
+        </p>
+      </form>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar-info">
+
+      <div class="info-card">
+        <h3>Key tiers</h3>
+        <div class="tier-row">
+          <div>
+            <div class="tier-name">Sandbox</div>
+            <div class="tier-detail">100 calls / month</div>
+          </div>
+          <span class="badge badge-green">Free</span>
+        </div>
+        <div class="tier-row">
+          <div>
+            <div class="tier-name">Professional</div>
+            <div class="tier-detail">5,000 calls / month</div>
+          </div>
+          <span class="badge badge-blue">SEK 990/mo</span>
+        </div>
+        <div class="tier-row">
+          <div>
+            <div class="tier-name">Konsult</div>
+            <div class="tier-detail">25,000 calls / month</div>
+          </div>
+          <span class="badge badge-blue">SEK 2,990/mo</span>
+        </div>
+        <div class="tier-row">
+          <div>
+            <div class="tier-name">Enterprise</div>
+            <div class="tier-detail">Unlimited · SLA</div>
+          </div>
+          <span class="badge badge-amber">Contact us</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>What you get</h3>
+        <ul class="feature-list">
+          <li>Access to all 21 Norric MCP tools</li>
+          <li>Kreditvakt insolvency scoring (Kreditvakt)</li>
+          <li>SIGNAL municipal procurement intelligence</li>
+          <li>Sigvik BRF renovation pipeline</li>
+          <li>Compatible with Claude Code, Cursor, and any MCP client</li>
+          <li>Data freshness API included on all tiers</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Connect in 30 seconds</h3>
+        <ul class="feature-list">
+          <li>Claude Code: <code style="color:var(--text)">claude mcp add norric</code></li>
+          <li>Cursor: add MCP URL to settings.json</li>
+          <li>Any HTTP client: Streamable HTTP transport</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">© 2026 Norric AB · Malmö, SE</div>
+    <div class="footer-links">
+      <a href="/docs">Documentation</a>
+      <a href="/developer-docs">Pricing</a>
+      <a href="mailto:edgar.mutebi1@gmail.com">Contact</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('access-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name     = document.getElementById('name').value.trim();
+    const company  = document.getElementById('company').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const useCase  = document.getElementById('use-case');
+    const useCaseLabel = useCase.options[useCase.selectedIndex].text;
+
+    const subject = encodeURIComponent('Norric API Access Request — ' + company);
+    const body = encodeURIComponent(
+      'Name: ' + name + '\n' +
+      'Company: ' + company + '\n' +
+      'Email: ' + email + '\n' +
+      'Use case: ' + useCaseLabel + '\n\n' +
+      '---\nSent from norric.io/api-keys'
+    );
+
+    window.location.href = 'mailto:edgar.mutebi1@gmail.com?subject=' + subject + '&body=' + body;
+  });
+</script>
+
+</body>
+</html>

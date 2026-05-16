@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Norric AB — Portfolio</title>
+<title>Norric AB — Sweden's private statistical authority for commercial Sweden</title>
+<meta name="description" content="Private statistical authority for commercial Sweden. Weekly. Two-day lag. Primary sources.">
+<meta property="og:title" content="Norric AB — Sweden's private statistical authority for commercial Sweden">
+<meta property="og:description" content="Private statistical authority for commercial Sweden. Weekly. Two-day lag. Primary sources.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://norric.io">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -410,30 +415,114 @@
     text-align: right;
   }
 
-  /* ── VISION STRIP ───────────────────────────────────────────────────── */
-  .vision {
+  /* ── HERO ───────────────────────────────────────────────────────────── */
+  .hero {
     border: 1px solid var(--border);
-    padding: 24px 28px;
-    margin-bottom: 48px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
     position: relative;
     background: var(--surface);
   }
 
-  .vision-quote {
+  .hero-headline {
     font-family: 'Instrument Serif', serif;
-    font-size: 17px;
-    font-style: italic;
-    color: var(--muted);
-    line-height: 1.6;
-    max-width: 800px;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    max-width: 760px;
+    margin-bottom: 14px;
   }
 
-  .vision-attr {
-    margin-top: 10px;
+  .hero-subline {
+    font-size: 13px;
+    color: #9a948c;
+    line-height: 1.7;
+    max-width: 720px;
+  }
+
+  .hero-attr {
+    margin-top: 18px;
     font-size: 10px;
     color: var(--dim);
     text-transform: uppercase;
     letter-spacing: 0.15em;
+  }
+
+  @media (max-width: 600px) {
+    .hero-headline { font-size: 24px; }
+  }
+
+  /* ── PULSE BANNER ───────────────────────────────────────────────────── */
+  .pulse-banner {
+    border: 1px solid var(--teal-border);
+    background: linear-gradient(180deg, var(--surface), var(--teal-bg));
+    padding: 28px 32px;
+    margin-bottom: 48px;
+  }
+
+  .pulse-banner-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .pulse-overline {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .pulse-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 6px;
+    max-width: 640px;
+  }
+
+  .pulse-meta {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .pulse-cta {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid var(--teal-border);
+    background: var(--teal-bg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .pulse-cta:hover { background: var(--surface); }
+
+  /* ── INDICES CARD (link-wrapped) ────────────────────────────────────── */
+  .index-link { text-decoration: none; color: inherit; display: block; }
+  .index-link:hover .card { border-color: var(--border2); }
+
+  /* ── COMING-SOON CALLOUT ────────────────────────────────────────────── */
+  .coming-soon {
+    padding: 14px 18px;
+    margin-bottom: 48px;
+    font-size: 12px;
+    color: var(--muted);
+    border-left: 2px solid var(--dim);
+    background: var(--surface);
+  }
+
+  .coming-soon strong {
+    color: var(--text);
+    font-weight: 500;
   }
 
   /* ── PRIORITY STACK ─────────────────────────────────────────────────── */
@@ -493,12 +582,13 @@
   <header>
     <div class="logo-block">
       <div class="logo">Norric <span>AB</span></div>
-      <div class="tagline">Portfolio overview · May 2026</div>
+      <div class="tagline">Private statistical authority · May 2026</div>
     </div>
     <div class="header-meta">
-      <div class="date">6 May 2026</div>
+      <div class="date">16 May 2026</div>
       <div class="entity">Org.nr: [Norric AB] · Malmö, SE</div>
       <div style="margin-top:10px;display:flex;gap:16px;justify-content:flex-end;">
+        <a href="/pulse" style="font-size:11px;color:var(--teal);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Pulse</a>
         <a href="/docs" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Docs</a>
         <a href="/api-keys" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">API Keys</a>
       </div>
@@ -509,15 +599,15 @@
   <div class="holding">
     <div>
       <div class="holding-name">Norric AB</div>
-      <div class="holding-desc">Holding company · owns all IP, software, data schemas, brand assets, and algorithms · operating subsidiaries license upward via intercompany IP agreements</div>
+      <div class="holding-desc">Private holding company · owns all IP, data schemas, brand assets, and algorithms · operating subsidiaries license upward via intercompany IP agreements</div>
     </div>
     <div class="holding-stats">
       <div class="stat">
-        <div class="stat-val">8</div>
+        <div class="stat-val">4</div>
         <div class="stat-label">Products</div>
       </div>
       <div class="stat">
-        <div class="stat-val">4</div>
+        <div class="stat-val">3</div>
         <div class="stat-label">Live</div>
       </div>
       <div class="stat">
@@ -527,57 +617,118 @@
     </div>
   </div>
 
-  <!-- VISION -->
-  <div class="vision">
-    <div class="vision-quote">"Build Sweden's private epistemic infrastructure — a bottom-up, real-time model of Swedish economic reality compounding sensor by sensor into something more accurate than official SCB statistics in the domains it covers."</div>
-    <div class="vision-attr">Long-term thesis · each product is a sensor feeding a shared intelligence core</div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-headline">Sweden's private statistical authority for commercial Sweden.</div>
+    <div class="hero-subline">Weekly nowcasts, two-day lag, built sensor by sensor from primary Swedish sources. Where SCB publishes monthly with a three-week lag, Norric publishes weekly.</div>
+    <div class="hero-attr">Positioning · May 2026</div>
   </div>
 
-  <!-- TIER 1: ACTIVE / REVENUE -->
-  <div class="section-label">Revenue &amp; active — live products</div>
-  <div class="grid grid-2">
-
-    <!-- Jarvis -->
-    <div class="card">
-      <div class="card-accent accent-amber"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Jarvis</div>
-          <div class="card-brand">Standalone · algo trading</div>
-        </div>
-        <span class="status-pill pill-amber">Live · capital deployed</span>
+  <!-- PULSE BANNER -->
+  <div class="pulse-banner">
+    <div class="pulse-banner-row">
+      <div style="flex:1;min-width:280px;">
+        <div class="pulse-overline">Norric Pulse · weekly nowcast</div>
+        <div class="pulse-headline">A two-day-lag nowcast of commercial Sweden, built from primary sources.</div>
+        <div class="pulse-meta">Mondays 06:00 Europe/Stockholm · published two days after the previous week closes.</div>
       </div>
-      <div class="card-desc">Autonomous algo trading agent on Hyperliquid perpetuals. WOLF orchestrator, HOWL nightly self-improvement loop, DSL trailing stops. 14 strategies, 263 passing tests. Polymarket integration. 100-trade validation quarantine active.</div>
-      <div class="card-rule"></div>
-      <div class="card-meta">
-        <span class="tag">Railway</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">Hyperliquid</span>
-        <span class="tag">Polymarket</span>
-        <span class="tag">MCP · 13 tools</span>
-        <span class="tag">HOWL loop</span>
+      <div style="display:flex;gap:10px;flex-shrink:0;">
+        <a href="/pulse" class="pulse-cta">Read this week's Pulse →</a>
       </div>
     </div>
+  </div>
 
-    <!-- SiteLoop -->
+  <!-- INDICES FRAMEWORK -->
+  <div class="section-label">Indices · Pulse v1</div>
+  <div class="grid grid-2" style="margin-bottom:12px;">
+
+    <!-- Insolvency Index -->
+    <a href="https://kreditvakt.com" target="_blank" class="index-link">
+      <div class="card">
+        <div class="card-accent accent-blue"></div>
+        <div class="card-top">
+          <div>
+            <div class="card-name">Insolvency Index</div>
+            <div class="card-brand">From Kreditvakt · kreditvakt.com</div>
+          </div>
+          <span class="status-pill pill-green">Live</span>
+        </div>
+        <div class="card-desc">Corporate insolvency, payment defaults, and bankruptcy lead-up signals across Swedish aktiebolag. Sourced from Kronofogden enforcement, Skatteverket restanslängd, and Bolagsverket ärenden and konkursregister.</div>
+      </div>
+    </a>
+
+    <!-- Housing Stock Index -->
+    <a href="https://sigvik.com" target="_blank" class="index-link">
+      <div class="card">
+        <div class="card-accent accent-teal"></div>
+        <div class="card-top">
+          <div>
+            <div class="card-name">Housing Stock Index</div>
+            <div class="card-brand">From Sigvik · sigvik.com</div>
+          </div>
+          <span class="status-pill pill-green">Live · national</span>
+        </div>
+        <div class="card-desc">BRF financial health, energy class distribution, and transaction velocity across 33,710 BRFs in 289 of 290 Swedish municipalities. National coverage operational.</div>
+      </div>
+    </a>
+
+    <!-- Property Activity Index -->
+    <div class="card">
+      <div class="card-accent accent-muted"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Property Activity Index</div>
+          <div class="card-brand">Lantmäteriet-gated · pending</div>
+        </div>
+        <span class="status-pill pill-muted">Planned</span>
+      </div>
+      <div class="card-desc">Property transactions and Lantmäteriet-derived activity signals. Index composition pending data-access gate.</div>
+    </div>
+
+    <!-- Municipal Activity Index -->
     <div class="card">
       <div class="card-accent accent-green"></div>
       <div class="card-top">
         <div>
-          <div class="card-name">SiteLoop</div>
-          <div class="card-brand">Standalone · web agency SaaS</div>
+          <div class="card-name">Municipal Activity Index</div>
+          <div class="card-brand">From SIGNAL · ingestion live</div>
         </div>
-        <span class="status-pill pill-green">Malmö pilot live</span>
+        <span class="status-pill pill-amber">Composition pending</span>
       </div>
-      <div class="card-desc">Automated SMB web agency. Targets 4.5-star+ rated businesses with poor websites. Builds speculatively, offers at 14,900 kr one-off or 299 kr/mo managed. Göteborg Q2 · Stockholm Q3 2026. Design quality is the core moat.</div>
+      <div class="card-desc">Procurement intent, F-skatt registrations, and regulatory filings across 290 kommuner. Underlying ingestion live; published index composition pending.</div>
+    </div>
+
+  </div>
+
+  <!-- Vattendom — coming soon callout -->
+  <div class="coming-soon">
+    <strong>Water Rights Disruption Index — coming soon.</strong>
+    A fifth index, powered by Norric Vattendom. Ingestion in flight.
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="section-label">Operating portfolio · sensors feeding the intelligence core</div>
+  <div class="grid grid-2">
+
+    <!-- Norric Kreditvakt -->
+    <div class="card">
+      <div class="card-accent accent-blue"></div>
+      <div class="card-top">
+        <div>
+          <div class="card-name">Norric Kreditvakt</div>
+          <div class="card-brand">Norric · corporate insolvency intelligence</div>
+        </div>
+        <span class="status-pill pill-blue">Live · ingestion operational</span>
+      </div>
+      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated — 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. First Norric signal source (konkursansökan ingestor) live with 29,206 rows in <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_payment_signals</code> and a daily 03:15 Europe/Stockholm cron. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>. Outcome-based portfolio-size pricing on annual contracts.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
-        <span class="tag">Next.js</span>
-        <span class="tag">Vercel</span>
-        <span class="tag">Google Maps API</span>
-        <span class="tag">46elks SMS</span>
-        <span class="tag">Airtable</span>
-        <span class="tag">Stripe / Swish</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Celery + Redis</span>
+        <span class="tag">Kronofogden</span>
+        <span class="tag">Bolagsverket</span>
+        <span class="tag">Skatteverket</span>
       </div>
     </div>
 
@@ -587,11 +738,11 @@
       <div class="card-top">
         <div>
           <div class="card-name">Sigvik</div>
-          <div class="card-brand">Standalone · BRF intelligence</div>
+          <div class="card-brand">Standalone · national BRF intelligence</div>
         </div>
-        <span class="status-pill pill-teal">Backend deployed · ingestion partial</span>
+        <span class="status-pill pill-teal">Live · national coverage</span>
       </div>
-      <div class="card-desc">Sweden's BRF intelligence API surfacing via a website. 3,582 active Skåne BRFs from Bolagsverket bulk parse. Energiklass prediction ~83% accuracy. Backend deployed on Railway (sigvik-backend + Celery worker + beat) against Supabase Pro. Nightly ingestion task fanout active across 290 municipalities. Bolagsverket OAuth integration in flight; async ingestion DB layer next. Boverket pending AB registration.</div>
+      <div class="card-desc">National BRF intelligence platform covering 33,710 BRFs across 289 of 290 Swedish municipalities. Address-first search, verdict badge system, instant-delivery paid reports, Skåne map with intent-score overlays, contractor portal at kontraktor.sigvik.com. Hemnet Chrome extension submitted to the Chrome Web Store, pending review. Energiklass prediction ~83% accuracy. Backend deployed on Railway against Supabase Pro; ingestion fans out nightly across all kommuner. Live at <a href="https://sigvik.com" target="_blank" style="color:var(--teal);text-decoration:none;">sigvik.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">React / TypeScript</span>
@@ -599,57 +750,8 @@
         <span class="tag">Celery</span>
         <span class="tag">Supabase</span>
         <span class="tag">Railway</span>
-        <span class="tag">Bolagsverket API</span>
-      </div>
-    </div>
-
-  </div><!-- end tier 1 grid -->
-
-  <!-- TIER 2: ACTIVE BUILD -->
-  <div class="section-label" style="margin-top:8px;">Active build · this week</div>
-  <div class="grid grid-3">
-
-    <!-- Norric Kreditvakt -->
-    <div class="card">
-      <div class="card-accent accent-blue"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Norric Kreditvakt</div>
-          <div class="card-brand">Norric · B2B credit risk API</div>
-        </div>
-        <span class="status-pill pill-blue">Building · kreditvakt.com</span>
-      </div>
-      <div class="card-desc">Swedish B2B credit risk API reading Kronofogden betalningsförelägganden and Bolagsverket bankruptcy filings. Backtest validated: 6x lift factor, 9-month median warning, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Nightly batch ingestion, sub-200ms scoring. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
-      <div class="card-rule"></div>
-      <div class="card-meta">
-        <span class="tag">FastAPI async</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Celery + Redis</span>
-        <span class="tag">Kronofogden</span>
-        <span class="tag">Skatteverket</span>
         <span class="tag">Bolagsverket</span>
-      </div>
-    </div>
-
-    <!-- Betalningskollen -->
-    <div class="card">
-      <div class="card-accent accent-blue"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Betalningskollen</div>
-          <div class="card-brand">Norric Kreditvakt · Fortnox product</div>
-        </div>
-        <span class="status-pill pill-blue">Building · week 1 of 8</span>
-      </div>
-      <div class="card-desc">Payment risk signal embedded in Fortnox invoice creation. Green / Amber / Red at invoice moment. Powered by the Kreditvakt engine. No live external calls in webhook path. 299 kr/mo per Fortnox account. GTM via redovisningskonsulter in Malmö. RED badge withheld until > 75% precision on 50 logged outcomes.</div>
-      <div class="card-rule"></div>
-      <div class="card-meta">
-        <span class="tag">Fortnox webhook</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Celery + Redis</span>
-        <span class="tag">299 kr/mo</span>
-        <span class="tag">Konsult GTM</span>
+        <span class="tag">spec-kit v0.8.4</span>
       </div>
     </div>
 
@@ -659,73 +761,45 @@
       <div class="card-top">
         <div>
           <div class="card-name">Norric SIGNAL</div>
-          <div class="card-brand">Norric · procurement intelligence</div>
+          <div class="card-brand">Norric · municipal procurement intelligence</div>
         </div>
-        <span class="status-pill pill-green">Live · rebrand pending</span>
+        <span class="status-pill pill-green">Live · MCP-exposed</span>
       </div>
-      <div class="card-desc">13 signal sources across 290 Swedish municipalities. Operates at procurement step 1 (intent signals) vs Mercell/Opic at step 4. Live at <a href="https://munisignal.polsia.app/" target="_blank" style="color:var(--teal);text-decoration:none;">munisignal.polsia.app</a> — rebrand to Norric SIGNAL not yet applied. Priority: connect ingestion database to activate live data for MCP weekly call list tool.</div>
+      <div class="card-desc">Procurement intent intelligence across 290 Swedish municipalities, operating at step 1 (intent) where Mercell/Opic operate at step 4 (tender). 13 signal sources spanning Bolagsverket, Kronofogden, Skatteverket, IVO, Skolinspektionen, Tillväxtverket and others. Scraper handles iframe detection, OCR for scanned PDFs, Playwright fallback for JS-rendered sites. Alembic-managed schema. Exposed via Norric MCP server as <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">signal_weekly_call_list_v1</code>. Currently at <a href="https://munisignal.polsia.app/" target="_blank" style="color:var(--teal);text-decoration:none;">munisignal.polsia.app</a> — rebrand to Norric SIGNAL in progress.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
         <span class="tag">Playwright</span>
         <span class="tag">OCR</span>
         <span class="tag">Alembic</span>
-        <span class="tag">Railway · live</span>
-        <span class="tag">MCP · SIGNAL tool</span>
+        <span class="tag">Railway</span>
+        <span class="tag">MCP</span>
       </div>
     </div>
 
-  </div>
-
-  <!-- TIER 3: PARKED -->
-  <div class="section-label" style="margin-top:8px;">Parked · pending gating items</div>
-  <div class="grid grid-2">
-
-    <!-- LeadFlow -->
+    <!-- Norric Vattendom -->
     <div class="card">
-      <div class="card-accent accent-muted"></div>
+      <div class="card-accent accent-purple"></div>
       <div class="card-top">
         <div>
-          <div class="card-name">LeadFlow AI</div>
-          <div class="card-brand">Standalone · B2B lead response</div>
+          <div class="card-name">Norric Vattendom</div>
+          <div class="card-brand">Norric · Swedish water-judgment intelligence</div>
         </div>
-        <span class="status-pill pill-muted">Parked · 0 clients</span>
+        <span class="status-pill pill-amber">Building · ingestion in flight</span>
       </div>
-      <div class="card-desc">Fully built B2B lead response SaaS for Swedish electricians at €500/month. Core bottleneck is closing the first client, not engineering. Outreach not yet executed. Parked until first client signed. Zero further engineering needed.</div>
+      <div class="card-desc">Canonical, queryable record of every Swedish water judgment — scored for disruption, with a 40-year clock on every villkor. Joins every vattendom to its operator orgnr (Bolagsverket) and a geocoded watercourse (Lantmäteriet). Each villkor is tracked against the 40-year omprövning clock introduced in the 2019 Miljöbalken reform — turning a regulatory tsunami in slow motion into a forecast operators, lenders, insurers, and kommunala VA-bolag can plan against. Disruption score per dam, per operator, per watercourse. Built on the same Bolagsverket spine as Kreditvakt and Sigvik.</div>
       <div class="card-rule"></div>
       <div class="gate-row blocking">
         <span class="gate-icon">⊘</span>
-        <span>Gate: first paying client. No further build until signed.</span>
-      </div>
-      <div class="card-meta" style="margin-top:10px;">
-        <span class="tag">Next.js</span>
-        <span class="tag">Fortnox / Bankgirot</span>
-        <span class="tag">46elks</span>
-        <span class="tag">Airtable</span>
-      </div>
-    </div>
-
-    <!-- Vigil -->
-    <div class="card">
-      <div class="card-accent accent-muted"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Norric Vigil</div>
-          <div class="card-brand">Norric · B2B lifecycle signals</div>
-        </div>
-        <span class="status-pill pill-muted">Specced · no live data</span>
-      </div>
-      <div class="card-desc">Three signals: F-skatt registration (business birth), building permits (expansion), Bolagsverket ownership velocity (transition). Lifecycle arc detection across signals is the core moat. 10 code files, 45 tests. No live data ingestion. Replit Agent 4 flagged as prototyping layer before committing to production stack.</div>
-      <div class="card-rule"></div>
-      <div class="gate-row blocking">
-        <span class="gate-icon">⊘</span>
-        <span>Gate: Bolagsverket ingestion live (shared dependency with Sigvik + Kreditvakt).</span>
+        <span>Ingestion of Mark- och miljödomstolarna corpus in flight. No live API yet. Domain not registered.</span>
       </div>
       <div class="card-meta" style="margin-top:10px;">
         <span class="tag">FastAPI</span>
-        <span class="tag">Celery</span>
-        <span class="tag">Bolagsverket API</span>
-        <span class="tag">45 tests passing</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Mark- och miljödomstolarna</span>
+        <span class="tag">Bolagsverket</span>
+        <span class="tag">Lantmäteriet</span>
+        <span class="tag">Miljöbalken ch. 11</span>
       </div>
     </div>
 
@@ -741,9 +815,9 @@
           <div class="card-name">Norric MCP Server</div>
           <div class="card-brand">norric-mcp-production.up.railway.app</div>
         </div>
-        <span class="status-pill pill-green">Live · 21 tools · 5 products</span>
+        <span class="status-pill pill-green">Live · 21 tools</span>
       </div>
-      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Connected globally via ~/.claude.json · Universal NorricResponse Pydantic v2 envelope · Capability-scoped API key auth (nk_{env}_{capabilities}_{random}) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Immediate priority: connect SIGNAL ingestion database to activate live data for signal_weekly_call_list_v1 tool. Provenance layer shipped late April 2026 — norric_explain_score_v1 (factor decomposition) and norric_data_freshness_v1 (per-source data age) — addressing regulated-buyer audit requirements for the Compliance tier.</div>
+      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Universal NorricResponse Pydantic v2 envelope · Capability-scoped API key auth (nk_{env}_{capabilities}_{random}) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Provenance layer shipped late April 2026 — <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age) — addressing regulated-buyer audit requirements for the Compliance tier. Immediate priority: connect SIGNAL ingestion database to activate live data for <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">signal_weekly_call_list_v1</code>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastMCP 3.2.3</span>
@@ -752,8 +826,6 @@
         <span class="tag">Pydantic v2</span>
         <span class="tag">21 tools</span>
         <span class="tag">OrgnrStr · KommunkodStr</span>
-        <span class="tag">norric_explain_score_v1</span>
-        <span class="tag">norric_data_freshness_v1</span>
       </div>
       <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Pricing tiers (May 2026): Free = norric_status_v1 only · Standard = SIGNAL + Kreditvakt · Compliance = adds norric_explain_score_v1 for regulated buyers.</div>
     </div>
@@ -764,23 +836,23 @@
   <div class="moat-grid" style="margin-bottom:40px;">
     <div class="moat-cell">
       <div class="moat-icon">📡</div>
-      <div class="moat-name">Compounding data</div>
-      <div class="moat-desc">Each invoice checked, signal scraped, BRF record parsed adds to a corpus no competitor can replicate quickly</div>
+      <div class="moat-name">Elapsed-time-dependent ingestion</div>
+      <div class="moat-desc">Every weekly Pulse compounds the corpus. Competitors cannot retroactively ingest 2024 Kronofogden filings; only forward-looking access produces forward-looking signal.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🔒</div>
       <div class="moat-name">Regulatory access</div>
-      <div class="moat-desc">Bolagsverket API credentials, Skatteverket ingestion, Kronofogden enforcement data — permissioned and built</div>
+      <div class="moat-desc">Bolagsverket, Skatteverket, Kronofogden, Lantmäteriet (pending), and Mark- och miljödomstolarna for Vattendom — permissioned, built, irreversible once granted.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🧠</div>
       <div class="moat-name">Swedish calibration</div>
-      <div class="moat-desc">Kollektivavtal, personnummer, F-skatt, ROT/RUT, Bankgirot — no generic AI product handles these natively</div>
+      <div class="moat-desc">Kollektivavtal, personnummer, F-skatt, ROT/RUT, Bankgirot, kommunkoder, BRF-specific accounting. Embedded in the Norric MCP type system (OrgnrStr, KommunkodStr, VertikalEnum).</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🔗</div>
       <div class="moat-name">Shared data spine</div>
-      <div class="moat-desc">Bolagsverket ingestion shared across Sigvik + Kreditvakt + Vigil. Each product amortises the same infrastructure cost</div>
+      <div class="moat-desc">Bolagsverket ingestion shared across Kreditvakt, Sigvik, and Vattendom. Each product amortises infrastructure cost across the holding.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🏗️</div>
@@ -789,30 +861,41 @@
     </div>
     <div class="moat-cell">
       <div class="moat-icon">📜</div>
-      <div class="moat-name">Append-only governance</div>
-      <div class="moat-desc">Decisions logged per repo with reversibility flag. Per-product CLAUDE.md litmus test ("while Edgar sleeps…"). Holding-level Norric AB CLAUDE.md as single source of truth. 90-day review cadence. Adopted May 2026.</div>
+      <div class="moat-name">Institutional cadence</div>
+      <div class="moat-desc">Weekly Pulse on a fixed schedule. Append-only governance per repo. 90-day decision review. Built to be trusted by regulated buyers, not just startups.</div>
     </div>
   </div>
 
   <!-- BUILD PRIORITIES -->
-  <div class="section-label">Current build priorities · gating dependency order</div>
+  <div class="section-label">Current build priorities · May 2026 queue</div>
 
   <div class="priority-row">
     <div class="priority-num">1</div>
     <div class="priority-body">
-      <div class="priority-title">Sigvik — async ingestion DB layer + Bolagsverket OAuth</div>
-      <div class="priority-detail">ingestion/db.py (seven async SQLAlchemy helpers), then OAuth, then parsing. Gating dependency for live data refresh and Vigil. Shared infrastructure with Kreditvakt Bolagsverket fetcher — build once, serve both.</div>
+      <div class="priority-title">Kreditvakt API + email delivery end-to-end test</div>
+      <div class="priority-detail">UNVERIFIED pipeline. Required before any campaign launch. Test plan: 3 real orgnrs, latency check, delivery check.</div>
     </div>
     <div class="priority-badge">
-      <span class="status-pill pill-teal">Active</span>
+      <span class="status-pill pill-amber">Active</span>
     </div>
   </div>
 
   <div class="priority-row">
     <div class="priority-num">2</div>
     <div class="priority-body">
-      <div class="priority-title">Norric MCP — monetisation wiring</div>
-      <div class="priority-detail">API key validation middleware in server.py (X-Norric-Key / Bearer, reject unauthenticated), Stripe checkout → email key issuance, submission to mcp.so and Anthropic MCP registry.</div>
+      <div class="priority-title">Sigvik Hemnet Chrome extension — Chrome Web Store review</div>
+      <div class="priority-detail">Submitted, pending. Distribution-critical. Flag if more than 21 days pass without verdict.</div>
+    </div>
+    <div class="priority-badge">
+      <span class="status-pill pill-blue">In review</span>
+    </div>
+  </div>
+
+  <div class="priority-row">
+    <div class="priority-num">3</div>
+    <div class="priority-body">
+      <div class="priority-title">Norric MCP monetisation wiring</div>
+      <div class="priority-detail">API key validation middleware (X-Norric-Key / Bearer), Stripe checkout → key issuance, submission to mcp.so and the Anthropic MCP registry.</div>
     </div>
     <div class="priority-badge">
       <span class="status-pill pill-blue">Active</span>
@@ -820,10 +903,10 @@
   </div>
 
   <div class="priority-row">
-    <div class="priority-num">3</div>
+    <div class="priority-num">4</div>
     <div class="priority-body">
-      <div class="priority-title">Betalningskollen — Fortnox webhook + Kreditvakt scoring engine</div>
-      <div class="priority-detail">This week. Pre-fetch/cache architecture. Hard-gate logic (Kronofogden → Bolagsverket → Skatteverket trajectory). RED badge withheld until > 75% precision on 50 logged outcomes. GTM: 3 konsulter in Malmö. Revenue from week 2.</div>
+      <div class="priority-title">SIGNAL ingestion DB → live data for signal_weekly_call_list_v1</div>
+      <div class="priority-detail">Scrapers and Alembic migrations exist; activation pending. Unlocks the live municipal call list MCP tool.</div>
     </div>
     <div class="priority-badge">
       <span class="status-pill pill-teal">Queued</span>
@@ -831,63 +914,60 @@
   </div>
 
   <div class="priority-row">
-    <div class="priority-num">4</div>
-    <div class="priority-body">
-      <div class="priority-title">Norric SIGNAL — connect ingestion database + apply rebrand</div>
-      <div class="priority-detail">Live at munisignal.polsia.app. Rebrand to Norric SIGNAL not yet applied. Priority: connect ingestion database to activate live data for signal_weekly_call_list_v1 MCP tool. Scrapers and Alembic migrations already written.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-green">Live · rebrand pending</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
     <div class="priority-num">5</div>
     <div class="priority-body">
-      <div class="priority-title">Jarvis — exception thresholds codified + HOWL VIX regime filter</div>
-      <div class="priority-detail">Drawdown > 12%, test count < 263, win rate < 38% over 50 trades. VIX regime filter via yfinance in HOWL loop. Autoresearch (Karpathy pattern) for overnight parameter optimisation against Sharpe scalar.</div>
+      <div class="priority-title">Pulse v1 — first weekly publication on schedule</div>
+      <div class="priority-detail">Monday 06:00 Europe/Stockholm. Two-day lag. PDF + HTML mirror at /pulse.</div>
     </div>
     <div class="priority-badge">
-      <span class="status-pill pill-amber">Maintenance</span>
+      <span class="status-pill pill-teal">Queued</span>
     </div>
   </div>
 
   <div class="priority-row">
     <div class="priority-num">6</div>
     <div class="priority-body">
-      <div class="priority-title">LeadFlow AI — first outreach to Swedish electricians</div>
-      <div class="priority-detail">Product fully built. Zero sales effort executed. One paying client unlocks this product. No further engineering until signed.</div>
+      <div class="priority-title">Vattendom — first Mark- och miljödomstolarna ingestion run, parsed and orgnr-joined</div>
+      <div class="priority-detail">First verifiable end-to-end pull from a single court, with operator orgnr linkage via the Bolagsverket spine. Establishes the corpus before scoring or geocoding layers.</div>
     </div>
     <div class="priority-badge">
-      <span class="status-pill pill-muted">Parked</span>
+      <span class="status-pill pill-amber">Building</span>
+    </div>
+  </div>
+
+  <!-- THESIS -->
+  <div class="section-label" style="margin-top:40px;">Thesis</div>
+  <div class="ip-box" style="margin-bottom:40px;">
+    <div class="ip-desc" style="line-height:1.75;">
+      Norric AB is a private holding company building a real-time statistical model of commercial Sweden. Each operating product — <strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement, <strong style="color:var(--text);">Vattendom</strong> for Swedish water rights and hydropower regulatory exposure — ingests data directly from authoritative Swedish primary sources and contributes a calibrated signal to a shared intelligence core. The public surface of that core is <strong style="color:var(--text);">Norric Pulse</strong>: a weekly nowcast published Mondays at 06:00 Europe/Stockholm, two days after the previous week closes.
+      <br><br>
+      The operating thesis is that in the AI era, intelligence is abundant but three things remain scarce: elapsed time spent ingesting, regulatory permission to ingest, and institutional trust in what is published. Norric optimises for all three.
     </div>
   </div>
 
   <!-- BRAND SYSTEM -->
-  <div class="section-label" style="margin-top: 40px;">Brand system</div>
+  <div class="section-label">Brand system</div>
   <div class="ip-box" style="margin-bottom:12px;">
     <div class="ip-title">Norric-prefixed brands (carry the holding identity)</div>
     <div class="ip-desc">
-      <strong style="color:var(--text);">Norric SIGNAL</strong> · procurement intelligence &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Norric Kreditvakt</strong> · credit risk API &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Norric Vigil</strong> · B2B lifecycle signals
+      <strong style="color:var(--text);">Norric Kreditvakt</strong> · corporate insolvency intelligence &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Norric SIGNAL</strong> · municipal procurement intelligence &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Norric Vattendom</strong> · Swedish water-judgment intelligence (in build) &nbsp;·&nbsp;
+      <strong style="color:var(--text);">Norric Pulse</strong> · weekly nowcast
     </div>
   </div>
   <div class="ip-box" style="margin-bottom:40px;">
     <div class="ip-title">Standalone brands (own identities, no prefix)</div>
     <div class="ip-desc">
-      <strong style="color:var(--text);">SiteLoop</strong> · web agency SaaS &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Sigvik</strong> · BRF intelligence &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Jarvis</strong> · algo trading &nbsp;·&nbsp;
-      <strong style="color:var(--text);">LeadFlow AI</strong> · lead response
+      <strong style="color:var(--text);">Sigvik</strong> · national BRF intelligence
       <br><br>
-      <span style="color:var(--muted);">Domains: norric.io (Vercel) · kreditvakt.com · sigvik.com · GitHub: gucceed</span>
+      <span style="color:var(--muted);">Domains: norric.io · kreditvakt.com · sigvik.com · munisignal.polsia.app (SIGNAL — rebrand pending) · vattendom domain pending · GitHub: gucceed</span>
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="left">Norric AB · Portfolio snapshot · 6 May 2026</div>
+    <div class="left">Norric AB · Portfolio snapshot · 16 May 2026</div>
     <div class="right">
       Solo founder · Edgar Mutebi · Malmö, SE<br>
       <span style="color:var(--dim);">Formerly Polsia Holding AB</span>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric Intelligence API — Developer Guide</title>
-<meta name="description" content="Developer documentation for the Norric MCP server — 21 Swedish intelligence tools for credit risk, procurement, BRF, and lifecycle signals.">
+<meta name="description" content="Developer documentation for the Norric MCP server — 21 Swedish intelligence tools for insolvency risk, municipal procurement, and BRF renovation intelligence.">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -378,7 +378,6 @@
       <a href="#tools-kreditvakt" class="nav-sub">Kreditvakt</a>
       <a href="#tools-signal" class="nav-sub">SIGNAL</a>
       <a href="#tools-sigvik" class="nav-sub">Sigvik</a>
-      <a href="#tools-vigil" class="nav-sub">Vigil</a>
       <a href="#tools-infra" class="nav-sub">Infrastructure</a>
     </div>
 
@@ -403,13 +402,13 @@
     <div class="section" id="overview">
       <div class="section-overline">Norric Intelligence MCP · v2.0.0</div>
       <h1>Swedish intelligence API<br>for AI agents.</h1>
-      <p>21 tools covering insolvency risk, municipal procurement signals, BRF renovation intelligence, and B2B lifecycle signals — exposed as a single MCP server. Connect in 60 seconds via Claude Code, Cursor, or Windsurf.</p>
+      <p>21 tools covering insolvency risk and early-warning signals, municipal procurement, and BRF renovation intelligence — exposed as a single MCP server. Connect in 60 seconds via Claude Code, Cursor, or Windsurf.</p>
 
       <div class="callout info">
         <strong>MCP server:</strong> <code>https://norric-mcp-production.up.railway.app/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP · FastMCP 3.2.3 · Protocol 2024-11-05<br>
-        <strong>Tools:</strong> 21 live across Kreditvakt, SIGNAL, Sigvik, Vigil, Infrastructure<br>
-        <strong>Coverage:</strong> All Swedish companies (290,000+ aktiebolag) · 290 municipalities · 3,582 active BRFs
+        <strong>Tools:</strong> 21 live across Kreditvakt, SIGNAL, Sigvik, Infrastructure<br>
+        <strong>Coverage:</strong> All Swedish companies (290,000+ aktiebolag) · 290 municipalities · 33,710 BRFs (289 of 290 kommuner)
       </div>
 
       <div class="callout success">
@@ -560,10 +559,10 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
     <!-- 4. TOOLS REFERENCE -->
     <div class="section" id="tools">
       <h2>Tools reference</h2>
-      <p>21 tools across 5 products. All tools accept Swedish organisation numbers (orgnr) in format <code>XXXXXX-XXXX</code>.</p>
+      <p>21 tools across 4 products. All tools accept Swedish organisation numbers (orgnr) in format <code>XXXXXX-XXXX</code>.</p>
 
       <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
-      <p>9–10 month warning lead time. 6× lift vs naïve base rate. Covers all Swedish aktiebolag from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister.</p>
+      <p>9–10 month warning lead time. 6× lift vs naïve base rate. Covers all Swedish aktiebolag from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
 
       <table>
         <thead>
@@ -655,7 +654,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
       <hr>
 
       <h3 id="tools-sigvik" style="scroll-margin-top:24px;">Sigvik — BRF renovation intelligence <span class="version-pill">live</span></h3>
-      <p>Renovation intent scoring for Swedish housing cooperatives (BRFs). Coverage: 3,582 active Skåne BRFs (national expansion in progress). EU 2033 energy class deadline flag included.</p>
+      <p>Renovation intent scoring for Swedish housing cooperatives (BRFs). National coverage: 33,710 BRFs across 289 of 290 Swedish municipalities. EU 2033 energy class deadline flag included.</p>
 
       <table>
         <thead>
@@ -682,34 +681,6 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
 
       <hr>
 
-      <h3 id="tools-vigil" style="scroll-margin-top:24px;">Vigil — B2B lifecycle signals <span class="version-pill">live</span></h3>
-      <p>Detect Swedish companies entering forced-spend windows within 72 hours of F-skatt registration.</p>
-
-      <table>
-        <thead>
-          <tr><th>Tool</th><th>Description</th><th>Key params</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>vigil_lifecycle_stage_v1</td>
-            <td>Company stage: early / growth / scaling / distress.</td>
-            <td>orgnr</td>
-          </tr>
-          <tr>
-            <td>vigil_new_companies_v1</td>
-            <td>F-skatt registrations by municipality this week.</td>
-            <td>kommunkod, days_back</td>
-          </tr>
-          <tr>
-            <td>vigil_ownership_velocity_v1</td>
-            <td>Ownership change rate — acquisition or distress signal.</td>
-            <td>orgnr</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <hr>
-
       <h3 id="tools-infra" style="scroll-margin-top:24px;">Infrastructure tools</h3>
 
       <table>
@@ -719,7 +690,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
         <tbody>
           <tr>
             <td>norric_company_profile_v1</td>
-            <td>Unified profile: Kreditvakt + Vigil in one call.</td>
+            <td>Unified Kreditvakt company profile with early-warning signals.</td>
           </tr>
           <tr>
             <td>norric_explain_score_v1</td>
@@ -924,7 +895,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
 
       <h3>v1.0.0 — April 2026</h3>
       <ul style="color:#a1a1aa;font-size:12px;line-height:2;padding-left:18px;">
-        <li>Initial release: 19 tools across SIGNAL, Kreditvakt, Sigvik, Vigil, SiteLoop</li>
+        <li>Initial release: 19 tools across SIGNAL, Kreditvakt, and Sigvik</li>
         <li>FastMCP 3.2.3 Streamable HTTP transport</li>
         <li>Railway deployment with nixpacks builder</li>
         <li>NorricResponse envelope with confidence, TTL, and source tracing</li>

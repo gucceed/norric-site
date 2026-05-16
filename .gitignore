@@ -1,0 +1,4 @@
+.pr-body.md
+verification/
+lighthouse-*.json
+.DS_Store

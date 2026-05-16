@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norric Vattendom — Sveriges vattendomar, äntligen sökbara</title>
+<meta name="description" content="Strukturerad databas över samtliga svenska vattendomar, 1918 till idag. Riskklassad, kopplad till verksamhetsutövare och vattendrag. Under uppbyggnad — första data Q3 2026.">
+<link rel="canonical" href="https://vattendom.norric.io/">
+
+<meta property="og:title" content="Norric Vattendom">
+<meta property="og:description" content="Sveriges vattendomar, äntligen sökbara.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:url" content="https://vattendom.norric.io">
+<meta property="og:site_name" content="Norric AB">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Norric Vattendom">
+<meta name="twitter:description" content="Sveriges vattendomar, äntligen sökbara.">
+
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #161616;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --text: #e8e4dc;
+    --muted: #6b6560;
+    --dim: #3a3530;
+
+    --teal: #2dd4bf;
+    --teal-bg: #0a1a18;
+    --teal-border: #153330;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrap {
+    flex: 1;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 24px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ROW (entity tag) ───────────────────────────────────────── */
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 64px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+
+  .top a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .top a:hover { color: var(--text); }
+
+  /* ── HERO ──────────────────────────────────────────────────────────── */
+  .hero {
+    border: 1px solid var(--teal-border);
+    background: linear-gradient(180deg, var(--surface), var(--teal-bg));
+    padding: 40px 36px 36px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .overline {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+
+  .overline .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 8px;
+    transform: translateY(-1px);
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    line-height: 1.1;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 14px;
+    max-width: 720px;
+  }
+
+  .subhead {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--muted);
+    margin-bottom: 28px;
+    max-width: 640px;
+  }
+
+  .paragraph {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 32px;
+    max-width: 640px;
+  }
+
+  .paragraph .first-data {
+    color: var(--teal);
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 12px 22px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid var(--teal-border);
+    background: var(--teal-bg);
+    text-decoration: none;
+    white-space: nowrap;
+    align-self: flex-start;
+  }
+
+  .cta:hover {
+    background: var(--surface);
+    border-color: var(--teal);
+  }
+
+  /* ── FOOTER ────────────────────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer .left {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  footer .left a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--dim);
+  }
+
+  footer .left a:hover {
+    color: var(--text);
+    border-bottom-color: var(--muted);
+  }
+
+  footer .right {
+    font-size: 10px;
+    color: var(--dim);
+    text-align: right;
+  }
+
+  /* ── RESPONSIVE ────────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .wrap { padding: 24px 18px 18px; }
+    .top { margin-bottom: 36px; }
+    .hero { padding: 32px 22px 28px; }
+    h1 { font-size: 32px; }
+    .subhead { font-size: 17px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    footer .right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <span>Norric AB · Malmö, SE</span>
+    <a href="https://norric.io">norric.io →</a>
+  </div>
+
+  <main class="hero">
+    <div class="overline"><span class="dot"></span>Under uppbyggnad</div>
+
+    <h1>Sveriges vattendomar — äntligen sökbara.</h1>
+
+    <p class="subhead">
+      Varje vattendom från 1918 till idag, riskklassad, kopplad till
+      verksamhetsutövare och vattendrag.
+    </p>
+
+    <p class="paragraph">
+      Norric Vattendom är en strukturerad databas över samtliga svenska
+      vattendomar — från 1918 års vattenlag till miljöbalken och de
+      pågående omprövningarna enligt den nationella planen. Varje dom är
+      kopplad till verksamhetsutövarens organisationsnummer, geokodad mot
+      vattendrag och avrinningsområde, och försedd med en 40-årsklocka
+      per villkor. Byggs nu. <span class="first-data">Första data Q3 2026.</span>
+    </p>
+
+    <a class="cta" href="mailto:edgar@norric.io?subject=Vattendom%20f%C3%B6rhandsåtkomst">
+      Begär förhandsåtkomst →
+    </a>
+  </main>
+
+  <footer>
+    <div class="left">
+      Norric AB · En del av
+      <a href="https://norric.io">norric.io</a>
+    </div>
+    <div class="right">
+      Edgar Mutebi · Malmö, SE<br>
+      <span style="color:var(--dim);">edgar@norric.io</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

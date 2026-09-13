@@ -405,15 +405,15 @@
       <p>21 tools covering insolvency risk and early-warning signals, municipal procurement, and BRF renovation intelligence — exposed as a single MCP server. Connect in 60 seconds via Claude Code, Cursor, or Windsurf.</p>
 
       <div class="callout info">
-        <strong>MCP server:</strong> <code>https://norric-mcp-production.up.railway.app/mcp</code><br>
+        <strong>MCP server:</strong> <code>https://mcp.norric.io/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP · FastMCP 3.2.3 · Protocol 2024-11-05<br>
         <strong>Tools:</strong> 21 live across Kreditvakt, SIGNAL, Sigvik, Infrastructure<br>
-        <strong>Coverage:</strong> All Swedish companies (290,000+ aktiebolag) · 290 municipalities · 33,710 BRFs (289 of 290 kommuner)
+        <strong>Coverage:</strong> 2,685 companies under active insolvency tracking · 290 municipalities · 33,710 BRFs (289 of 290 kommuner)
       </div>
 
       <div class="callout success">
         <strong>Free sandbox:</strong> 100 calls/month, all 21 tools, near-live data.
-        Get your key at <a href="/api-keys">norric.io/api-keys</a> — issued immediately.
+        Get your key at <a href="/api-keys">norric.io/api-keys</a>; requests are reviewed within 24 hours.
       </div>
     </div>
 
@@ -423,10 +423,10 @@
       <p>Get access to 21 Swedish intelligence tools in under 60 seconds.</p>
 
       <h3>Step 1 — Get an API key</h3>
-      <p>Request free sandbox access at <a href="/api-keys">norric.io/api-keys</a>. Sandbox keys are issued immediately and include 100 free calls.</p>
+      <p>Request free sandbox access at <a href="/api-keys">norric.io/api-keys</a>. Sandbox keys are free, include 100 calls per month, and are reviewed within 24 hours.</p>
 
       <h3>Step 2 — Claude Code (recommended)</h3>
-      <pre><code>claude mcp add norric https://norric-mcp-production.up.railway.app/mcp \
+      <pre><code>claude mcp add norric https://mcp.norric.io/mcp \
   --header <span class="string">"Authorization: Bearer YOUR_API_KEY"</span></code></pre>
 
       <p>Then use any tool directly in Claude Code:</p>
@@ -444,7 +444,7 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
       <pre><code>{
   <span class="key">"mcpServers"</span>: {
     <span class="key">"norric"</span>: {
-      <span class="key">"url"</span>: <span class="string">"https://norric-mcp-production.up.railway.app/mcp"</span>,
+      <span class="key">"url"</span>: <span class="string">"https://mcp.norric.io/mcp"</span>,
       <span class="key">"transport"</span>: <span class="string">"streamable-http"</span>,
       <span class="key">"headers"</span>: { <span class="key">"Authorization"</span>: <span class="string">"Bearer YOUR_API_KEY"</span> }
     }
@@ -456,7 +456,7 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
       <pre><code>{
   <span class="key">"mcpServers"</span>: {
     <span class="key">"norric"</span>: {
-      <span class="key">"url"</span>: <span class="string">"https://norric-mcp-production.up.railway.app/mcp"</span>,
+      <span class="key">"url"</span>: <span class="string">"https://mcp.norric.io/mcp"</span>,
       <span class="key">"headers"</span>: { <span class="key">"Authorization"</span>: <span class="string">"Bearer YOUR_API_KEY"</span> }
     }
   }
@@ -522,14 +522,14 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
       <p>Claude Code and Claude Desktop handle the MCP handshake automatically. For direct HTTP calls, a two-step session initialization is required.</p>
 
       <div class="callout info">
-        <strong>MCP server:</strong> <code>https://norric-mcp-production.up.railway.app/mcp</code><br>
+        <strong>MCP server:</strong> <code>https://mcp.norric.io/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP (FastMCP 3.2.3)<br>
         <strong>Protocol version:</strong> 2024-11-05
       </div>
 
       <h3>Direct curl — two-step handshake</h3>
       <pre><code><span class="comment"># Step 1 — Initialize and capture session ID</span>
-SESSION=$(curl -si https://norric-mcp-production.up.railway.app/mcp \
+SESSION=$(curl -si https://mcp.norric.io/mcp \
   -H <span class="string">"Content-Type: application/json"</span> \
   -H <span class="string">"Accept: application/json, text/event-stream"</span> \
   -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
@@ -541,7 +541,7 @@ SESSION=$(curl -si https://norric-mcp-production.up.railway.app/mcp \
   | grep -i <span class="string">"mcp-session-id"</span> | awk <span class="string">'{print $2}'</span> | tr -d <span class="string">'\r'</span>)
 
 <span class="comment"># Step 2 — Call a tool</span>
-curl -s https://norric-mcp-production.up.railway.app/mcp \
+curl -s https://mcp.norric.io/mcp \
   -H <span class="string">"Content-Type: application/json"</span> \
   -H <span class="string">"Accept: application/json, text/event-stream"</span> \
   -H <span class="string">"Authorization: Bearer YOUR_API_KEY"</span> \
@@ -552,7 +552,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
   }}'</span></code></pre>
 
       <h3>Health check</h3>
-      <pre><code>curl https://norric-mcp-production.up.railway.app/health
+      <pre><code>curl https://mcp.norric.io/health
 <span class="comment"># → {"status":"ok","tools":21,"version":"2.0.0"}</span></code></pre>
     </div>
 
@@ -562,7 +562,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
       <p>21 tools across 4 products. All tools accept Swedish organisation numbers (orgnr) in format <code>XXXXXX-XXXX</code>.</p>
 
       <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
-      <p>9–10 month warning lead time. 6× lift vs naïve base rate. Covers all Swedish aktiebolag from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
+      <p>9–10 month warning lead time. 6× lift vs naïve base rate. 2,685 companies under active tracking, scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
 
       <table>
         <thead>
@@ -571,7 +571,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
         <tbody>
           <tr>
             <td>kreditvakt_score_company_v1</td>
-            <td>Insolvency score 0–100 + full 4-source signal breakdown. Accepts orgnr or company name.</td>
+            <td>Insolvency risk score on a 0–20 scale (20 = severe) + full 4-source signal breakdown. Accepts orgnr or company name.</td>
             <td>orgnr</td>
           </tr>
           <tr>
@@ -594,7 +594,8 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
 
       <p><strong>Example response — kreditvakt_score_company_v1:</strong></p>
       <pre><code>{
-  <span class="key">"insolvency_score"</span>: <span class="number">74</span>,
+  <span class="key">"insolvency_score"</span>: <span class="number">14</span>,
+  <span class="key">"scale"</span>: <span class="string">"0-20"</span>,
   <span class="key">"company_name"</span>: <span class="string">"Byggfirman Svensson AB"</span>,
   <span class="key">"verdict"</span>: <span class="string">"Förhöjd riskprofil — aktiva signaler från tre oberoende källor."</span>,
   <span class="key">"f_skatt_active"</span>: <span class="bool">false</span>,
@@ -612,7 +613,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
 
       <hr>
 
-      <h3 id="tools-signal" style="scroll-margin-top:24px;">SIGNAL — Municipal procurement <span class="version-pill">live</span></h3>
+      <h3 id="tools-signal" style="scroll-margin-top:24px;">SIGNAL — Municipal procurement <span class="version-pill">activation in progress</span></h3>
       <p>4–8 week lead time before RFP publication. 13 signal sources across all 290 Swedish municipalities.</p>
 
       <table>
@@ -834,8 +835,8 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
         </div>
         <div class="plan-card featured">
           <div class="plan-name">Professional</div>
-          <div class="plan-price">299</div>
-          <div class="plan-unit">kr / month</div>
+          <div class="plan-price" style="font-size:22px;">On request</div>
+          <div class="plan-unit">pilot pricing</div>
           <div class="plan-divider"></div>
           <div class="plan-feature"><span class="plan-check">✓</span> 5,000 calls / month</div>
           <div class="plan-feature"><span class="plan-check">✓</span> All 21 tools</div>
@@ -844,8 +845,8 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
         </div>
         <div class="plan-card">
           <div class="plan-name">Konsult</div>
-          <div class="plan-price">499</div>
-          <div class="plan-unit">kr / month</div>
+          <div class="plan-price" style="font-size:22px;">On request</div>
+          <div class="plan-unit">pilot pricing</div>
           <div class="plan-divider"></div>
           <div class="plan-feature"><span class="plan-check">✓</span> 20,000 calls / month</div>
           <div class="plan-feature"><span class="plan-check">✓</span> Live data</div>
@@ -904,7 +905,7 @@ curl -s https://norric-mcp-production.up.railway.app/mcp \
 
     <!-- FOOTER -->
     <div style="border-top:1px solid var(--border);padding-top:24px;margin-top:80px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <span>Norric AB · Developer Guide · v2.0.0 · April 2026</span>
+      <span>Norric AB · Developer Guide · v2.0.0 · September 2026</span>
       <span><a href="https://norric.io">norric.io</a> · <a href="mailto:edgar.mutebi1@gmail.com">edgar.mutebi1@gmail.com</a></span>
     </div>
 

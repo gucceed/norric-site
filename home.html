@@ -3,297 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Norric AB — Sweden's private statistical authority for commercial Sweden</title>
-<meta name="description" content="Private statistical authority for commercial Sweden. Weekly. Two-day lag. Primary sources.">
-<meta property="og:title" content="Norric AB — Sweden's private statistical authority for commercial Sweden">
-<meta property="og:description" content="Private statistical authority for commercial Sweden. Weekly. Two-day lag. Primary sources.">
+<title>Norric AB — Real-time intelligence on commercial Sweden</title>
+<meta name="description" content="Real-time intelligence on commercial Sweden, built from primary Swedish sources.">
+<meta property="og:title" content="Norric AB — Real-time intelligence on commercial Sweden">
+<meta property="og:description" content="Real-time intelligence on commercial Sweden, built from primary Swedish sources.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://norric.io">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --surface2: #161616;
-    --border: #1e1e1e;
-    --border2: #2a2a2a;
-    --text: #e8e4dc;
-    --muted: #6b6560;
-    --dim: #3a3530;
+    --bg: #ffffff;
+    --surface: #f5f5f7;
+    --surface2: #ffffff;
+    --border: #d2d2d7;
+    --border2: #e8e8eb;
+    --text: #1d1d1f;
+    --muted: #86868b;
+    --dim: #d2d2d7;
 
-    --green: #22c55e;
-    --green-bg: #0d1f14;
-    --green-border: #1a4028;
+    --green: #248a3d;
+    --green-bg: #e9f8ee;
+    --green-border: #bbe5c7;
 
-    --amber: #f59e0b;
-    --amber-bg: #1a1400;
-    --amber-border: #3d2e00;
+    --amber: #b25000;
+    --amber-bg: #fff4e3;
+    --amber-border: #f5d9ae;
 
-    --blue: #3b82f6;
-    --blue-bg: #0a1628;
-    --blue-border: #1a3456;
+    --blue: #0071e3;
+    --blue-bg: #e9f2fe;
+    --blue-border: #c3dcfa;
 
-    --red: #ef4444;
-    --red-bg: #1a0a0a;
-    --red-border: #3d1212;
+    --red: #d70015;
+    --red-bg: #fdecea;
+    --red-border: #f4c7c3;
 
-    --purple: #a78bfa;
-    --purple-bg: #120e1f;
-    --purple-border: #2a1f4a;
+    --purple: #8944ab;
+    --purple-bg: #f7ecfd;
+    --purple-border: #e5c9f5;
 
-    --teal: #2dd4bf;
-    --teal-bg: #0a1a18;
-    --teal-border: #153330;
+    --teal: #0071e3;
+    --teal-bg: #e9f2fe;
+    --teal-border: #c3dcfa;
+
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Subtle grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-    z-index: 0;
+  ::selection { background: var(--blue); color: #fff; }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: rgba(0,0,0,0.04);
+    padding: 1px 5px;
+    border-radius: 5px;
   }
 
   .wrap {
-    max-width: 1100px;
+    max-width: 980px;
     margin: 0 auto;
-    padding: 0 32px 120px;
-    position: relative;
-    z-index: 1;
+    padding: 0 22px 80px;
   }
 
-  /* ── HEADER ─────────────────────────────────────────────────────────── */
+  /* ── HEADER ── */
   header {
-    padding: 52px 0 40px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 56px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
+    padding: 28px 0 24px;
+    border-bottom: 1px solid var(--border2);
   }
-
-  .logo-block {}
 
   .logo {
-    font-family: 'Instrument Serif', serif;
-    font-size: 32px;
-    letter-spacing: -0.02em;
-    color: var(--text);
-    margin-bottom: 4px;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
-  .logo span {
-    font-style: italic;
-    color: var(--muted);
-  }
+  .logo span { color: var(--muted); font-weight: 400; }
 
   .tagline {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    margin-top: 3px;
+    letter-spacing: 0.02em;
   }
 
   .header-meta {
     text-align: right;
-  }
-
-  .header-meta .date {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
-    margin-bottom: 4px;
+    line-height: 1.7;
   }
 
-  .header-meta .entity {
-    font-size: 11px;
-    color: var(--dim);
-    font-family: 'Geist Mono', monospace;
-  }
+  .header-meta .date { color: var(--text); font-weight: 500; }
 
-  /* ── HOLDING BOX ────────────────────────────────────────────────────── */
+  /* ── HOLDING ── */
   .holding {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    padding: 20px 28px;
-    margin-bottom: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .holding::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--muted), transparent);
-    opacity: 0.3;
+    gap: 24px;
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 22px 28px;
+    margin-top: 28px;
   }
 
   .holding-name {
-    font-family: 'Instrument Serif', serif;
-    font-size: 20px;
-    margin-bottom: 4px;
+    font-size: 15px;
+    font-weight: 600;
   }
 
   .holding-desc {
-    font-size: 11px;
+    font-size: 13px;
     color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.55;
   }
 
   .holding-stats {
     display: flex;
     gap: 36px;
+    flex-shrink: 0;
   }
 
-  .stat { text-align: right; }
+  .stat { text-align: center; }
 
   .stat-val {
-    font-family: 'Instrument Serif', serif;
-    font-size: 22px;
-    color: var(--text);
-    margin-bottom: 2px;
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 
   .stat-label {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
   }
 
-  /* ── SECTION LABELS ─────────────────────────────────────────────────── */
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 88px 0 80px;
+  }
+
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .hero-subline {
+    font-size: 19px;
     color: var(--muted);
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border);
+    line-height: 1.55;
+    max-width: 620px;
+    margin: 18px auto 0;
+  }
+
+  /* ── SECTION LABELS ── */
+  .section-label {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 56px 0 18px;
   }
 
   .section-label::after {
     content: '';
     flex: 1;
     height: 1px;
-    background: var(--border);
+    background: var(--border2);
   }
 
-  /* ── PRODUCT GRID ───────────────────────────────────────────────────── */
-  .grid {
-    display: grid;
-    gap: 12px;
-    margin-bottom: 40px;
-  }
-
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  /* ── GRID ── */
+  .grid { display: grid; gap: 16px; }
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
   .grid-1 { grid-template-columns: 1fr; }
 
-  @media (max-width: 800px) {
-    .grid-3, .grid-2 { grid-template-columns: 1fr; }
-  }
-
-  /* ── PRODUCT CARD ───────────────────────────────────────────────────── */
+  /* ── CARDS ── */
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 20px 22px 18px;
     position: relative;
-    transition: border-color 0.15s ease;
-    animation: fadeUp 0.4s ease both;
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 26px 28px;
+    transition: box-shadow 0.2s ease;
   }
 
-  .card:hover { border-color: var(--border2); }
+  .card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.07); }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .card:nth-child(1) { animation-delay: 0.05s; }
-  .card:nth-child(2) { animation-delay: 0.10s; }
-  .card:nth-child(3) { animation-delay: 0.15s; }
-  .card:nth-child(4) { animation-delay: 0.20s; }
-  .card:nth-child(5) { animation-delay: 0.25s; }
-  .card:nth-child(6) { animation-delay: 0.30s; }
+  .card-accent { display: none; }
 
   .card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 14px;
     margin-bottom: 12px;
   }
 
   .card-name {
-    font-family: 'Instrument Serif', serif;
-    font-size: 17px;
+    font-family: var(--font-display);
+    font-size: 21px;
+    font-weight: 600;
     letter-spacing: -0.01em;
-    margin-bottom: 2px;
   }
 
   .card-brand {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    margin-top: 3px;
   }
-
-  .status-pill {
-    font-size: 9px;
-    font-family: 'Geist Mono', monospace;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1px solid;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .pill-green  { color: var(--green);  border-color: var(--green-border);  background: var(--green-bg); }
-  .pill-amber  { color: var(--amber);  border-color: var(--amber-border);  background: var(--amber-bg); }
-  .pill-blue   { color: var(--blue);   border-color: var(--blue-border);   background: var(--blue-bg); }
-  .pill-red    { color: var(--red);    border-color: var(--red-border);    background: var(--red-bg); }
-  .pill-purple { color: var(--purple); border-color: var(--purple-border); background: var(--purple-bg); }
-  .pill-teal   { color: var(--teal);   border-color: var(--teal-border);   background: var(--teal-bg); }
-  .pill-muted  { color: var(--muted);  border-color: var(--dim);           background: var(--surface2); }
 
   .card-desc {
-    font-size: 12px;
-    color: #9a948c;
+    font-size: 14px;
     line-height: 1.65;
-    margin-bottom: 16px;
+    color: var(--text);
   }
 
   .card-rule {
     height: 1px;
-    background: var(--border);
-    margin-bottom: 12px;
+    background: rgba(0,0,0,0.07);
+    margin: 16px 0 12px;
   }
 
   .card-meta {
@@ -303,275 +265,100 @@
   }
 
   .tag {
-    font-size: 10px;
-    color: var(--muted);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-  }
-
-  .card-accent {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-  }
-
-  .accent-green  { background: linear-gradient(90deg, var(--green), transparent); opacity: 0.5; }
-  .accent-amber  { background: linear-gradient(90deg, var(--amber), transparent); opacity: 0.5; }
-  .accent-blue   { background: linear-gradient(90deg, var(--blue), transparent); opacity: 0.4; }
-  .accent-red    { background: linear-gradient(90deg, var(--red), transparent); opacity: 0.4; }
-  .accent-purple { background: linear-gradient(90deg, var(--purple), transparent); opacity: 0.4; }
-  .accent-teal   { background: linear-gradient(90deg, var(--teal), transparent); opacity: 0.4; }
-  .accent-muted  { background: linear-gradient(90deg, var(--muted), transparent); opacity: 0.3; }
-
-  /* ── GATING DEPENDENCY ─────────────────────────────────────────────── */
-  .gate-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 6px;
     font-size: 11px;
-    color: var(--muted);
+    color: #6e6e73;
+    background: rgba(0,0,0,0.045);
+    padding: 4px 10px;
+    border-radius: 999px;
   }
 
-  .gate-icon { flex-shrink: 0; color: var(--dim); margin-top: 1px; }
-
-  .gate-row.blocking .gate-icon { color: var(--red); }
-  .gate-row.blocking { color: #7a5050; }
-
-  /* ── IP STRUCTURE ───────────────────────────────────────────────────── */
-  .ip-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 20px 24px;
-    margin-bottom: 12px;
-  }
-
-  .ip-title {
+  /* ── STATUS PILLS ── */
+  .status-pill {
     font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 10px;
+    font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  .ip-desc {
-    font-size: 12px;
-    color: #9a948c;
-    line-height: 1.7;
-  }
+  .pill-green { color: var(--green); background: var(--green-bg); }
+  .pill-amber { color: var(--amber); background: var(--amber-bg); }
+  .pill-blue  { color: var(--blue); background: var(--blue-bg); }
+  .pill-teal  { color: var(--teal); background: var(--teal-bg); }
+  .pill-muted { color: var(--muted); background: rgba(0,0,0,0.045); }
 
-  /* ── MOAT SECTION ───────────────────────────────────────────────────── */
+  /* ── MOATS ── */
   .moat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
-    margin-bottom: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
   .moat-cell {
     background: var(--surface);
-    padding: 16px 14px;
-    text-align: center;
+    border-radius: 18px;
+    padding: 24px 26px;
   }
 
-  .moat-icon {
-    font-size: 18px;
-    margin-bottom: 8px;
-  }
+  .moat-icon { font-size: 22px; margin-bottom: 10px; }
 
   .moat-name {
-    font-size: 10px;
-    color: var(--text);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
   }
 
   .moat-desc {
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* ── FOOTER ─────────────────────────────────────────────────────────── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer .left {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  footer .right {
-    font-size: 10px;
-    color: var(--dim);
-    text-align: right;
-  }
-
-  /* ── HERO ───────────────────────────────────────────────────────────── */
-  .hero {
-    border: 1px solid var(--border);
-    padding: 32px 36px;
-    margin-bottom: 24px;
-    position: relative;
-    background: var(--surface);
-  }
-
-  .hero-headline {
-    font-family: 'Instrument Serif', serif;
-    font-size: 32px;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    max-width: 760px;
-    margin-bottom: 14px;
-  }
-
-  .hero-subline {
     font-size: 13px;
-    color: #9a948c;
-    line-height: 1.7;
-    max-width: 720px;
-  }
-
-  .hero-attr {
-    margin-top: 18px;
-    font-size: 10px;
-    color: var(--dim);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-  }
-
-  @media (max-width: 600px) {
-    .hero-headline { font-size: 24px; }
-  }
-
-  /* ── PULSE BANNER ───────────────────────────────────────────────────── */
-  .pulse-banner {
-    border: 1px solid var(--teal-border);
-    background: linear-gradient(180deg, var(--surface), var(--teal-bg));
-    padding: 28px 32px;
-    margin-bottom: 48px;
-  }
-
-  .pulse-banner-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .pulse-overline {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 8px;
-  }
-
-  .pulse-headline {
-    font-family: 'Instrument Serif', serif;
-    font-size: 22px;
-    line-height: 1.35;
-    color: var(--text);
-    margin-bottom: 6px;
-    max-width: 640px;
-  }
-
-  .pulse-meta {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .pulse-cta {
-    display: inline-block;
-    padding: 10px 18px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--teal);
-    border: 1px solid var(--teal-border);
-    background: var(--teal-bg);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .pulse-cta:hover { background: var(--surface); }
-
-  /* ── INDICES CARD (link-wrapped) ────────────────────────────────────── */
-  .index-link { text-decoration: none; color: inherit; display: block; }
-  .index-link:hover .card { border-color: var(--border2); }
-
-  /* ── COMING-SOON CALLOUT ────────────────────────────────────────────── */
-  .coming-soon {
-    padding: 14px 18px;
-    margin-bottom: 48px;
-    font-size: 12px;
-    color: var(--muted);
-    border-left: 2px solid var(--dim);
-    background: var(--surface);
-  }
-
-  .coming-soon strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  /* ── PRIORITY STACK ─────────────────────────────────────────────────── */
-  .priority-row {
-    display: flex;
-    gap: 0;
-    border: 1px solid var(--border);
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-
-  .priority-num {
-    background: var(--surface2);
-    border-right: 1px solid var(--border);
-    padding: 14px 18px;
-    font-family: 'Instrument Serif', serif;
-    font-size: 20px;
-    color: var(--muted);
-    min-width: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .priority-body {
-    padding: 14px 18px;
-    flex: 1;
-  }
-
-  .priority-title {
-    font-size: 12px;
-    color: var(--text);
-    margin-bottom: 4px;
-    font-family: 'Geist Mono', monospace;
-  }
-
-  .priority-detail {
-    font-size: 11px;
     color: var(--muted);
     line-height: 1.6;
   }
 
-  .priority-badge {
-    padding: 14px 18px;
+  /* ── THESIS / IP BOX ── */
+  .ip-box {
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 28px 30px;
+  }
+
+  .ip-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .ip-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* ── FOOTER ── */
+  footer {
     display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    border-left: 1px solid var(--border);
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border2);
+    margin-top: 72px;
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  footer .right { text-align: right; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .hero { padding: 56px 0 48px; }
+    .hero-headline { font-size: 36px; }
+    .hero-subline { font-size: 17px; }
+    .grid-2, .moat-grid { grid-template-columns: 1fr; }
+    .holding { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .holding-stats { gap: 28px; }
+    footer .right { text-align: left; }
   }
 </style>
 </head>
@@ -582,13 +369,12 @@
   <header>
     <div class="logo-block">
       <div class="logo">Norric <span>AB</span></div>
-      <div class="tagline">Private statistical authority · May 2026</div>
+      <div class="tagline">Swedish primary-source intelligence · September 2026</div>
     </div>
     <div class="header-meta">
-      <div class="date">16 May 2026</div>
-      <div class="entity">Org.nr: [Norric AB] · Malmö, SE</div>
+      <div class="date">13 September 2026</div>
+      <div class="entity">Malmö, SE</div>
       <div style="margin-top:10px;display:flex;gap:16px;justify-content:flex-end;">
-        <a href="/pulse" style="font-size:11px;color:var(--teal);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Pulse</a>
         <a href="/docs" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Docs</a>
         <a href="/api-keys" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">API Keys</a>
       </div>
@@ -599,15 +385,15 @@
   <div class="holding">
     <div>
       <div class="holding-name">Norric AB</div>
-      <div class="holding-desc">Private holding company · owns all IP, data schemas, brand assets, and algorithms · operating subsidiaries license upward via intercompany IP agreements</div>
+      <div class="holding-desc">Independent data products on Swedish primary sources · founded and run solo in Malmö</div>
     </div>
     <div class="holding-stats">
       <div class="stat">
-        <div class="stat-val">4</div>
+        <div class="stat-val">3</div>
         <div class="stat-label">Products</div>
       </div>
       <div class="stat">
-        <div class="stat-val">3</div>
+        <div class="stat-val">2</div>
         <div class="stat-label">Live</div>
       </div>
       <div class="stat">
@@ -619,91 +405,8 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-headline">Sweden's private statistical authority for commercial Sweden.</div>
-    <div class="hero-subline">Weekly nowcasts, two-day lag, built sensor by sensor from primary Swedish sources. Where SCB publishes monthly with a three-week lag, Norric publishes weekly.</div>
-    <div class="hero-attr">Positioning · May 2026</div>
-  </div>
-
-  <!-- PULSE BANNER -->
-  <div class="pulse-banner">
-    <div class="pulse-banner-row">
-      <div style="flex:1;min-width:280px;">
-        <div class="pulse-overline">Norric Pulse · weekly nowcast</div>
-        <div class="pulse-headline">A two-day-lag nowcast of commercial Sweden, built from primary sources.</div>
-        <div class="pulse-meta">Mondays 06:00 Europe/Stockholm · published two days after the previous week closes.</div>
-      </div>
-      <div style="display:flex;gap:10px;flex-shrink:0;">
-        <a href="/pulse" class="pulse-cta">Read this week's Pulse →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- INDICES FRAMEWORK -->
-  <div class="section-label">Indices · Pulse v1</div>
-  <div class="grid grid-2" style="margin-bottom:12px;">
-
-    <!-- Insolvency Index -->
-    <a href="https://kreditvakt.com" target="_blank" class="index-link">
-      <div class="card">
-        <div class="card-accent accent-blue"></div>
-        <div class="card-top">
-          <div>
-            <div class="card-name">Insolvency Index</div>
-            <div class="card-brand">From Kreditvakt · kreditvakt.com</div>
-          </div>
-          <span class="status-pill pill-green">Live</span>
-        </div>
-        <div class="card-desc">Corporate insolvency, payment defaults, and bankruptcy lead-up signals across Swedish aktiebolag. Sourced from Kronofogden enforcement, Skatteverket restanslängd, and Bolagsverket ärenden and konkursregister.</div>
-      </div>
-    </a>
-
-    <!-- Housing Stock Index -->
-    <a href="https://sigvik.com" target="_blank" class="index-link">
-      <div class="card">
-        <div class="card-accent accent-teal"></div>
-        <div class="card-top">
-          <div>
-            <div class="card-name">Housing Stock Index</div>
-            <div class="card-brand">From Sigvik · sigvik.com</div>
-          </div>
-          <span class="status-pill pill-green">Live · national</span>
-        </div>
-        <div class="card-desc">BRF financial health, energy class distribution, and transaction velocity across 33,710 BRFs in 289 of 290 Swedish municipalities. National coverage operational.</div>
-      </div>
-    </a>
-
-    <!-- Property Activity Index -->
-    <div class="card">
-      <div class="card-accent accent-muted"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Property Activity Index</div>
-          <div class="card-brand">Lantmäteriet-gated · pending</div>
-        </div>
-        <span class="status-pill pill-muted">Planned</span>
-      </div>
-      <div class="card-desc">Property transactions and Lantmäteriet-derived activity signals. Index composition pending data-access gate.</div>
-    </div>
-
-    <!-- Municipal Activity Index -->
-    <div class="card">
-      <div class="card-accent accent-green"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Municipal Activity Index</div>
-          <div class="card-brand">From SIGNAL · ingestion live</div>
-        </div>
-        <span class="status-pill pill-amber">Composition pending</span>
-      </div>
-      <div class="card-desc">Procurement intent, F-skatt registrations, and regulatory filings across 290 kommuner. Underlying ingestion live; published index composition pending.</div>
-    </div>
-
-  </div>
-
-  <!-- Vattendom — coming soon callout -->
-  <div class="coming-soon">
-    <strong>Water Rights Disruption Index — coming soon.</strong>
-    A fifth index, powered by Norric Vattendom. Ingestion in flight.
+    <div class="hero-headline">Real-time intelligence on commercial Sweden.</div>
+    <div class="hero-subline">Insolvency, housing, and municipal procurement intelligence, built sensor by sensor from primary Swedish sources: Kronofogden, Skatteverket, and Bolagsverket.</div>
   </div>
 
   <!-- PORTFOLIO -->
@@ -720,7 +423,7 @@
         </div>
         <span class="status-pill pill-blue">Live · ingestion operational</span>
       </div>
-      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated — 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. First Norric signal source (konkursansökan ingestor) live with 29,206 rows in <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_payment_signals</code> and a daily 03:15 Europe/Stockholm cron. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>. Outcome-based portfolio-size pricing on annual contracts.</div>
+      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 2,685 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
@@ -742,7 +445,7 @@
         </div>
         <span class="status-pill pill-teal">Live · national coverage</span>
       </div>
-      <div class="card-desc">National BRF intelligence platform covering 33,710 BRFs across 289 of 290 Swedish municipalities. Address-first search, verdict badge system, instant-delivery paid reports, Skåne map with intent-score overlays, contractor portal at kontraktor.sigvik.com. Hemnet Chrome extension submitted to the Chrome Web Store, pending review. Energiklass prediction ~83% accuracy. Backend deployed on Railway against Supabase Pro; ingestion fans out nightly across all kommuner. Live at <a href="https://sigvik.com" target="_blank" style="color:var(--teal);text-decoration:none;">sigvik.com</a>.</div>
+      <div class="card-desc">National BRF intelligence platform covering 33,710 BRFs across 289 of 290 Swedish municipalities. Address-first search, verdict badge system, instant-delivery paid reports, and a Skåne map with intent-score overlays. Energiklass prediction ~83% accuracy. Backend on Railway against Supabase Pro; ingestion fans out nightly across all kommuner. Live at <a href="https://sigvik.com" target="_blank" style="color:var(--teal);text-decoration:none;">sigvik.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">React / TypeScript</span>
@@ -763,9 +466,9 @@
           <div class="card-name">Norric SIGNAL</div>
           <div class="card-brand">Norric · municipal procurement intelligence</div>
         </div>
-        <span class="status-pill pill-green">Live · MCP-exposed</span>
+        <span class="status-pill pill-amber">Building · MCP tools live</span>
       </div>
-      <div class="card-desc">Procurement intent intelligence across 290 Swedish municipalities, operating at step 1 (intent) where Mercell/Opic operate at step 4 (tender). 13 signal sources spanning Bolagsverket, Kronofogden, Skatteverket, IVO, Skolinspektionen, Tillväxtverket and others. Scraper handles iframe detection, OCR for scanned PDFs, Playwright fallback for JS-rendered sites. Alembic-managed schema. Exposed via Norric MCP server as <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">signal_weekly_call_list_v1</code>. Currently at <a href="https://munisignal.polsia.app/" target="_blank" style="color:var(--teal);text-decoration:none;">munisignal.polsia.app</a> — rebrand to Norric SIGNAL in progress.</div>
+      <div class="card-desc">Procurement intent intelligence across 290 Swedish municipalities, operating at step 1 (intent) where Mercell/Opic operate at step 4 (tender). 13 signal sources spanning Bolagsverket, Kronofogden, Skatteverket, IVO, Skolinspektionen, Tillväxtverket and others. Scraper handles iframe detection, OCR for scanned PDFs, and Playwright fallback for JS-rendered sites. Alembic-managed schema. Exposed via the Norric MCP server as <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">signal_weekly_call_list_v1</code>. Live-data activation in progress.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
@@ -774,32 +477,6 @@
         <span class="tag">Alembic</span>
         <span class="tag">Railway</span>
         <span class="tag">MCP</span>
-      </div>
-    </div>
-
-    <!-- Norric Vattendom -->
-    <div class="card">
-      <div class="card-accent accent-purple"></div>
-      <div class="card-top">
-        <div>
-          <div class="card-name">Norric Vattendom</div>
-          <div class="card-brand">Norric · Swedish water-judgment intelligence</div>
-        </div>
-        <span class="status-pill pill-amber">Building · ingestion in flight</span>
-      </div>
-      <div class="card-desc">Canonical, queryable record of every Swedish water judgment — scored for disruption, with a 40-year clock on every villkor. Joins every vattendom to its operator orgnr (Bolagsverket) and a geocoded watercourse (Lantmäteriet). Each villkor is tracked against the 40-year omprövning clock introduced in the 2019 Miljöbalken reform — turning a regulatory tsunami in slow motion into a forecast operators, lenders, insurers, and kommunala VA-bolag can plan against. Disruption score per dam, per operator, per watercourse. Built on the same Bolagsverket spine as Kreditvakt and Sigvik.</div>
-      <div class="card-rule"></div>
-      <div class="gate-row blocking">
-        <span class="gate-icon">⊘</span>
-        <span>Ingestion of Mark- och miljödomstolarna corpus in flight. No live API yet. Domain not registered.</span>
-      </div>
-      <div class="card-meta" style="margin-top:10px;">
-        <span class="tag">FastAPI</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Mark- och miljödomstolarna</span>
-        <span class="tag">Bolagsverket</span>
-        <span class="tag">Lantmäteriet</span>
-        <span class="tag">Miljöbalken ch. 11</span>
       </div>
     </div>
 
@@ -813,11 +490,11 @@
       <div class="card-top">
         <div>
           <div class="card-name">Norric MCP Server</div>
-          <div class="card-brand">norric-mcp-production.up.railway.app</div>
+          <div class="card-brand">mcp.norric.io</div>
         </div>
         <span class="status-pill pill-green">Live · 21 tools</span>
       </div>
-      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Universal NorricResponse Pydantic v2 envelope · Capability-scoped API key auth (nk_{env}_{capabilities}_{random}) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Provenance layer shipped late April 2026 — <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age) — addressing regulated-buyer audit requirements for the Compliance tier. Immediate priority: connect SIGNAL ingestion database to activate live data for <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">signal_weekly_call_list_v1</code>.</div>
+      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Universal NorricResponse Pydantic v2 envelope · API key auth (nrk_ keys, per-tier rate limits) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Provenance layer shipped April 2026: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age), addressing regulated-buyer audit requirements.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastMCP 3.2.3</span>
@@ -827,7 +504,7 @@
         <span class="tag">21 tools</span>
         <span class="tag">OrgnrStr · KommunkodStr</span>
       </div>
-      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Pricing tiers (May 2026): Free = norric_status_v1 only · Standard = SIGNAL + Kreditvakt · Compliance = adds norric_explain_score_v1 for regulated buyers.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Free sandbox tier (100 calls/month) · paid tiers on request · Docs at <a href="/docs" style="color:var(--muted);">norric.io/docs</a>.</div>
     </div>
   </div>
 
@@ -837,12 +514,12 @@
     <div class="moat-cell">
       <div class="moat-icon">📡</div>
       <div class="moat-name">Elapsed-time-dependent ingestion</div>
-      <div class="moat-desc">Every weekly Pulse compounds the corpus. Competitors cannot retroactively ingest 2024 Kronofogden filings; only forward-looking access produces forward-looking signal.</div>
+      <div class="moat-desc">Every ingestion cycle compounds the corpus. Competitors cannot retroactively ingest 2024 Kronofogden filings; only forward-looking access produces forward-looking signal.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🔒</div>
       <div class="moat-name">Regulatory access</div>
-      <div class="moat-desc">Bolagsverket, Skatteverket, Kronofogden, Lantmäteriet (pending), and Mark- och miljödomstolarna for Vattendom — permissioned, built, irreversible once granted.</div>
+      <div class="moat-desc">Bolagsverket, Skatteverket, and Kronofogden: permissioned, built, and hardened in production.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🧠</div>
@@ -852,86 +529,7 @@
     <div class="moat-cell">
       <div class="moat-icon">🔗</div>
       <div class="moat-name">Shared data spine</div>
-      <div class="moat-desc">Bolagsverket ingestion shared across Kreditvakt, Sigvik, and Vattendom. Each product amortises infrastructure cost across the holding.</div>
-    </div>
-    <div class="moat-cell">
-      <div class="moat-icon">🏗️</div>
-      <div class="moat-name">IP holding structure</div>
-      <div class="moat-desc">All IP owned by Norric AB. Subsidiaries license upward. Tax-efficient via näringsbetingade andelar. Clean exit per subsidiary.</div>
-    </div>
-    <div class="moat-cell">
-      <div class="moat-icon">📜</div>
-      <div class="moat-name">Institutional cadence</div>
-      <div class="moat-desc">Weekly Pulse on a fixed schedule. Append-only governance per repo. 90-day decision review. Built to be trusted by regulated buyers, not just startups.</div>
-    </div>
-  </div>
-
-  <!-- BUILD PRIORITIES -->
-  <div class="section-label">Current build priorities · May 2026 queue</div>
-
-  <div class="priority-row">
-    <div class="priority-num">1</div>
-    <div class="priority-body">
-      <div class="priority-title">Kreditvakt API + email delivery end-to-end test</div>
-      <div class="priority-detail">UNVERIFIED pipeline. Required before any campaign launch. Test plan: 3 real orgnrs, latency check, delivery check.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-amber">Active</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
-    <div class="priority-num">2</div>
-    <div class="priority-body">
-      <div class="priority-title">Sigvik Hemnet Chrome extension — Chrome Web Store review</div>
-      <div class="priority-detail">Submitted, pending. Distribution-critical. Flag if more than 21 days pass without verdict.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-blue">In review</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
-    <div class="priority-num">3</div>
-    <div class="priority-body">
-      <div class="priority-title">Norric MCP monetisation wiring</div>
-      <div class="priority-detail">API key validation middleware (X-Norric-Key / Bearer), Stripe checkout → key issuance, submission to mcp.so and the Anthropic MCP registry.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-blue">Active</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
-    <div class="priority-num">4</div>
-    <div class="priority-body">
-      <div class="priority-title">SIGNAL ingestion DB → live data for signal_weekly_call_list_v1</div>
-      <div class="priority-detail">Scrapers and Alembic migrations exist; activation pending. Activates the live municipal call list MCP tool.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-teal">Queued</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
-    <div class="priority-num">5</div>
-    <div class="priority-body">
-      <div class="priority-title">Pulse v1 — first weekly publication on schedule</div>
-      <div class="priority-detail">Monday 06:00 Europe/Stockholm. Two-day lag. PDF + HTML mirror at /pulse.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-teal">Queued</span>
-    </div>
-  </div>
-
-  <div class="priority-row">
-    <div class="priority-num">6</div>
-    <div class="priority-body">
-      <div class="priority-title">Vattendom — first Mark- och miljödomstolarna ingestion run, parsed and orgnr-joined</div>
-      <div class="priority-detail">First verifiable end-to-end pull from a single court, with operator orgnr linkage via the Bolagsverket spine. Establishes the corpus before scoring or geocoding layers.</div>
-    </div>
-    <div class="priority-badge">
-      <span class="status-pill pill-amber">Building</span>
+      <div class="moat-desc">Bolagsverket ingestion shared across Kreditvakt and Sigvik. Each product amortises infrastructure cost across the portfolio.</div>
     </div>
   </div>
 
@@ -939,35 +537,15 @@
   <div class="section-label" style="margin-top:40px;">Thesis</div>
   <div class="ip-box" style="margin-bottom:40px;">
     <div class="ip-desc" style="line-height:1.75;">
-      Norric AB is a private holding company building a real-time statistical model of commercial Sweden. Each operating product — <strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement, <strong style="color:var(--text);">Vattendom</strong> for Swedish water rights and hydropower regulatory exposure — ingests data directly from authoritative Swedish primary sources and contributes a calibrated signal to a shared intelligence core. The public surface of that core is <strong style="color:var(--text);">Norric Pulse</strong>: a weekly nowcast published Mondays at 06:00 Europe/Stockholm, two days after the previous week closes.
+      Norric AB builds a real-time statistical model of commercial Sweden. Each operating product (<strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement) ingests data directly from authoritative Swedish primary sources and contributes a calibrated signal to a shared intelligence core.
       <br><br>
       The operating thesis is that in the AI era, intelligence is abundant but three things remain scarce: elapsed time spent ingesting, regulatory permission to ingest, and institutional trust in what is published. Norric optimises for all three.
     </div>
   </div>
 
-  <!-- BRAND SYSTEM -->
-  <div class="section-label">Brand system</div>
-  <div class="ip-box" style="margin-bottom:12px;">
-    <div class="ip-title">Norric-prefixed brands (carry the holding identity)</div>
-    <div class="ip-desc">
-      <strong style="color:var(--text);">Norric Kreditvakt</strong> · corporate insolvency intelligence &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Norric SIGNAL</strong> · municipal procurement intelligence &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Norric Vattendom</strong> · Swedish water-judgment intelligence (in build) &nbsp;·&nbsp;
-      <strong style="color:var(--text);">Norric Pulse</strong> · weekly nowcast
-    </div>
-  </div>
-  <div class="ip-box" style="margin-bottom:40px;">
-    <div class="ip-title">Standalone brands (own identities, no prefix)</div>
-    <div class="ip-desc">
-      <strong style="color:var(--text);">Sigvik</strong> · national BRF intelligence
-      <br><br>
-      <span style="color:var(--muted);">Domains: norric.io · kreditvakt.com · sigvik.com · munisignal.polsia.app (SIGNAL — rebrand pending) · vattendom domain pending · GitHub: gucceed</span>
-    </div>
-  </div>
-
   <!-- FOOTER -->
   <footer>
-    <div class="left">Norric AB · Portfolio snapshot · 16 May 2026</div>
+    <div class="left">Norric AB · Portfolio snapshot · September 2026</div>
     <div class="right">
       Solo founder · Edgar Mutebi · Malmö, SE<br>
       <span style="color:var(--dim);">Formerly Polsia Holding AB</span>

@@ -4,27 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get API Access — Norric</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #09090b;
-    --s1: #111113;
-    --s2: #18181b;
-    --s3: #1f1f23;
-    --border: #27272a;
-    --border2: #3f3f46;
-    --text: #fafafa;
-    --muted: #71717a;
-    --dim: #3f3f46;
-    --green: #4ade80;
-    --green-bg: #052e16;
-    --green-b: #14532d;
-    --blue: #60a5fa;
-    --blue-bg: #0c1a3a;
-    --blue-b: #1e3a6e;
-    --amber: #fbbf24;
-    --amber-bg: #1c1300;
-    --amber-b: #3d2800;
+    --bg: #ffffff;
+    --s1: #f5f5f7;
+    --s2: #ececf0;
+    --s3: #e3e3e8;
+    --border: #d2d2d7;
+    --border2: #e8e8eb;
+    --text: #1d1d1f;
+    --muted: #86868b;
+    --dim: #d2d2d7;
+    --green: #248a3d;
+    --green-bg: #e9f8ee;
+    --green-b: #bbe5c7;
+    --blue: #0071e3;
+    --blue-bg: #e9f2fe;
+    --blue-b: #c3dcfa;
+    --amber: #b25000;
+    --amber-bg: #fff4e3;
+    --amber-b: #f5d9ae;
+    --purple: #8944ab;
+    --purple-bg: #f7ecfd;
+    --purple-b: #e5c9f5;
+    --teal: #0071e3;
+    --teal-bg: #e9f2fe;
+    --teal-b: #c3dcfa;
+    --red: #d70015;
+    --red-bg: #fdecea;
+    --red-b: #f4c7c3;
+    --code-bg: #f5f5f7;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,24 +45,13 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px;
+    font-family: var(--font);
+    font-size: 15px;
     line-height: 1.7;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-    z-index: 0;
-  }
 
   /* Header */
   .topbar {
@@ -72,7 +73,7 @@
   }
 
   .topbar-logo {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 18px;
     letter-spacing: -0.01em;
     color: var(--text);
@@ -120,9 +121,9 @@
   }
 
   h1 {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 40px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--text);
     margin-bottom: 16px;
@@ -183,7 +184,7 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 10px 12px;
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--mono);
     font-size: 13px;
     color: var(--text);
     outline: none;
@@ -215,13 +216,13 @@
   .btn {
     width: 100%;
     padding: 12px;
-    background: var(--text);
-    color: var(--bg);
+    background: var(--blue);
+    color: #ffffff;
     border: none;
-    border-radius: 4px;
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px;
-    font-weight: 500;
+    border-radius: 980px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
     letter-spacing: 0.02em;
     transition: opacity 0.15s;
@@ -352,7 +353,7 @@
     <a href="/" class="topbar-logo">Norric <span>AB</span></a>
     <nav class="topbar-nav">
       <a href="/docs">Docs</a>
-      <a href="/developer-docs">Pricing</a>
+      <a href="/docs#pricing">Pricing</a>
       <a href="/api-keys" class="active">API Keys</a>
     </nav>
   </div>
@@ -363,7 +364,7 @@
   <div class="page-header">
     <div class="eyebrow">Access</div>
     <h1>Get API access</h1>
-    <p class="subtitle">Sandbox keys are free and issued immediately. Professional and higher tiers are reviewed within 24 hours.</p>
+    <p class="subtitle">Sandbox keys are free. Every request is reviewed personally within 24 hours.</p>
   </div>
 
   <div class="layout">
@@ -404,7 +405,7 @@
 
         <p class="form-note">
           By submitting you agree to the Norric&nbsp;<a href="#" style="color:var(--muted);text-decoration:underline">Terms of Service</a>.
-          Sandbox keys are issued automatically. We respond to all other requests within 24 hours.
+          Every request is reviewed personally. We respond within 24 hours.
         </p>
       </form>
     </div>
@@ -426,14 +427,14 @@
             <div class="tier-name">Professional</div>
             <div class="tier-detail">5,000 calls / month</div>
           </div>
-          <span class="badge badge-blue">SEK 990/mo</span>
+          <span class="badge badge-blue">On request</span>
         </div>
         <div class="tier-row">
           <div>
             <div class="tier-name">Konsult</div>
             <div class="tier-detail">25,000 calls / month</div>
           </div>
-          <span class="badge badge-blue">SEK 2,990/mo</span>
+          <span class="badge badge-blue">On request</span>
         </div>
         <div class="tier-row">
           <div>
@@ -472,8 +473,8 @@
     <div class="footer-left">© 2026 Norric AB · Malmö, SE</div>
     <div class="footer-links">
       <a href="/docs">Documentation</a>
-      <a href="/developer-docs">Pricing</a>
-      <a href="mailto:edgar.mutebi1@gmail.com">Contact</a>
+      <a href="/docs#pricing">Pricing</a>
+      <a href="mailto:edgar@norric.io">Contact</a>
     </div>
   </div>
 
@@ -498,7 +499,7 @@
       '---\nSent from norric.io/api-keys'
     );
 
-    window.location.href = 'mailto:edgar.mutebi1@gmail.com?subject=' + subject + '&body=' + body;
+    window.location.href = 'mailto:edgar@norric.io?subject=' + subject + '&body=' + body;
   });
 </script>
 

@@ -3,13 +3,6 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/(.*)",
-      "has": [
-        { "type": "host", "value": "vattendom.norric.io" }
-      ],
-      "destination": "/vattendom/$1"
-    },
-    {
       "source": "/",
       "destination": "/home"
     }

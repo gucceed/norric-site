@@ -5,37 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric Intelligence API — Developer Guide</title>
 <meta name="description" content="Developer documentation for the Norric MCP server — 21 Swedish intelligence tools for insolvency risk, municipal procurement, and BRF renovation intelligence.">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #09090b;
-    --s1: #111113;
-    --s2: #18181b;
-    --s3: #1f1f23;
-    --border: #27272a;
-    --border2: #3f3f46;
-    --text: #fafafa;
-    --muted: #71717a;
-    --dim: #3f3f46;
-    --green: #4ade80;
-    --green-bg: #052e16;
-    --green-b: #14532d;
-    --blue: #60a5fa;
-    --blue-bg: #0c1a3a;
-    --blue-b: #1e3a6e;
-    --amber: #fbbf24;
-    --amber-bg: #1c1300;
-    --amber-b: #3d2800;
-    --purple: #c084fc;
-    --purple-bg: #180d2e;
-    --purple-b: #3b1a6b;
-    --teal: #2dd4bf;
-    --teal-bg: #042f2e;
-    --teal-b: #0d5e5a;
-    --red: #f87171;
-    --red-bg: #1c0a0a;
-    --red-b: #3d1212;
-    --code-bg: #0d0d0f;
+    --bg: #ffffff;
+    --s1: #f5f5f7;
+    --s2: #ececf0;
+    --s3: #e3e3e8;
+    --border: #d2d2d7;
+    --border2: #e8e8eb;
+    --text: #1d1d1f;
+    --muted: #86868b;
+    --dim: #d2d2d7;
+    --green: #248a3d;
+    --green-bg: #e9f8ee;
+    --green-b: #bbe5c7;
+    --blue: #0071e3;
+    --blue-bg: #e9f2fe;
+    --blue-b: #c3dcfa;
+    --amber: #b25000;
+    --amber-bg: #fff4e3;
+    --amber-b: #f5d9ae;
+    --purple: #8944ab;
+    --purple-bg: #f7ecfd;
+    --purple-b: #e5c9f5;
+    --teal: #0071e3;
+    --teal-bg: #e9f2fe;
+    --teal-b: #c3dcfa;
+    --red: #d70015;
+    --red-bg: #fdecea;
+    --red-b: #f4c7c3;
+    --code-bg: #f5f5f7;
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", sans-serif;
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,8 +46,8 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Geist Mono', monospace;
-    font-size: 13px;
+    font-family: var(--font);
+    font-size: 15px;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
   }
@@ -71,7 +73,7 @@
   }
 
   .sidebar-logo-name {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 18px;
     margin-bottom: 2px;
   }
@@ -165,18 +167,18 @@
   }
 
   h1 {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 38px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: -0.02em;
     line-height: 1.15;
     margin-bottom: 16px;
   }
 
   h2 {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 12px;
     margin-top: 48px;
     padding-top: 48px;
@@ -191,7 +193,7 @@
     margin-top: 28px;
   }
 
-  p { color: #a1a1aa; margin-bottom: 16px; line-height: 1.75; }
+  p { color: #86868b; margin-bottom: 16px; line-height: 1.75; }
 
   a { color: var(--blue); text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -210,7 +212,7 @@
   }
 
   code {
-    font-family: 'Geist Mono', monospace;
+    font-family: var(--mono);
     font-size: 11px;
     background: var(--s2);
     border: 1px solid var(--border);
@@ -222,11 +224,11 @@
     background: none;
     border: none;
     padding: 0;
-    color: #e4e4e7;
+    color: #1d1d1f;
     font-size: 12px;
   }
 
-  .comment { color: #52525b; }
+  .comment { color: #86868b; }
   .keyword { color: var(--purple); }
   .string  { color: var(--green); }
   .number  { color: var(--amber); }
@@ -242,10 +244,10 @@
     font-size: 12px;
     line-height: 1.7;
   }
-  .callout.info    { border-color: var(--blue);   background: var(--blue-bg);   color: #93c5fd; }
-  .callout.warn    { border-color: var(--amber);  background: var(--amber-bg);  color: #fde68a; }
-  .callout.success { border-color: var(--green);  background: var(--green-bg);  color: #86efac; }
-  .callout.new     { border-color: var(--purple); background: var(--purple-bg); color: #d8b4fe; }
+  .callout.info    { border-color: var(--blue);   background: var(--blue-bg);   color: #1d1d1f; }
+  .callout.warn    { border-color: var(--amber);  background: var(--amber-bg);  color: #1d1d1f; }
+  .callout.success { border-color: var(--green);  background: var(--green-bg);  color: #1d1d1f; }
+  .callout.new     { border-color: var(--purple); background: var(--purple-bg); color: #1d1d1f; }
 
   /* Table */
   table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
@@ -263,10 +265,10 @@
   td {
     padding: 10px 12px;
     border-bottom: 1px solid var(--border);
-    color: #a1a1aa;
+    color: #86868b;
     vertical-align: top;
   }
-  td:first-child { color: var(--text); font-family: 'Geist Mono', monospace; }
+  td:first-child { color: var(--text); font-family: var(--mono); }
   tr:hover td { background: var(--s2); }
 
   /* Pricing grid */
@@ -299,7 +301,7 @@
   }
 
   .plan-price {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-display);
     font-size: 28px;
     color: var(--text);
     margin-bottom: 2px;
@@ -875,7 +877,7 @@ curl -s https://mcp.norric.io/mcp \
       <h2>Changelog</h2>
 
       <h3>v2.0.0 — April 2026</h3>
-      <ul style="color:#a1a1aa;font-size:12px;line-height:2;padding-left:18px;">
+      <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
         <li>Added <code>NORRIC_API_KEYS</code> authentication — all 401 errors point to <code>norric.io/api-keys</code></li>
         <li>Added <code>/health</code> endpoint returning status, tool count, and version</li>
         <li>Added Bolagsverket ärenden leading-indicator signal (<code>arende_ankommet_datum</code>, <code>arende_kanal</code>)</li>
@@ -887,7 +889,7 @@ curl -s https://mcp.norric.io/mcp \
       </ul>
 
       <h3>v1.1.0 — April 2026</h3>
-      <ul style="color:#a1a1aa;font-size:12px;line-height:2;padding-left:18px;">
+      <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
         <li>Added <code>norric_explain_score_v1</code> — EU AI Act Article 9 provenance chain</li>
         <li>Added <code>norric_data_freshness_v1</code> — per-registry ingestion freshness</li>
         <li>Added provenance layer to NorricResponse (21 tools total)</li>
@@ -895,7 +897,7 @@ curl -s https://mcp.norric.io/mcp \
       </ul>
 
       <h3>v1.0.0 — April 2026</h3>
-      <ul style="color:#a1a1aa;font-size:12px;line-height:2;padding-left:18px;">
+      <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
         <li>Initial release: 19 tools across SIGNAL, Kreditvakt, and Sigvik</li>
         <li>FastMCP 3.2.3 Streamable HTTP transport</li>
         <li>Railway deployment with nixpacks builder</li>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric Intelligence API — Developer Guide</title>
-<meta name="description" content="Developer documentation for the Norric MCP server — 21 Swedish intelligence tools for insolvency risk, municipal procurement, and BRF renovation intelligence.">
+<meta name="description" content="Developer documentation for the Norric MCP server — 25 registered Swedish intelligence functions with live, partial, and inactive status shown clearly.">
 <style>
   :root {
     --bg: #ffffff;
@@ -404,17 +404,17 @@
     <div class="section" id="overview">
       <div class="section-overline">Norric Intelligence MCP · v2.0.0</div>
       <h1>Swedish intelligence API<br>for AI agents.</h1>
-      <p>21 tools covering insolvency risk and early-warning signals, municipal procurement, and BRF renovation intelligence — exposed as a single MCP server. Connect in 60 seconds via Claude Code, Cursor, or Windsurf.</p>
+      <p>25 functions are registered across insolvency risk, municipal procurement, company lifecycle, website leads, and BRF intelligence. Some are live, some partial, and some are inactive until their pipelines are connected. Status is shown per tool below.</p>
 
       <div class="callout info">
         <strong>MCP server:</strong> <code>https://mcp.norric.io/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP · FastMCP 3.2.3 · Protocol 2024-11-05<br>
-        <strong>Tools:</strong> 21 live across Kreditvakt, SIGNAL, Sigvik, Infrastructure<br>
-        <strong>Coverage:</strong> 2,685 companies under active insolvency tracking · 290 municipalities · 33,710 BRFs (289 of 290 kommuner)
+        <strong>Functions:</strong> 25 registered; availability varies by function and tier<br>
+        <strong>Coverage:</strong> 17,916 companies tracked (live health, 14 September 2026) · 33,710 scored BRFs
       </div>
 
       <div class="callout success">
-        <strong>Free sandbox:</strong> 100 calls/month, all 21 tools, near-live data.
+        <strong>Free sandbox:</strong> 10 calls/month to <code>norric_status_v1</code>. Product tools require Standard or Compliance access.
         Get your key at <a href="/api-keys">norric.io/api-keys</a>; requests are reviewed within 24 hours.
       </div>
     </div>
@@ -422,10 +422,10 @@
     <!-- 1. QUICK START -->
     <div class="section" id="quickstart">
       <h2>Quick start</h2>
-      <p>Get access to 21 Swedish intelligence tools in under 60 seconds.</p>
+      <p>Connect to the Norric MCP server in under 60 seconds.</p>
 
       <h3>Step 1 — Get an API key</h3>
-      <p>Request free sandbox access at <a href="/api-keys">norric.io/api-keys</a>. Sandbox keys are free, include 100 calls per month, and are reviewed within 24 hours.</p>
+      <p>Request access at <a href="/api-keys">norric.io/api-keys</a>. Free keys include 10 calls per month to <code>norric_status_v1</code>; product access is reviewed on request.</p>
 
       <h3>Step 2 — Claude Code (recommended)</h3>
       <pre><code>claude mcp add norric https://mcp.norric.io/mcp \
@@ -468,44 +468,18 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
     <!-- 2. AUTHENTICATION -->
     <div class="section" id="authentication">
       <h2>Authentication</h2>
-      <p>All requests require a Bearer token passed via the Authorization header.</p>
+      <p>All requests, including session initialization, require an API key. Use <code>Authorization: Bearer</code> or <code>X-Norric-Key</code>; Authorization takes precedence when both are sent.</p>
 
       <pre><code>Authorization: Bearer nrk_your_key_here</code></pre>
 
       <p><strong>Get a key:</strong> <a href="/api-keys">norric.io/api-keys</a></p>
 
       <h3>Key tiers</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Prefix</th>
-            <th>Plan</th>
-            <th>Calls / month</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>nrk_free_</td>
-            <td>Sandbox</td>
-            <td>100</td>
-          </tr>
-          <tr>
-            <td>nrk_std_</td>
-            <td>Professional</td>
-            <td>5,000</td>
-          </tr>
-          <tr>
-            <td>nrk_pro_</td>
-            <td>Konsult</td>
-            <td>20,000</td>
-          </tr>
-          <tr>
-            <td>nrk_ent_</td>
-            <td>Enterprise</td>
-            <td>Unlimited</td>
-          </tr>
-        </tbody>
-      </table>
+      <table><thead><tr><th>Tier</th><th>Access</th><th>Quota</th></tr></thead><tbody>
+        <tr><td>Free</td><td><code>norric_status_v1</code> only</td><td>10 calls / month; 5 / minute</td></tr>
+        <tr><td>Standard</td><td>All registered tools</td><td>No monthly cap in current backend policy</td></tr>
+        <tr><td>Compliance</td><td>All registered tools + audit-log access</td><td>No monthly cap in current backend policy</td></tr>
+      </tbody></table>
 
       <p>Missing or invalid key returns:</p>
       <pre><code>{
@@ -555,16 +529,16 @@ curl -s https://mcp.norric.io/mcp \
 
       <h3>Health check</h3>
       <pre><code>curl https://mcp.norric.io/health
-<span class="comment"># → {"status":"ok","tools":21,"version":"2.0.0"}</span></code></pre>
+<span class="comment"># → response includes "status", "mcp_tools", "products", and pipeline freshness</span></code></pre>
     </div>
 
     <!-- 4. TOOLS REFERENCE -->
     <div class="section" id="tools">
       <h2>Tools reference</h2>
-      <p>21 tools across 4 products. All tools accept Swedish organisation numbers (orgnr) in format <code>XXXXXX-XXXX</code>.</p>
+      <p>25 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
 
       <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
-      <p>9–10 month warning lead time. 6× lift vs naïve base rate. 2,685 companies under active tracking, scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
+      <p>17,916 companies are currently tracked according to live health. Companies are scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
 
       <table>
         <thead>
@@ -573,12 +547,12 @@ curl -s https://mcp.norric.io/mcp \
         <tbody>
           <tr>
             <td>kreditvakt_score_company_v1</td>
-            <td>Insolvency risk score on a 0–20 scale (20 = severe) + full 4-source signal breakdown. Accepts orgnr or company name.</td>
+            <td>Insolvency risk score on a 0–20 scale (20 = severe). Accepts orgnr only; use <code>norric_search_v1</code> to resolve a name first.</td>
             <td>orgnr</td>
           </tr>
           <tr>
             <td>kreditvakt_batch_score_v1</td>
-            <td>Score up to 100 companies in one call. Returns portfolio risk summary.</td>
+            <td>Score up to 500 organisation numbers in one call. Returns a portfolio risk summary.</td>
             <td>orgnrs[]</td>
           </tr>
           <tr>
@@ -594,29 +568,31 @@ curl -s https://mcp.norric.io/mcp \
         </tbody>
       </table>
 
-      <p><strong>Example response — kreditvakt_score_company_v1:</strong></p>
+      <p><strong>Implemented response fields — kreditvakt_score_company_v1:</strong></p>
       <pre><code>{
-  <span class="key">"insolvency_score"</span>: <span class="number">14</span>,
-  <span class="key">"scale"</span>: <span class="string">"0-20"</span>,
-  <span class="key">"company_name"</span>: <span class="string">"Byggfirman Svensson AB"</span>,
-  <span class="key">"verdict"</span>: <span class="string">"Förhöjd riskprofil — aktiva signaler från tre oberoende källor."</span>,
-  <span class="key">"f_skatt_active"</span>: <span class="bool">false</span>,
-  <span class="key">"skuld_sek"</span>: <span class="number">340000</span>,
-  <span class="key">"betalning_count"</span>: <span class="number">6</span>,
-  <span class="key">"kronofogden_escalated"</span>: <span class="bool">true</span>,
-  <span class="key">"arende_ankommet_datum"</span>: <span class="string">"2026-04-08"</span>,
-  <span class="key">"arende_kanal"</span>: <span class="string">"Papperspost"</span>,
-  <span class="key">"konkurs_filed"</span>: <span class="bool">false</span>,
-  <span class="key">"onset_days"</span>: <span class="number">180</span>,
-  <span class="key">"median_days_to_konkurs"</span>: <span class="number">285</span>,
-  <span class="key">"signal_count"</span>: <span class="number">4</span>,
-  <span class="key">"confidence"</span>: <span class="string">"hög"</span>
+  <span class="key">"data"</span>: {
+    <span class="key">"orgnr"</span>: <span class="string">"5560123456"</span>,
+    <span class="key">"score_source"</span>: <span class="string">"database"</span>,
+    <span class="key">"risk_score"</span>: <span class="number">14</span>,
+    <span class="key">"risk_band"</span>: <span class="number">4</span>,
+    <span class="key">"risk_tier"</span>: <span class="string">"HIGH"</span>,
+    <span class="key">"scale"</span>: <span class="string">"0-20"</span>,
+    <span class="key">"polarity"</span>: <span class="string">"higher_is_worse"</span>,
+    <span class="key">"distress_probability"</span>: <span class="number">0.7</span>,
+    <span class="key">"scored_at"</span>: <span class="string">"2026-09-14T06:56:00Z"</span>,
+    <span class="key">"data_freshness_hours"</span>: <span class="number">1.2</span>,
+    <span class="key">"stale_data"</span>: <span class="bool">false</span>
+  },
+  <span class="key">"metadata"</span>: { <span class="comment">/* tool, source, fetched_at, confidence, TTL, cache state */</span> },
+  <span class="key">"signals"</span>: [],
+  <span class="key">"warnings"</span>: []
 }</code></pre>
+      <p>The values are illustrative; field names match the implementation.</p>
 
       <hr>
 
       <h3 id="tools-signal" style="scroll-margin-top:24px;">SIGNAL — Municipal procurement <span class="version-pill">activation in progress</span></h3>
-      <p>4–8 week lead time before RFP publication. 13 signal sources across all 290 Swedish municipalities.</p>
+      <p>Registered but inactive: the current SIGNAL functions return empty or zero-valued results with warnings while ingestion and contract data are disconnected. Do not treat these functions as live procurement intelligence yet.</p>
 
       <table>
         <thead>
@@ -625,27 +601,27 @@ curl -s https://mcp.norric.io/mcp \
         <tbody>
           <tr>
             <td>signal_score_municipality_v1</td>
-            <td>Composite procurement readiness score 0–100 for a municipality × vertical.</td>
+            <td>Inactive. Returns a zero-valued placeholder and a pipeline-not-live warning.</td>
             <td>kommunkod, vertikal</td>
           </tr>
           <tr>
             <td>signal_weekly_call_list_v1</td>
-            <td>Monday ranked call list for sales and SDR agents.</td>
+            <td>Inactive. Returns an empty call list until a live source is connected.</td>
             <td>vertikal, limit</td>
           </tr>
           <tr>
             <td>signal_municipality_briefing_v1</td>
-            <td>Full Swedish call briefing with talking points.</td>
+            <td>Inactive. Returns an empty briefing with a warning.</td>
             <td>kommunkod, vertikal</td>
           </tr>
           <tr>
             <td>signal_contract_expiry_alerts_v1</td>
-            <td>Upcoming contract renewals — displacement windows.</td>
+            <td>Inactive. Returns no expiries while the contract database is disconnected.</td>
             <td>vertikal, days_ahead</td>
           </tr>
           <tr>
             <td>signal_sweden_pulse_v1</td>
-            <td>National procurement activity index 0–100.</td>
+            <td>Inactive. Returns a zero-valued placeholder with a warning.</td>
             <td>vertikal (optional)</td>
           </tr>
         </tbody>
@@ -656,8 +632,8 @@ curl -s https://mcp.norric.io/mcp \
 
       <hr>
 
-      <h3 id="tools-sigvik" style="scroll-margin-top:24px;">Sigvik — BRF renovation intelligence <span class="version-pill">live</span></h3>
-      <p>Renovation intent scoring for Swedish housing cooperatives (BRFs). National coverage: 33,710 BRFs across 289 of 290 Swedish municipalities. EU 2033 energy class deadline flag included.</p>
+      <h3 id="tools-sigvik" style="scroll-margin-top:24px;">Sigvik — BRF intelligence <span class="version-pill">partial</span></h3>
+      <p><code>sigvik_score_brf_v1</code> is connected to the live downstream score API. Avgift and flag pipelines are not yet connected and currently return empty data with warnings. Live health reports 33,710 scored BRFs.</p>
 
       <table>
         <thead>
@@ -671,18 +647,23 @@ curl -s https://mcp.norric.io/mcp \
           </tr>
           <tr>
             <td>sigvik_brf_avgift_v1</td>
-            <td>Monthly fee history, trend, and year-on-year delta.</td>
+            <td>Inactive. Returns null/empty fee fields with a pipeline warning.</td>
             <td>brf_id</td>
           </tr>
           <tr>
             <td>sigvik_brf_flags_v1</td>
-            <td>Active risk flags: renovation, economic stress, EU 2033 deadline.</td>
+            <td>Inactive. Returns no flags while the flag pipeline is disconnected.</td>
             <td>brf_id</td>
           </tr>
         </tbody>
       </table>
 
       <hr>
+
+      <h3>Vigil and SiteLoop <span class="version-pill">inactive</span></h3>
+      <p>Vigil's three lifecycle functions and SiteLoop's two lead-pipeline functions are registered, but their upstream pipelines are not live. They return empty or placeholder data with warnings.</p>
+      <h3>New cross-portfolio functions</h3>
+      <table><tbody><tr><td>norric_score_v1</td><td>Consolidated company risk score by orgnr.</td></tr><tr><td>norric_search_v1</td><td>Company search by name or orgnr.</td></tr><tr><td>norric_contagion_map_v1</td><td>Ownership-network contagion view.</td></tr></tbody></table>
 
       <h3 id="tools-infra" style="scroll-margin-top:24px;">Infrastructure tools</h3>
 
@@ -713,65 +694,33 @@ curl -s https://mcp.norric.io/mcp \
 
     <!-- 5. NORRICRESPONSE ENVELOPE -->
     <div class="section" id="envelope">
-      <h2>NorricResponse envelope</h2>
-      <p>Every tool returns a standard envelope. Agents parse structure, not narrative.</p>
+      <h2>Response envelopes</h2>
+      <p>Most product tools return <code>{data, metadata, signals, warnings}</code>. The two provenance helpers use the alternate NorricResponse shape. Authentication failures are bare <code>{error}</code> objects with HTTP 401.</p>
 
       <pre><code>{
-  <span class="key">"success"</span>: <span class="bool">true</span>,
-  <span class="key">"tool"</span>: <span class="string">"kreditvakt_score_company_v1"</span>,
-  <span class="key">"source"</span>: [<span class="string">"skatteverket"</span>, <span class="string">"kronofogden"</span>, <span class="string">"bolagsverket"</span>],
-  <span class="key">"confidence"</span>: <span class="number">0.87</span>,
   <span class="key">"data"</span>: { <span class="comment">/* tool-specific payload */</span> },
-  <span class="key">"error"</span>: <span class="null">null</span>,
-  <span class="key">"cached"</span>: <span class="bool">false</span>,
-  <span class="key">"ts"</span>: <span class="string">"2026-04-26T18:00:00Z"</span>,
-  <span class="key">"provenance"</span>: [
-    {
-      <span class="key">"source_agency"</span>: <span class="string">"skatteverket"</span>,
-      <span class="key">"source_document_ref"</span>: <span class="string">"orgnr:556012-3456/restanslangd/2026-04"</span>,
-      <span class="key">"ingested_at"</span>: <span class="string">"2026-04-26T06:00:00Z"</span>,
-      <span class="key">"confidence"</span>: <span class="number">1.0</span>,
-      <span class="key">"schema_version"</span>: <span class="string">"1.0"</span>
-    }
-  ]
+  <span class="key">"metadata"</span>: {
+    <span class="key">"response_id"</span>: <span class="string">"nrsp_abc123"</span>,
+    <span class="key">"tool"</span>: <span class="string">"kreditvakt_score_company_v1"</span>,
+    <span class="key">"source"</span>: [<span class="string">"skatteverket"</span>, <span class="string">"bolagsverket"</span>],
+    <span class="key">"fetched_at"</span>: <span class="string">"2026-09-14T06:56:00Z"</span>,
+    <span class="key">"confidence"</span>: <span class="number">0.87</span>,
+    <span class="key">"cache_ttl_seconds"</span>: <span class="number">3600</span>,
+    <span class="key">"is_cached"</span>: <span class="bool">false</span>
+  },
+  <span class="key">"signals"</span>: [],
+  <span class="key">"warnings"</span>: []
 }</code></pre>
-
       <h3>Field reference</h3>
-      <table>
-        <thead>
-          <tr><th>Field</th><th>Type</th><th>Description</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>success</td>
-            <td>boolean</td>
-            <td>False on error — always check before reading data.</td>
-          </tr>
-          <tr>
-            <td>confidence</td>
-            <td>float 0–1</td>
-            <td>Weakest-link minimum across all provenance records.</td>
-          </tr>
-          <tr>
-            <td>data</td>
-            <td>object</td>
-            <td>Tool-specific payload. Null on error.</td>
-          </tr>
-          <tr>
-            <td>provenance</td>
-            <td>array</td>
-            <td>Per-record data lineage to originating Swedish registry. EU AI Act Article 9.</td>
-          </tr>
-          <tr>
-            <td>ts</td>
-            <td>ISO 8601</td>
-            <td>UTC timestamp of response generation.</td>
-          </tr>
-        </tbody>
-      </table>
+      <table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody>
+        <tr><td>data</td><td>object</td><td>Tool-specific payload.</td></tr>
+        <tr><td>metadata</td><td>object</td><td>Tool, sources, fetch time, confidence, TTL, and cache state.</td></tr>
+        <tr><td>signals</td><td>array</td><td>Evidence used by the tool; empty when not applicable.</td></tr>
+        <tr><td>warnings</td><td>array</td><td>Freshness, availability, or pipeline warnings.</td></tr>
+      </tbody></table>
 
       <div class="callout info">
-        <strong>Agent guidance:</strong> Call <code>norric_data_freshness_v1</code> before any consequential workflow (credit approval, sales outreach, procurement bid). If any source is older than 7 days, note this in your output.
+        <strong>Client guidance:</strong> Call <code>norric_data_freshness_v1</code> before any consequential workflow (credit approval, sales outreach, procurement bid). If any source is older than 7 days, note this in your output.
       </div>
     </div>
 
@@ -807,15 +756,11 @@ curl -s https://mcp.norric.io/mcp \
         </tbody>
       </table>
 
-      <p>All errors use the NorricResponse envelope:</p>
-      <pre><code>{
-  <span class="key">"success"</span>: <span class="bool">false</span>,
-  <span class="key">"error"</span>: <span class="string">"Invalid API key. Get yours at norric.io/api-keys"</span>,
-  <span class="key">"data"</span>: <span class="null">null</span>
-}</code></pre>
+      <p>Authentication failures use a bare error object:</p>
+      <pre><code>{ <span class="key">"error"</span>: <span class="string">"Invalid API key. Get yours at norric.io/api-keys"</span> }</code></pre>
 
       <div class="callout warn">
-        <strong>Agent rule — 429:</strong> Wait 60 seconds, retry once.
+        <strong>Client retry guidance — 429:</strong> Wait 60 seconds, retry once.
         If you receive a second 429 in the same session, stop and inform the user. Do not loop.
       </div>
     </div>
@@ -823,48 +768,12 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 7. PRICING -->
     <div class="section" id="pricing">
       <h2>Pricing</h2>
-      <p>All plans include access to all 21 tools. Rate limits are per API key per month.</p>
+      <p>The backend currently exposes Free, Standard, and Compliance tiers. Free is status-only; paid access is issued on request.</p>
 
       <div class="pricing-grid">
-        <div class="plan-card">
-          <div class="plan-name">Sandbox</div>
-          <div class="plan-price">Free</div>
-          <div class="plan-unit">forever</div>
-          <div class="plan-divider"></div>
-          <div class="plan-feature"><span class="plan-check">✓</span> 100 calls / month</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> All 21 tools</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Near-live data</div>
-        </div>
-        <div class="plan-card featured">
-          <div class="plan-name">Professional</div>
-          <div class="plan-price" style="font-size:22px;">On request</div>
-          <div class="plan-unit">pilot pricing</div>
-          <div class="plan-divider"></div>
-          <div class="plan-feature"><span class="plan-check">✓</span> 5,000 calls / month</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> All 21 tools</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Live data</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Email support</div>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Konsult</div>
-          <div class="plan-price" style="font-size:22px;">On request</div>
-          <div class="plan-unit">pilot pricing</div>
-          <div class="plan-divider"></div>
-          <div class="plan-feature"><span class="plan-check">✓</span> 20,000 calls / month</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Live data</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Webhooks</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Priority support</div>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Enterprise</div>
-          <div class="plan-price">Custom</div>
-          <div class="plan-unit">&nbsp;</div>
-          <div class="plan-divider"></div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Unlimited calls</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> SLA guarantee</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> Dedicated ingestion</div>
-          <div class="plan-feature"><span class="plan-check">✓</span> EU data residency</div>
-        </div>
+        <div class="plan-card"><div class="plan-name">Free</div><div class="plan-price">Free</div><div class="plan-unit">status access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> 10 calls / month</div><div class="plan-feature"><span class="plan-check">✓</span> <code>norric_status_v1</code> only</div></div>
+        <div class="plan-card featured"><div class="plan-name">Standard</div><div class="plan-price" style="font-size:22px;">On request</div><div class="plan-unit">product access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> All registered tools</div><div class="plan-feature"><span class="plan-check">✓</span> No monthly cap in current policy</div></div>
+        <div class="plan-card"><div class="plan-name">Compliance</div><div class="plan-price">Custom</div><div class="plan-unit">audit access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> Standard access</div><div class="plan-feature"><span class="plan-check">✓</span> Audit-log access</div></div>
       </div>
 
       <p style="text-align:center;margin-top:24px;">
@@ -907,7 +816,7 @@ curl -s https://mcp.norric.io/mcp \
 
     <!-- FOOTER -->
     <div style="border-top:1px solid var(--border);padding-top:24px;margin-top:80px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <span>Norric AB · Developer Guide · v2.0.0 · September 2026</span>
+      <span>Norric · Developer Guide · v2.0.0 · September 2026</span>
       <span><a href="https://norric.io">norric.io</a> · <a href="mailto:edgar@norric.io">edgar@norric.io</a></span>
     </div>
 

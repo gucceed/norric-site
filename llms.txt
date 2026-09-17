@@ -1,0 +1,51 @@
+# Norric
+
+> Swedish B2B intelligence for AI agents, exposed through a remote Model Context Protocol (MCP) server.
+
+Norric provides versioned functions for Swedish company insolvency risk, municipal procurement, BRF financial health, company lifecycle, website leads, search, provenance, and data freshness. Availability varies by function. Check status and freshness before consequential use.
+
+## Canonical links
+
+- Website: https://norric.io/
+- Developer guide: https://norric.io/docs
+- API key access: https://norric.io/api-keys
+- OpenAPI description: https://norric.io/openapi.json
+- MCP endpoint: https://mcp.norric.io/mcp
+- Service health: https://mcp.norric.io/health
+- Source repository: https://github.com/gucceed/norric-mcp
+- Official MCP Registry name: io.github.gucceed/norric-mcp
+
+## MCP connection
+
+- Transport: Streamable HTTP
+- Protocol version: 2024-11-05
+- Authentication: `Authorization: Bearer YOUR_API_KEY` or `X-Norric-Key: YOUR_API_KEY`
+- API keys: request at https://norric.io/api-keys
+
+Claude Code:
+
+```sh
+claude mcp add norric https://mcp.norric.io/mcp \
+  --header "Authorization: Bearer YOUR_API_KEY"
+```
+
+## Access and availability
+
+- Free keys: 10 calls per month to `norric_status_v1`; 5 calls per minute.
+- Standard and Compliance access: registered product functions, issued on request.
+- Some registered functions are partial or inactive while their upstream pipelines are disconnected.
+- Call `norric_status_v1` for product status.
+- Call `norric_data_freshness_v1` before consequential workflows.
+- Do not treat placeholder, empty, or warning-bearing results as live intelligence.
+
+## Documented function groups
+
+- Kreditvakt: company insolvency scoring, batch scoring, debt signals, bankruptcy status.
+- SIGNAL: municipal procurement functions; documented as inactive until ingestion is connected.
+- Sigvik: BRF scoring is connected; fee and flag functions are documented as inactive.
+- Vigil: lifecycle functions are documented as inactive.
+- SiteLoop: lead functions are documented as inactive.
+- Cross-portfolio: company score, company search, contagion map.
+- Infrastructure: company profile, score explanation, source freshness, service status.
+
+For names, parameters, response envelopes, retry rules, and current per-function status, use the developer guide: https://norric.io/docs

@@ -1,51 +1,58 @@
 # Norric
 
-> Swedish B2B intelligence for AI agents, exposed through a remote Model Context Protocol (MCP) server.
+> Swedish B2B intelligence for autonomous agents over MCP and x402.
 
-Norric provides versioned functions for Swedish company insolvency risk, municipal procurement, BRF financial health, company lifecycle, website leads, search, provenance, and data freshness. Availability varies by function. Check status and freshness before consequential use.
+## Canonical machine links
 
-## Canonical links
-
-- Website: https://norric.io/
-- Developer guide: https://norric.io/docs
-- API key access: https://norric.io/api-keys
-- OpenAPI description: https://norric.io/openapi.json
 - MCP endpoint: https://mcp.norric.io/mcp
-- Service health: https://mcp.norric.io/health
-- Source repository: https://github.com/gucceed/norric-mcp
-- Official MCP Registry name: io.github.gucceed/norric-mcp
+- Health: https://mcp.norric.io/health
+- OpenAPI: https://norric.io/openapi.json
+- Human + agent guide: https://norric.io/docs
+- Facilitator: https://x402-facilitator-production-5948.up.railway.app/
+- Network: Base Sepolia testnet (`eip155:84532`) only. Mainnet is blocked.
+- MCP Registry: `io.github.gucceed/norric-mcp`
 
-## MCP connection
+## Zero-onboarding discovery
 
-- Transport: Streamable HTTP
-- Protocol version: 2024-11-05
-- Authentication: `Authorization: Bearer YOUR_API_KEY` or `X-Norric-Key: YOUR_API_KEY`
-- API keys: request at https://norric.io/api-keys
+Connect to the MCP endpoint without an API key, send `initialize`, retain the
+`mcp-session-id`, then send `tools/list`. Discovery is free. These tools are free:
 
-Claude Code:
+- `norric_status_v1`
+- `norric_data_freshness_v1`
 
-```sh
-claude mcp add norric https://mcp.norric.io/mcp \
-  --header "Authorization: Bearer YOUR_API_KEY"
+The first wallet-paid tool is `kreditvakt_score_company_v1` at 2,000 atomic test
+USDC ($0.002 nominal). An unpaid `tools/call` returns an x402 v2 challenge. Sign
+the accepted exact payment with the agent wallet, put the payload at
+`params._meta["x402/payment"]`, and retry the same call. The response includes
+`_meta["x402/payment-response"]` with settlement details. No API key or human
+account is needed. Other tools remain unavailable anonymously until assigned a
+price band.
+
+Approved exact price bands (atomic test USDC): lookup 2,000; signal 5,000;
+evidence 10,000; feed/batch 20,000; heavy synthesis 50,000. Only the company
+score lookup is wired in the current review stack. Watchlist/event metering is
+not yet live.
+
+## Muse Code
+
+```json
+{
+  "mcp_servers": {
+    "norric": {
+      "transport": "streamable_http",
+      "url": "https://mcp.norric.io/mcp",
+      "enabled": true,
+      "mode": "optional"
+    }
+  }
+}
 ```
 
-## Access and availability
+Ask Muse to list Norric tools, call free status/freshness, then use an x402-capable
+wallet client for paid calls. API-key clients remain supported for existing use.
 
-- Free keys: 10 calls per month to `norric_status_v1`; 5 calls per minute.
-- Standard and Compliance access: registered product functions, issued on request.
-- Some registered functions are partial or inactive while their upstream pipelines are disconnected.
-- Call `norric_status_v1` for product status.
-- Call `norric_data_freshness_v1` before consequential workflows.
-- Do not treat placeholder, empty, or warning-bearing results as live intelligence.
+## Safety and data status
 
-## Documented function groups
-
-- Kreditvakt: company insolvency scoring, batch scoring, debt signals, bankruptcy status.
-- SIGNAL: municipal procurement functions; documented as inactive until ingestion is connected.
-- Sigvik: BRF scoring is connected; fee and flag functions are documented as inactive.
-- Vigil: lifecycle functions are documented as inactive.
-- SiteLoop: lead functions are documented as inactive.
-- Cross-portfolio: company score, company search, contagion map.
-- Infrastructure: company profile, score explanation, source freshness, service status.
-
-For names, parameters, response envelopes, retry rules, and current per-function status, use the developer guide: https://norric.io/docs
+Some of the 25 registered functions are partial or inactive while upstream
+pipelines are disconnected. Check status and freshness before consequential use;
+do not treat warning-bearing or placeholder results as live intelligence.

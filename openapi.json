@@ -3,93 +3,373 @@
   "info": {
     "title": "Norric Intelligence API",
     "version": "2.0.0",
-    "description": "Machine-readable description of Norric's documented public HTTP surface. Norric's product functions are MCP tools, not separate REST paths. Use the Streamable HTTP MCP endpoint to initialize a session and call tools. Availability varies by function; check service status and data freshness before consequential use."
+    "description": "Machine-readable description of Norric's public HTTP and MCP surfaces. The REST bridge exposes selected live intelligence calls for agents that cannot use Streamable HTTP; MCP remains the canonical interface and exposes the complete tool inventory."
   },
   "servers": [
-    {"url": "https://mcp.norric.io", "description": "Norric MCP service"}
+    {
+      "url": "https://mcp.norric.io",
+      "description": "Norric MCP service"
+    }
   ],
-  "externalDocs": {"description": "Norric developer guide", "url": "https://norric.io/docs"},
+  "externalDocs": {
+    "description": "Norric developer guide",
+    "url": "https://norric.io/docs"
+  },
   "tags": [
-    {"name": "Service", "description": "Public service status"},
-    {"name": "MCP", "description": "Model Context Protocol over Streamable HTTP"}
+    {
+      "name": "Service",
+      "description": "Public service status"
+    },
+    {
+      "name": "MCP",
+      "description": "Model Context Protocol over Streamable HTTP"
+    },
+    {
+      "name": "Intelligence REST",
+      "description": "Selected live intelligence calls without an MCP session handshake"
+    }
   ],
   "paths": {
     "/health": {
       "get": {
-        "tags": ["Service"],
+        "tags": [
+          "Service"
+        ],
         "summary": "Get service and pipeline health",
         "operationId": "getHealth",
         "security": [],
         "responses": {
           "200": {
             "description": "Current service status, tool count, product statistics, and pipeline freshness",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/HealthResponse"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
           }
         }
       }
     },
     "/mcp": {
       "post": {
-        "tags": ["MCP"],
+        "tags": [
+          "MCP"
+        ],
         "summary": "Send an MCP JSON-RPC request",
         "description": "Streamable HTTP MCP endpoint. Initialize first and capture the `mcp-session-id` response header. Send that header on later requests such as `tools/list` and `tools/call`. MCP clients normally handle this handshake automatically.",
         "operationId": "postMcpRequest",
-        "security": [{"bearerAuth": []}, {"norricApiKey": []}],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "norricApiKey": []
+          }
+        ],
         "parameters": [
-          {"name": "mcp-session-id", "in": "header", "required": false, "description": "Session ID returned by initialization; required for subsequent session-bound requests.", "schema": {"type": "string"}},
-          {"name": "Accept", "in": "header", "required": true, "schema": {"type": "string", "const": "application/json, text/event-stream"}}
+          {
+            "name": "mcp-session-id",
+            "in": "header",
+            "required": false,
+            "description": "Session ID returned by initialization; required for subsequent session-bound requests.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "application/json, text/event-stream"
+            }
+          }
         ],
         "requestBody": {
           "required": true,
-          "content": {"application/json": {"schema": {"$ref": "#/components/schemas/JsonRpcRequest"}}}
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JsonRpcRequest"
+              }
+            }
+          }
         },
         "responses": {
           "200": {
             "description": "MCP JSON-RPC response or event stream",
-            "headers": {"mcp-session-id": {"description": "Session ID issued during initialization", "schema": {"type": "string"}}},
+            "headers": {
+              "mcp-session-id": {
+                "description": "Session ID issued during initialization",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
-              "application/json": {"schema": {"$ref": "#/components/schemas/JsonRpcResponse"}},
-              "text/event-stream": {"schema": {"type": "string"}}
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonRpcResponse"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
             }
           },
           "401": {
             "description": "Missing or invalid API key",
-            "content": {"application/json": {"schema": {"$ref": "#/components/schemas/AuthError"}}}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthError"
+                }
+              }
+            }
           },
-          "429": {"description": "Rate limit exceeded. Wait 60 seconds and retry once."},
-          "503": {"description": "Data source temporarily unavailable. Retry after five minutes."}
+          "429": {
+            "description": "Rate limit exceeded. Wait 60 seconds and retry once."
+          },
+          "503": {
+            "description": "Data source temporarily unavailable. Retry after five minutes."
+          }
+        }
+      }
+    },
+    "/api/v1/score/{orgnr}": {
+      "get": {
+        "tags": [
+          "Intelligence REST"
+        ],
+        "summary": "Get a full company intelligence score package",
+        "operationId": "getCompanyScore",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "norricApiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OrgnrPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company identity, risk score, signals, timeline and procurement context",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NorricEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "422": {
+            "description": "Invalid organisation number"
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "get": {
+        "tags": [
+          "Intelligence REST"
+        ],
+        "summary": "Search companies by name or organisation number prefix",
+        "operationId": "searchCompanies",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "norricApiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching monitored companies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NorricEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/v1/contagion-map/{orgnr}": {
+      "get": {
+        "tags": [
+          "Intelligence REST"
+        ],
+        "summary": "Get a probabilistic supply-chain contagion map",
+        "operationId": "getContagionMap",
+        "description": "Returns geographic peer rings inferred from shared procurement sector and proximity. Relationships are probabilistic, not verified supply-chain links.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "norricApiKey": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OrgnrPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Source company, peer rings and aggregate summary",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NorricEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "422": {
+            "description": "Invalid organisation number"
+          }
         }
       }
     }
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {"type": "http", "scheme": "bearer", "description": "Norric API key in the Authorization header."},
-      "norricApiKey": {"type": "apiKey", "in": "header", "name": "X-Norric-Key", "description": "Alternative API-key header. Authorization takes precedence when both headers are sent."}
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Norric API key in the Authorization header."
+      },
+      "norricApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Norric-Key",
+        "description": "Alternative API-key header. Authorization takes precedence when both headers are sent."
+      }
     },
     "schemas": {
       "JsonRpcRequest": {
         "type": "object",
-        "required": ["jsonrpc", "method"],
+        "required": [
+          "jsonrpc",
+          "method"
+        ],
         "properties": {
-          "jsonrpc": {"type": "string", "const": "2.0"},
-          "id": {"oneOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]},
-          "method": {"type": "string", "examples": ["initialize", "tools/list", "tools/call"]},
-          "params": {"type": "object", "additionalProperties": true}
+          "jsonrpc": {
+            "type": "string",
+            "const": "2.0"
+          },
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "method": {
+            "type": "string",
+            "examples": [
+              "initialize",
+              "tools/list",
+              "tools/call"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": true
+          }
         },
         "additionalProperties": false
       },
       "JsonRpcResponse": {
         "type": "object",
-        "required": ["jsonrpc"],
+        "required": [
+          "jsonrpc"
+        ],
         "properties": {
-          "jsonrpc": {"type": "string", "const": "2.0"},
-          "id": {"oneOf": [{"type": "string"}, {"type": "integer"}, {"type": "null"}]},
+          "jsonrpc": {
+            "type": "string",
+            "const": "2.0"
+          },
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "result": {},
           "error": {
             "type": "object",
-            "required": ["code", "message"],
-            "properties": {"code": {"type": "integer"}, "message": {"type": "string"}, "data": {}},
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "integer"
+              },
+              "message": {
+                "type": "string"
+              },
+              "data": {}
+            },
             "additionalProperties": true
           }
         },
@@ -97,21 +377,147 @@
       },
       "HealthResponse": {
         "type": "object",
-        "required": ["status", "mcp_tools", "version"],
+        "required": [
+          "status",
+          "mcp_tools",
+          "version"
+        ],
         "properties": {
-          "status": {"type": "string", "examples": ["ok", "degraded"]},
-          "mcp_tools": {"type": "integer", "minimum": 0},
-          "version": {"type": "string"},
-          "products": {"type": "object", "additionalProperties": true},
-          "pipeline_freshness": {"type": "object", "additionalProperties": true}
+          "status": {
+            "type": "string",
+            "examples": [
+              "ok",
+              "degraded"
+            ]
+          },
+          "mcp_tools": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "version": {
+            "type": "string"
+          },
+          "products": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "pipeline_freshness": {
+            "type": "object",
+            "additionalProperties": true
+          }
         },
         "additionalProperties": true
       },
       "AuthError": {
         "type": "object",
-        "required": ["error"],
-        "properties": {"error": {"type": "string"}},
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
         "additionalProperties": false
+      },
+      "NorricEnvelope": {
+        "type": "object",
+        "required": [
+          "data",
+          "metadata",
+          "signals",
+          "warnings"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/NorricMetadata"
+          },
+          "signals": {
+            "type": "array",
+            "items": {}
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "NorricMetadata": {
+        "type": "object",
+        "required": [
+          "response_id",
+          "tool",
+          "source",
+          "fetched_at",
+          "confidence",
+          "cache_ttl_seconds",
+          "is_cached"
+        ],
+        "properties": {
+          "response_id": {
+            "type": "string"
+          },
+          "tool": {
+            "type": "string"
+          },
+          "source": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fetched_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "cache_ttl_seconds": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "is_cached": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "parameters": {
+      "OrgnrPath": {
+        "name": "orgnr",
+        "in": "path",
+        "required": true,
+        "description": "Swedish organisation number, with or without a dash.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[0-9]{6}-?[0-9]{4}$",
+          "examples": [
+            "556012-3456"
+          ]
+        }
+      }
+    },
+    "responses": {
+      "Unauthorized": {
+        "description": "Missing or invalid API key",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/AuthError"
+            }
+          }
+        }
       }
     }
   },
@@ -122,4 +528,4 @@
     "registryUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=norric",
     "apiKeyUrl": "https://norric.io/api-keys"
   }
-}
+          }

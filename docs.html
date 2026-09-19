@@ -441,7 +441,22 @@ mcp__norric__signal_weekly_call_list_v1(vertikal=<span class="string">"aldreomso
 <span class="comment"># Check pipeline freshness before acting</span>
 mcp__norric__norric_data_freshness_v1()</code></pre>
 
-      <h3>Step 3 — Claude Desktop</h3>
+      <h3>Step 3 — Muse Code</h3>
+      <p>Add Norric to your Muse Code settings file under <code>mcp_servers</code>. The server is optional so a temporary Norric outage does not stop the whole Muse run.</p>
+      <pre><code>{
+  <span class="key">"mcp_servers"</span>: {
+    <span class="key">"norric"</span>: {
+      <span class="key">"transport"</span>: <span class="string">"streamable_http"</span>,
+      <span class="key">"url"</span>: <span class="string">"https://mcp.norric.io/mcp"</span>,
+      <span class="key">"headers"</span>: { <span class="key">"Authorization"</span>: <span class="string">"Bearer YOUR_API_KEY"</span> },
+      <span class="key">"enabled"</span>: <span class="number">true</span>,
+      <span class="key">"mode"</span>: <span class="string">"optional"</span>
+    }
+  }
+}</code></pre>
+      <p>Restart Muse Code after saving the file, then ask it to list Norric tools. Keep the API key in a local user settings file, not a repository.</p>
+
+      <h3>Step 4 — Claude Desktop</h3>
       <p>Edit <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>:</p>
       <pre><code>{
   <span class="key">"mcpServers"</span>: {
@@ -453,7 +468,7 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
   }
 }</code></pre>
 
-      <h3>Step 4 — Cursor or Windsurf</h3>
+      <h3>Step 5 — Cursor or Windsurf</h3>
       <p>Edit <code>.cursor/mcp.json</code>:</p>
       <pre><code>{
   <span class="key">"mcpServers"</span>: {

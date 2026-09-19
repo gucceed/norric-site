@@ -414,8 +414,7 @@
       </div>
 
       <div class="callout success">
-        <strong>Free sandbox:</strong> 10 calls/month to <code>norric_status_v1</code>. Product tools require Standard or Compliance access.
-        Get your key at <a href="/api-keys">norric.io/api-keys</a>; requests are reviewed within 24 hours.
+        <strong>Agent-first access:</strong> discovery, <code>tools/list</code>, <code>norric_status_v1</code>, and <code>norric_data_freshness_v1</code> are free without an API key. Paid tools quote exact test USDC through x402. Base Sepolia testnet only; mainnet is blocked.
       </div>
     </div>
 
@@ -424,8 +423,8 @@
       <h2>Quick start</h2>
       <p>Connect to the Norric MCP server in under 60 seconds.</p>
 
-      <h3>Step 1 — Get an API key</h3>
-      <p>Request access at <a href="/api-keys">norric.io/api-keys</a>. Free keys include 10 calls per month to <code>norric_status_v1</code>; product access is reviewed on request.</p>
+      <h3>Step 1 — Discover without an account</h3>
+      <p>Connect directly to <code>https://mcp.norric.io/mcp</code>. Initialize, keep the returned <code>mcp-session-id</code>, then call <code>tools/list</code>. No API key is needed for discovery, status, freshness, or an x402-gated call.</p>
 
       <h3>Step 2 — Claude Code (recommended)</h3>
       <pre><code>claude mcp add norric https://mcp.norric.io/mcp \
@@ -448,13 +447,12 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
     <span class="key">"norric"</span>: {
       <span class="key">"transport"</span>: <span class="string">"streamable_http"</span>,
       <span class="key">"url"</span>: <span class="string">"https://mcp.norric.io/mcp"</span>,
-      <span class="key">"headers"</span>: { <span class="key">"Authorization"</span>: <span class="string">"Bearer YOUR_API_KEY"</span> },
       <span class="key">"enabled"</span>: <span class="number">true</span>,
       <span class="key">"mode"</span>: <span class="string">"optional"</span>
     }
   }
 }</code></pre>
-      <p>Restart Muse Code after saving the file, then ask it to list Norric tools. Keep the API key in a local user settings file, not a repository.</p>
+      <p>Restart Muse Code after saving, ask it to list Norric tools, then call free status/freshness. Paid calls require an x402-capable wallet client; no Norric account is required.</p>
 
       <h3>Step 4 — Claude Desktop</h3>
       <p>Edit <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>:</p>
@@ -483,7 +481,7 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
     <!-- 2. AUTHENTICATION -->
     <div class="section" id="authentication">
       <h2>Authentication</h2>
-      <p>All requests, including session initialization, require an API key. Use <code>Authorization: Bearer</code> or <code>X-Norric-Key</code>; Authorization takes precedence when both are sent.</p>
+      <p>Agents can initialize and discover tools without an account. Free calls are <code>norric_status_v1</code> and <code>norric_data_freshness_v1</code>. A payment-gated tool challenges an unpaid call and accepts a signed x402 retry. Other anonymous tool calls return 403. Existing API-key clients may still use <code>Authorization: Bearer</code> or <code>X-Norric-Key</code>.</p>
 
       <pre><code>Authorization: Bearer nrk_your_key_here</code></pre>
 
@@ -491,7 +489,7 @@ mcp__norric__norric_data_freshness_v1()</code></pre>
 
       <h3>Key tiers</h3>
       <table><thead><tr><th>Tier</th><th>Access</th><th>Quota</th></tr></thead><tbody>
-        <tr><td>Free</td><td><code>norric_status_v1</code> only</td><td>10 calls / month; 5 / minute</td></tr>
+        <tr><td>Agent free</td><td>Discovery, <code>norric_status_v1</code>, <code>norric_data_freshness_v1</code></td><td>No account; abuse controls apply</td></tr>
         <tr><td>Standard</td><td>All registered tools</td><td>No monthly cap in current backend policy</td></tr>
         <tr><td>Compliance</td><td>All registered tools + audit-log access</td><td>No monthly cap in current backend policy</td></tr>
       </tbody></table>
@@ -783,10 +781,12 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 7. PRICING -->
     <div class="section" id="pricing">
       <h2>Pricing</h2>
-      <p>The backend currently exposes Free, Standard, and Compliance tiers. Free is status-only; paid access is issued on request.</p>
+      <p>Agent prices are exact per call. Discovery, status, and freshness are free. The current review stack wires <code>kreditvakt_score_company_v1</code> at 2,000 atomic test USDC ($0.002 nominal). Network: Base Sepolia testnet (<code>eip155:84532</code>); mainnet is blocked.</p>
+      <table><thead><tr><th>Band</th><th>Atomic test USDC</th><th>Nominal</th></tr></thead><tbody><tr><td>Lookup</td><td>2,000</td><td>$0.002</td></tr><tr><td>Signal</td><td>5,000</td><td>$0.005</td></tr><tr><td>Evidence</td><td>10,000</td><td>$0.01</td></tr><tr><td>Feed / batch</td><td>20,000</td><td>$0.02</td></tr><tr><td>Heavy synthesis</td><td>50,000</td><td>$0.05</td></tr></tbody></table>
+      <h3>Wallet payment flow</h3><ol><li>Initialize anonymously and call <code>tools/list</code>.</li><li>Call <code>kreditvakt_score_company_v1</code> without payment to receive its x402 v2 exact challenge.</li><li>Sign the accepted requirement with the agent wallet.</li><li>Retry the same call with the payload in <code>params._meta["x402/payment"]</code>.</li><li>Read settlement from <code>result._meta["x402/payment-response"]</code>.</li></ol><div class="callout info"><strong>Facilitator:</strong> <code>https://x402-facilitator-production-5948.up.railway.app/</code><br><strong>Network:</strong> Base Sepolia testnet · <code>eip155:84532</code></div>
 
       <div class="pricing-grid">
-        <div class="plan-card"><div class="plan-name">Free</div><div class="plan-price">Free</div><div class="plan-unit">status access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> 10 calls / month</div><div class="plan-feature"><span class="plan-check">✓</span> <code>norric_status_v1</code> only</div></div>
+        <div class="plan-card"><div class="plan-name">Agent free</div><div class="plan-price">Free</div><div class="plan-unit">discovery and trust checks</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> tools/list + status</div><div class="plan-feature"><span class="plan-check">✓</span> data freshness</div></div>
         <div class="plan-card featured"><div class="plan-name">Standard</div><div class="plan-price" style="font-size:22px;">On request</div><div class="plan-unit">product access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> All registered tools</div><div class="plan-feature"><span class="plan-check">✓</span> No monthly cap in current policy</div></div>
         <div class="plan-card"><div class="plan-name">Compliance</div><div class="plan-price">Custom</div><div class="plan-unit">audit access</div><div class="plan-divider"></div><div class="plan-feature"><span class="plan-check">✓</span> Standard access</div><div class="plan-feature"><span class="plan-check">✓</span> Audit-log access</div></div>
       </div>

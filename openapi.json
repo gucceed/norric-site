@@ -3,7 +3,7 @@
   "info": {
     "title": "Norric Intelligence API",
     "version": "2.0.0",
-    "description": "Machine-readable description of Norric's public HTTP and MCP surfaces. The REST bridge exposes selected live intelligence calls for agents that cannot use Streamable HTTP; MCP remains the canonical interface and exposes the complete tool inventory."
+    "description": "Machine-readable Norric MCP discovery and x402 payment contract for autonomous agents. Anonymous discovery, status and freshness are free; paid tools use exact test-USDC quotes on Base Sepolia testnet."
   },
   "servers": [
     {
@@ -58,16 +58,9 @@
           "MCP"
         ],
         "summary": "Send an MCP JSON-RPC request",
-        "description": "Streamable HTTP MCP endpoint. Initialize first and capture the `mcp-session-id` response header. Send that header on later requests such as `tools/list` and `tools/call`. MCP clients normally handle this handshake automatically.",
+        "description": "Streamable HTTP MCP endpoint. Anonymous agents may initialize, list tools, call free status/freshness, and call explicitly payment-gated tools. An unpaid paid-tool call returns an x402 challenge; retry with the signed payload in params._meta['x402/payment']. Other anonymous tool calls are rejected. API-key clients remain supported.",
         "operationId": "postMcpRequest",
-        "security": [
-          {
-            "bearerAuth": []
-          },
-          {
-            "norricApiKey": []
-          }
-        ],
+        "security": [],
         "parameters": [
           {
             "name": "mcp-session-id",
@@ -137,6 +130,9 @@
           },
           "503": {
             "description": "Data source temporarily unavailable. Retry after five minutes."
+          },
+          "403": {
+            "description": "Anonymous caller requested a tool that is neither free nor payment-gated."
           }
         }
       }
@@ -527,5 +523,32 @@
     "registryName": "io.github.gucceed/norric-mcp",
     "registryUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=norric",
     "apiKeyUrl": "https://norric.io/api-keys"
+  },
+  "x-norric-x402": {
+    "status": "review stack after wallet-only PR #25",
+    "network": "eip155:84532",
+    "networkName": "Base Sepolia testnet",
+    "mainnetAllowed": false,
+    "facilitator": "https://x402-facilitator-production-5948.up.railway.app/",
+    "paymentMetaPath": "params._meta[\"x402/payment\"]",
+    "settlementMetaPath": "result._meta[\"x402/payment-response\"]",
+    "freeTools": [
+      "norric_status_v1",
+      "norric_data_freshness_v1"
+    ],
+    "priceBandsAtomicTestUsdc": {
+      "lookup": 2000,
+      "signal": 5000,
+      "evidence": 10000,
+      "feed_batch": 20000,
+      "heavy": 50000
+    },
+    "pricedTools": {
+      "kreditvakt_score_company_v1": {
+        "band": "lookup",
+        "amount": 2000
+      }
+    },
+    "note": "Watchlist/event metering is not live."
   }
-          }
+}

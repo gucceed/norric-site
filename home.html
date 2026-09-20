@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Norric AB — Real-time intelligence on commercial Sweden</title>
-<meta name="description" content="Real-time intelligence on commercial Sweden, built from primary Swedish sources.">
-<meta property="og:title" content="Norric AB — Real-time intelligence on commercial Sweden">
-<meta property="og:description" content="Real-time intelligence on commercial Sweden, built from primary Swedish sources.">
+<title>Norric AB - The EU data rail for agents</title>
+<meta name="description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; Denmark and Norway rolling out.">
+<meta property="og:title" content="Norric AB - The EU data rail for agents">
+<meta property="og:description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; Denmark and Norway rolling out.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://norric.io">
 <style>
@@ -370,10 +370,10 @@
   <header>
     <div class="logo-block">
       <div class="logo">Norric <span>AB</span></div>
-      <div class="tagline">Swedish primary-source intelligence · September 2026</div>
+      <div class="tagline">Official register data for agents · September 2026</div>
     </div>
     <div class="header-meta">
-      <div class="date">13 September 2026</div>
+      <div class="date">20 September 2026</div>
       <div class="entity">Malmö, SE</div>
       <div style="margin-top:10px;display:flex;gap:16px;justify-content:flex-end;">
         <a href="/docs" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Docs</a>
@@ -386,16 +386,16 @@
   <div class="holding">
     <div>
       <div class="holding-name">Norric AB</div>
-      <div class="holding-desc">Independent data products on Swedish primary sources · founded and run solo in Malmö</div>
+      <div class="holding-desc">The EU data rail for agents · official company registers, sold per call · founded and run solo in Malmö</div>
     </div>
     <div class="holding-stats">
       <div class="stat">
         <div class="stat-val">3</div>
-        <div class="stat-label">Products</div>
+        <div class="stat-label">Countries</div>
       </div>
       <div class="stat">
-        <div class="stat-val">2</div>
-        <div class="stat-label">Live</div>
+        <div class="stat-val">36</div>
+        <div class="stat-label">MCP tools</div>
       </div>
       <div class="stat">
         <div class="stat-val">1</div>
@@ -406,12 +406,12 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-headline">Real-time intelligence on commercial Sweden.</div>
-    <div class="hero-subline">Insolvency, housing, and municipal procurement intelligence, built sensor by sensor from primary Swedish sources: Kronofogden, Skatteverket, and Bolagsverket.</div>
+    <div class="hero-headline">The EU data rail for agents.</div>
+    <div class="hero-subline">Official company-register data, served to autonomous agents one call at a time. Sweden is live and queryable today; Denmark and Norway are wired into production, with data coverage rolling out as each national pipeline completes its first load. No accounts, no API keys, no sales process: an agent finds the rail, pays per call, and gets an answer with provenance.</div>
   </div>
 
   <!-- PORTFOLIO -->
-  <div class="section-label">Operating portfolio · sensors feeding the intelligence core</div>
+  <div class="section-label">Operating portfolio · products riding the same rail</div>
   <div class="grid grid-2">
 
     <!-- Norric Kreditvakt -->
@@ -424,7 +424,7 @@
         </div>
         <span class="status-pill pill-blue">Live · ingestion operational</span>
       </div>
-      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 2,685 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
+      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 17,916 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
@@ -493,44 +493,55 @@
           <div class="card-name">Norric MCP Server</div>
           <div class="card-brand">mcp.norric.io</div>
         </div>
-        <span class="status-pill pill-green">Live · 21 tools</span>
+        <span class="status-pill pill-green">Live · 36 tools</span>
       </div>
-      <div class="card-desc">FastMCP 3.2.3 · Streamable HTTP · Universal NorricResponse Pydantic v2 envelope · API key auth (nrk_ keys, per-tier rate limits) · Canonical Swedish validated types (OrgnrStr, KommunkodStr, VertikalEnum) · Immutable audit trail for mutating tools. Provenance layer shipped April 2026: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age), addressing regulated-buyer audit requirements.</div>
+      <div class="card-desc">Agent-facing surface of the rail: 36 tools over Streamable HTTP. Discovery is free and anonymous - initialize, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">tools/list</code>, status and freshness, no account needed. Paid calls quote exact prices over x402 and settle in the same session: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_verify_v1</code> at $0.002 is the trust anchor, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_changes_v1</code> at $0.02 is the changes feed. Sweden is live; Denmark and Norway paid routes are live in production, with data coverage rolling out as their national pipelines complete first loads. When a pipeline is down, a tool says so - found=false with a warning - instead of guessing. Provenance rides on every response: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age).</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastMCP 3.2.3</span>
         <span class="tag">Railway</span>
         <span class="tag">Streamable HTTP</span>
         <span class="tag">Pydantic v2</span>
-        <span class="tag">21 tools</span>
+        <span class="tag">36 tools</span>
+        <span class="tag">x402 per-call</span>
         <span class="tag">OrgnrStr · KommunkodStr</span>
       </div>
-      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Free sandbox tier (100 calls/month) · paid tiers on request · Docs at <a href="/docs" style="color:var(--muted);">norric.io/docs</a>.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Free discovery, status and freshness without an account · paid calls settle per call over x402 · API keys still supported for existing clients · Docs at <a href="/docs" style="color:var(--muted);">norric.io/docs</a>.</div>
     </div>
   </div>
 
-  <!-- STRATEGIC MOATS -->
-  <div class="section-label">Strategic moats · elapsed-time-dependent assets</div>
+  <!-- THE RAIL -->
+  <div class="section-label">The rail · what Norric is becoming</div>
   <div class="moat-grid" style="margin-bottom:40px;">
     <div class="moat-cell">
-      <div class="moat-icon">📡</div>
-      <div class="moat-name">Elapsed-time-dependent ingestion</div>
-      <div class="moat-desc">Every ingestion cycle compounds the corpus. Competitors cannot retroactively ingest 2024 Kronofogden filings; only forward-looking access produces forward-looking signal.</div>
+      <div class="moat-icon">📇</div>
+      <div class="moat-name">Official registers only</div>
+      <div class="moat-desc">Every record comes from a national company register: Bolagsverket in Sweden, CVR in Denmark, Brønnøysund in Norway. No scraped guesses, no resold third-party data. Provenance an auditor can follow back to the source.</div>
     </div>
     <div class="moat-cell">
-      <div class="moat-icon">🔒</div>
-      <div class="moat-name">Regulatory access</div>
-      <div class="moat-desc">Bolagsverket, Skatteverket, and Kronofogden: permissioned, built, and hardened in production.</div>
+      <div class="moat-icon">💳</div>
+      <div class="moat-name">Per-call, paid by the caller</div>
+      <div class="moat-desc">No seats, no contracts, no invoices. An agent pays for exactly the call it makes over x402: $0.002 to verify a company, $0.02 for the changes feed. The cheap verify call is the free sample; the feed is the subscription.</div>
     </div>
     <div class="moat-cell">
-      <div class="moat-icon">🧠</div>
-      <div class="moat-name">Swedish calibration</div>
-      <div class="moat-desc">Kollektivavtal, personnummer, F-skatt, ROT/RUT, Bankgirot, kommunkoder, BRF-specific accounting. Embedded in the Norric MCP type system (OrgnrStr, KommunkodStr, VertikalEnum).</div>
+      <div class="moat-icon">🔌</div>
+      <div class="moat-name">Zero onboarding</div>
+      <div class="moat-desc">Machine-readable from the first byte: manifest, OpenAPI, llms.txt, free tools/list. An agent discovers, pays and gets an answer in one session. No account, no API key, no human in the loop.</div>
     </div>
     <div class="moat-cell">
-      <div class="moat-icon">🔗</div>
-      <div class="moat-name">Shared data spine</div>
-      <div class="moat-desc">Bolagsverket ingestion shared across Kreditvakt and Sigvik. Each product amortises infrastructure cost across the portfolio.</div>
+      <div class="moat-icon">🇪🇺</div>
+      <div class="moat-name">EU-resident end to end</div>
+      <div class="moat-desc">Official EU sources, compute and data resident in the EU, payment facilitator in Amsterdam. The compliance story a US data API cannot tell.</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🧭</div>
+      <div class="moat-name">Machine trust by default</div>
+      <div class="moat-desc">Freshness is queryable, coverage is stated per tool, and failure is honest: found=false instead of a guess. That is what gets an agent to call twice.</div>
+    </div>
+    <div class="moat-cell">
+      <div class="moat-icon">🏛️</div>
+      <div class="moat-name">Built for the operator too</div>
+      <div class="moat-desc">The human who funds the wallet gets what compliance needs: official sources only, per-call metering, and an audit trail on every score.</div>
     </div>
   </div>
 
@@ -538,15 +549,15 @@
   <div class="section-label" style="margin-top:40px;">Thesis</div>
   <div class="ip-box" style="margin-bottom:40px;">
     <div class="ip-desc" style="line-height:1.75;">
-      Norric AB builds a real-time statistical model of commercial Sweden. Each operating product (<strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement) ingests data directly from authoritative Swedish primary sources and contributes a calibrated signal to a shared intelligence core.
+      Norric is becoming the rail agents use to check European companies. Each operating product (<strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement) ingests from official primary sources and feeds the same pipes the rail sells by the call.
       <br><br>
-      The operating thesis is that in the AI era, intelligence is abundant but three things remain scarce: elapsed time spent ingesting, regulatory permission to ingest, and institutional trust in what is published. Norric optimises for all three.
+      The bet is simple: agents do not read marketing, they read manifests, and their eval loops punish anything that guesses. So the rail earns trust the machine way - official registers only, freshness you can query, honest failures, provenance on every response. Snapshots do not compound; history and subscriptions do. Three countries are wired into production now, and every country added makes the rail harder to route around.
     </div>
   </div>
 
   <!-- FOOTER -->
   <footer>
-    <div class="left">Norric AB · Portfolio snapshot · September 2026</div>
+    <div class="left">Norric AB · The EU data rail for agents · September 2026</div>
     <div class="right">
       Solo founder · Edgar Mutebi · Malmö, SE
     </div>

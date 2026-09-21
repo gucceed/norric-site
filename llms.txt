@@ -15,13 +15,13 @@
 ## Coverage
 
 Official national registers only: Bolagsverket (Sweden), CVR (Denmark),
-Brønnøysund (Norway).
+Brønnøysund (Norway), PRH (Finland).
 
 - Sweden: live and queryable.
-- Denmark and Norway: paid routes live in production; data coverage rolls out
-  as each national pipeline completes its first load. Do not treat DK/NO
-  company data as queryable until `norric_data_freshness_v1` shows live
-  sources for those countries.
+- Denmark, Norway and Finland: paid routes live in production; data coverage
+  rolls out as each national pipeline completes its first load. Do not treat
+  DK/NO/FI company data as queryable until `norric_data_freshness_v1` shows
+  live sources for those countries.
 
 ## Zero-onboarding discovery
 
@@ -31,9 +31,10 @@ Connect to the MCP endpoint without an API key, send `initialize`, retain the
 - `norric_status_v1`
 - `norric_data_freshness_v1`
 
-The first wallet-paid tools are `swedish_company_verify_v1` at 2,000 atomic
-test USDC ($0.002 nominal, the trust anchor) and `swedish_company_changes_v1`
-at 20,000 ($0.02, the changes feed). An unpaid `tools/call` returns an x402 v2
+The first wallet-paid tools are `swedish_company_verify_v1` and
+`finnish_company_verify_v1` at 2,000 atomic test USDC ($0.002 nominal, the
+trust anchor), plus `swedish_company_changes_v1` and
+`finnish_company_changes_v1` at 20,000 ($0.02, the changes feed). An unpaid `tools/call` returns an x402 v2
 challenge. Sign the accepted exact payment with the agent wallet, put the
 payload at `params._meta["x402/payment"]`, and retry the same call. The
 response includes `_meta["x402/payment-response"]` with settlement details. No
@@ -42,8 +43,8 @@ until assigned a price band.
 
 Approved exact price bands (atomic test USDC): lookup 2,000; signal 5,000;
 evidence 10,000; feed/batch 20,000; heavy synthesis 50,000. Wired today:
-company verify (lookup band) and the company changes feed (feed/batch band).
-Watchlist/event metering is not yet live.
+Swedish and Finnish company verify (lookup band) and company changes feeds
+(feed/batch band). Watchlist/event metering is not yet live.
 
 ## Muse Code
 
@@ -65,7 +66,7 @@ wallet client for paid calls. API-key clients remain supported for existing use.
 
 ## Safety and data status
 
-Some of the 36 registered functions are partial or inactive while upstream
+Some of the 38 registered functions are partial or inactive while upstream
 pipelines are disconnected. Check status and freshness before consequential use;
 do not treat warning-bearing or placeholder results as live intelligence. Tools
 degrade honestly (found=false with warnings) rather than guessing.

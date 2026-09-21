@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric Intelligence API — Developer Guide</title>
-<meta name="description" content="Developer documentation for the Norric MCP server — 25 registered Swedish intelligence functions with live, partial, and inactive status shown clearly.">
+<meta name="description" content="Developer documentation for the Norric MCP server - 38 registered European register functions with live, partial, and inactive status shown clearly.">
 <style>
   :root {
     --bg: #ffffff;
@@ -363,7 +363,7 @@
   <nav class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-name">Norric</div>
-      <div class="sidebar-logo-tag">Developer Guide · v2.0</div>
+      <div class="sidebar-logo-tag">Developer Guide · v2.1</div>
     </div>
 
     <a href="/" class="sidebar-back">← Back to norric.io</a>
@@ -403,15 +403,15 @@
 
     <!-- OVERVIEW -->
     <div class="section" id="overview">
-      <div class="section-overline">Norric Intelligence MCP · v2.0.0</div>
-      <h1>Swedish intelligence API<br>for AI agents.</h1>
-      <p>25 functions are registered across insolvency risk, municipal procurement, company lifecycle, website leads, and BRF intelligence. Some are live, some partial, and some are inactive until their pipelines are connected. Status is shown per tool below.</p>
+      <div class="section-overline">Norric Intelligence MCP · v2.1.0</div>
+      <h1>European register data<br>for AI agents.</h1>
+      <p>38 functions are registered across insolvency risk, municipal procurement, company lifecycle, website leads, and BRF intelligence. Some are live, some partial, and some are inactive until their pipelines are connected. Status is shown per tool below. Sweden is live and queryable; Denmark, Norway and Finland paid routes are live in production, with data coverage rolling out as national pipelines complete their first loads.</p>
 
       <div class="callout info">
         <strong>MCP server:</strong> <code>https://mcp.norric.io/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP · FastMCP 3.2.3 · Protocol 2024-11-05<br>
-        <strong>Functions:</strong> 25 registered; availability varies by function and tier<br>
-        <strong>Coverage:</strong> 17,916 companies tracked (live health, 14 September 2026) · 33,710 scored BRFs
+        <strong>Functions:</strong> 38 registered; availability varies by function and tier<br>
+        <strong>Coverage:</strong> 17,916 Swedish companies tracked (live health, 14 September 2026) · 33,710 scored BRFs · Denmark, Norway and Finland: routes live, first national loads in progress
       </div>
 
       <div class="callout success">
@@ -549,7 +549,7 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 4. TOOLS REFERENCE -->
     <div class="section" id="tools">
       <h2>Tools reference</h2>
-      <p>25 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
+      <p>38 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
 
       <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
       <p>17,916 companies are currently tracked according to live health. Companies are scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
@@ -782,7 +782,7 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 7. PRICING -->
     <div class="section" id="pricing">
       <h2>Pricing</h2>
-      <p>Agent prices are exact per call. Discovery, status, and freshness are free. The current review stack wires <code>kreditvakt_score_company_v1</code> at 2,000 atomic test USDC ($0.002 nominal). Network: Base Sepolia testnet (<code>eip155:84532</code>); mainnet is blocked.</p>
+      <p>Agent prices are exact per call. Discovery, status, and freshness are free. Wired today: <code>swedish_company_verify_v1</code> and <code>finnish_company_verify_v1</code> at 2,000 atomic test USDC ($0.002, the trust anchor), plus <code>swedish_company_changes_v1</code> and <code>finnish_company_changes_v1</code> at 20,000 ($0.02, the changes feed). Network: Base Sepolia testnet (<code>eip155:84532</code>); mainnet is blocked.</p>
       <table><thead><tr><th>Band</th><th>Atomic test USDC</th><th>Nominal</th></tr></thead><tbody><tr><td>Lookup</td><td>2,000</td><td>$0.002</td></tr><tr><td>Signal</td><td>5,000</td><td>$0.005</td></tr><tr><td>Evidence</td><td>10,000</td><td>$0.01</td></tr><tr><td>Feed / batch</td><td>20,000</td><td>$0.02</td></tr><tr><td>Heavy synthesis</td><td>50,000</td><td>$0.05</td></tr></tbody></table>
       <h3>Wallet payment flow</h3><ol><li>Initialize anonymously and call <code>tools/list</code>.</li><li>Call <code>kreditvakt_score_company_v1</code> without payment to receive its x402 v2 exact challenge.</li><li>Sign the accepted requirement with the agent wallet.</li><li>Retry the same call with the payload in <code>params._meta["x402/payment"]</code>.</li><li>Read settlement from <code>result._meta["x402/payment-response"]</code>.</li></ol><div class="callout info"><strong>Facilitator:</strong> <code>https://x402-facilitator-production-5948.up.railway.app/</code><br><strong>Network:</strong> Base Sepolia testnet · <code>eip155:84532</code></div>
 
@@ -800,6 +800,13 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 8. CHANGELOG -->
     <div class="section" id="changelog">
       <h2>Changelog</h2>
+
+      <h3>v2.1.0 - September 2026</h3>
+      <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
+        <li>Denmark, Norway and Finland paid routes live in production - 38 functions registered; DK/NO/FI data coverage rolls out as national pipelines complete first loads</li>
+        <li><code>swedish_company_verify_v1</code> and <code>finnish_company_verify_v1</code> ($0.002) plus <code>swedish_company_changes_v1</code> and <code>finnish_company_changes_v1</code> ($0.02) wired as the first x402 paid products</li>
+        <li>Anonymous discovery, status and freshness remain free - no account or API key needed</li>
+      </ul>
 
       <h3>v2.0.0 — April 2026</h3>
       <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
@@ -832,7 +839,7 @@ curl -s https://mcp.norric.io/mcp \
 
     <!-- FOOTER -->
     <div style="border-top:1px solid var(--border);padding-top:24px;margin-top:80px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <span>Norric · Developer Guide · v2.0.0 · September 2026</span>
+      <span>Norric · Developer Guide · v2.1.0 · September 2026</span>
       <span><a href="https://norric.io">norric.io</a> · <a href="mailto:edgar@norric.io">edgar@norric.io</a></span>
     </div>
 

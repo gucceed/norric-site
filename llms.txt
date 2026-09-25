@@ -18,8 +18,8 @@ Official national registers only: Bolagsverket (Sweden), CVR (Denmark),
 Brønnøysund (Norway), PRH (Finland).
 
 - Sweden: live and queryable.
-- Denmark, Norway and Finland: paid routes live in production; data coverage
-  rolls out as each national pipeline completes its first load. Do not treat
+- Denmark, Norway and Finland: paid routes live in production; Denmark's first
+  national data load starts next. Do not treat
   DK/NO/FI company data as queryable until `norric_data_freshness_v1` shows
   live sources for those countries.
 - Estonia and France: code-complete and payment-gated. They open to queries

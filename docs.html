@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric Intelligence API — Developer Guide</title>
-<meta name="description" content="Developer documentation for the Norric MCP server - 38 registered European register functions with live, partial, and inactive status shown clearly.">
+<meta name="description" content="Developer documentation for the Norric MCP server - 42 registered European register functions with live, partial, and inactive status shown clearly.">
 <style>
   :root {
     --bg: #ffffff;
@@ -405,13 +405,13 @@
     <div class="section" id="overview">
       <div class="section-overline">Norric Intelligence MCP · v2.1.0</div>
       <h1>European register data<br>for AI agents.</h1>
-      <p>38 functions are registered across insolvency risk, municipal procurement, company lifecycle, website leads, and BRF intelligence. Some are live, some partial, and some are inactive until their pipelines are connected. Status is shown per tool below. Sweden is live and queryable; Denmark, Norway and Finland paid routes are live in production, with data coverage rolling out as national pipelines complete their first loads.</p>
+      <p>42 functions are registered across insolvency risk, municipal procurement, company lifecycle, website leads, and BRF intelligence. Some are live, some partial, and some are inactive until their pipelines are connected. Status is shown per tool below. Sweden is live and queryable; Denmark, Norway and Finland paid routes are live in production; Denmark's first national data load starts next.</p>
 
       <div class="callout info">
         <strong>MCP server:</strong> <code>https://mcp.norric.io/mcp</code><br>
         <strong>Transport:</strong> Streamable HTTP · FastMCP 3.2.3 · Protocol 2024-11-05<br>
-        <strong>Functions:</strong> 38 registered; availability varies by function and tier<br>
-        <strong>Coverage:</strong> 17,916 Swedish companies tracked (live health, 14 September 2026) · 33,710 scored BRFs · Denmark, Norway and Finland: routes live, first national loads in progress
+        <strong>Functions:</strong> 42 registered; availability varies by function and tier<br>
+        <strong>Coverage:</strong> 18,438 Swedish companies tracked (live health, 25 September 2026) · 33,710 scored BRFs · Denmark, Norway and Finland: paid routes live, Denmark's first national load starts next · Estonia and France: code-complete behind the same payment gates
       </div>
 
       <div class="callout success">
@@ -549,10 +549,10 @@ curl -s https://mcp.norric.io/mcp \
     <!-- 4. TOOLS REFERENCE -->
     <div class="section" id="tools">
       <h2>Tools reference</h2>
-      <p>38 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
+      <p>42 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
 
       <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
-      <p>17,916 companies are currently tracked according to live health. Companies are scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
+      <p>18,438 companies are currently tracked according to live health. Companies are scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
 
       <table>
         <thead>
@@ -803,7 +803,7 @@ curl -s https://mcp.norric.io/mcp \
 
       <h3>v2.1.0 - September 2026</h3>
       <ul style="color:#86868b;font-size:12px;line-height:2;padding-left:18px;">
-        <li>Denmark, Norway and Finland paid routes live in production - 38 functions registered; DK/NO/FI data coverage rolls out as national pipelines complete first loads</li>
+        <li>Denmark, Norway and Finland paid routes live in production - 42 functions registered; Denmark's first national data load starts next</li>
         <li><code>swedish_company_verify_v1</code> and <code>finnish_company_verify_v1</code> ($0.002) plus <code>swedish_company_changes_v1</code> and <code>finnish_company_changes_v1</code> ($0.02) wired as the first x402 paid products</li>
         <li>Anonymous discovery, status and freshness remain free - no account or API key needed</li>
       </ul>

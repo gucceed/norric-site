@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric AB - The EU data rail for agents</title>
-<meta name="description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; Denmark, Norway and Finland rolling out.">
+<meta name="description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; paid routes live for Denmark, Norway and Finland.">
 <meta property="og:title" content="Norric AB - The EU data rail for agents">
-<meta property="og:description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; Denmark, Norway and Finland rolling out.">
+<meta property="og:description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; paid routes live for Denmark, Norway and Finland.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://norric.io">
 <style>
@@ -373,7 +373,7 @@
       <div class="tagline">Official register data for agents · September 2026</div>
     </div>
     <div class="header-meta">
-      <div class="date">20 September 2026</div>
+      <div class="date">25 September 2026</div>
       <div class="entity">Malmö, SE</div>
       <div style="margin-top:10px;display:flex;gap:16px;justify-content:flex-end;">
         <a href="/docs" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Docs</a>
@@ -394,7 +394,7 @@
         <div class="stat-label">Countries</div>
       </div>
       <div class="stat">
-        <div class="stat-val">38</div>
+        <div class="stat-val">42</div>
         <div class="stat-label">MCP tools</div>
       </div>
       <div class="stat">
@@ -424,7 +424,7 @@
         </div>
         <span class="status-pill pill-blue">Live · ingestion operational</span>
       </div>
-      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 17,916 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
+      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 18,438 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
@@ -493,16 +493,16 @@
           <div class="card-name">Norric MCP Server</div>
           <div class="card-brand">mcp.norric.io</div>
         </div>
-        <span class="status-pill pill-green">Live · 38 tools</span>
+        <span class="status-pill pill-green">Live · 42 tools</span>
       </div>
-      <div class="card-desc">Agent-facing surface of the rail: 38 tools over Streamable HTTP. Discovery is free and anonymous - initialize, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">tools/list</code>, status and freshness, no account needed. Paid calls quote exact prices over x402 and settle in the same session: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_verify_v1</code> at $0.002 is the trust anchor, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_changes_v1</code> at $0.02 is the changes feed. Sweden is live; Denmark, Norway and Finland paid routes are live in production, with data coverage rolling out as their national pipelines complete first loads. When a pipeline is down, a tool says so - found=false with a warning - instead of guessing. Provenance rides on every response: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age).</div>
+      <div class="card-desc">Agent-facing surface of the rail: 42 tools over Streamable HTTP. Discovery is free and anonymous - initialize, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">tools/list</code>, status and freshness, no account needed. Paid calls quote exact prices over x402 and settle in the same session: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_verify_v1</code> at $0.002 is the trust anchor, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_changes_v1</code> at $0.02 is the changes feed. Sweden is live; Denmark, Norway and Finland paid routes are live in production, with data coverage rolling out as their national pipelines complete first loads. When a pipeline is down, a tool says so - found=false with a warning - instead of guessing. Provenance rides on every response: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age).</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastMCP 3.2.3</span>
         <span class="tag">Railway</span>
         <span class="tag">Streamable HTTP</span>
         <span class="tag">Pydantic v2</span>
-        <span class="tag">38 tools</span>
+        <span class="tag">42 tools</span>
         <span class="tag">x402 per-call</span>
         <span class="tag">OrgnrStr · KommunkodStr</span>
       </div>
@@ -531,7 +531,7 @@
     <div class="moat-cell">
       <div class="moat-icon">🇪🇺</div>
       <div class="moat-name">EU-resident end to end</div>
-      <div class="moat-desc">Official EU sources, compute and data resident in the EU, payment facilitator in Amsterdam. The compliance story a US data API cannot tell.</div>
+      <div class="moat-desc">Official EU sources, production database in Stockholm, compute and payment facilitator in Amsterdam. The compliance story a US data API cannot tell.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🧭</div>

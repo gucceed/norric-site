@@ -18,10 +18,15 @@ Official national registers only: Bolagsverket (Sweden), CVR (Denmark),
 Brønnøysund (Norway), PRH (Finland).
 
 - Sweden: live and queryable.
-- Denmark, Norway and Finland: paid routes live in production; data coverage
-  rolls out as each national pipeline completes its first load. Do not treat
+- Denmark, Norway and Finland: paid routes live in production; Denmark's first
+  national data load starts next. Do not treat
   DK/NO/FI company data as queryable until `norric_data_freshness_v1` shows
   live sources for those countries.
+- Estonia and France: code-complete and payment-gated. They open to queries
+  after their first national loads complete.
+
+The rail is EU-resident end to end: official EU sources, the production
+database in Stockholm, and compute plus the payment facilitator in Amsterdam.
 
 ## Zero-onboarding discovery
 
@@ -66,7 +71,7 @@ wallet client for paid calls. API-key clients remain supported for existing use.
 
 ## Safety and data status
 
-Some of the 38 registered functions are partial or inactive while upstream
+Some of the 42 registered functions are partial or inactive while upstream
 pipelines are disconnected. Check status and freshness before consequential use;
 do not treat warning-bearing or placeholder results as live intelligence. Tools
 degrade honestly (found=false with warnings) rather than guessing.

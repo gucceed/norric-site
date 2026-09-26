@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Norric AB - The EU data rail for agents</title>
-<meta name="description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; paid routes live for Denmark, Norway and Finland.">
+<meta name="description" content="Official European company-register data for autonomous agents. Per-call testnet pricing over x402, free discovery, EU-resident data processing. Sweden queryable; Denmark, Norway and Finland paid routes are deployed, with national data loads pending.">
 <meta property="og:title" content="Norric AB - The EU data rail for agents">
-<meta property="og:description" content="Official European company-register data for autonomous agents. Per-call pricing over x402, zero onboarding, EU-resident end to end. Sweden live; paid routes live for Denmark, Norway and Finland.">
+<meta property="og:description" content="Official European company-register data for autonomous agents. Per-call testnet pricing over x402, free discovery, EU-resident data processing. Sweden queryable; Denmark, Norway and Finland paid routes are deployed, with national data loads pending.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://norric.io">
 <style>
@@ -373,7 +373,7 @@
       <div class="tagline">Official register data for agents · September 2026</div>
     </div>
     <div class="header-meta">
-      <div class="date">25 September 2026</div>
+      <div class="date">September 2026</div>
       <div class="entity">Malmö, SE</div>
       <div style="margin-top:10px;display:flex;gap:16px;justify-content:flex-end;">
         <a href="/docs" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">Docs</a>
@@ -391,11 +391,11 @@
     <div class="holding-stats">
       <div class="stat">
         <div class="stat-val">4</div>
-        <div class="stat-label">Countries</div>
+        <div class="stat-label">Country routes</div>
       </div>
       <div class="stat">
         <div class="stat-val">42</div>
-        <div class="stat-label">MCP tools</div>
+        <div class="stat-label">Registered tools</div>
       </div>
       <div class="stat">
         <div class="stat-val">1</div>
@@ -407,7 +407,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-headline">The EU data rail for agents.</div>
-    <div class="hero-subline">Official company-register data, served to autonomous agents one call at a time. Sweden is live and queryable today; Denmark, Norway and Finland are wired into production, with data coverage rolling out as each national pipeline completes its first load. No accounts, no API keys, no sales process: an agent finds the rail, pays per call, and gets an answer with provenance.</div>
+    <div class="hero-subline">Official company-register data for agents over MCP. Sweden is live and queryable. Denmark, Norway and Finland have paid routes in production, but their company data must not be treated as queryable until the national loads are verified. Estonia and France are code-complete and payment-gated, not queryable. Agents can discover the rail without an account or API key; wallet-paid calls use x402 on Base Sepolia testnet only.</div>
   </div>
 
   <!-- PORTFOLIO -->
@@ -493,20 +493,20 @@
           <div class="card-name">Norric MCP Server</div>
           <div class="card-brand">mcp.norric.io</div>
         </div>
-        <span class="status-pill pill-green">Live · 42 tools</span>
+        <span class="status-pill pill-green">Live · 42 registered tools</span>
       </div>
-      <div class="card-desc">Agent-facing surface of the rail: 42 tools over Streamable HTTP. Discovery is free and anonymous - initialize, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">tools/list</code>, status and freshness, no account needed. Paid calls quote exact prices over x402 and settle in the same session: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_verify_v1</code> at $0.002 is the trust anchor, <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">swedish_company_changes_v1</code> at $0.02 is the changes feed. Sweden is live; Denmark, Norway and Finland paid routes are live in production, with data coverage rolling out as their national pipelines complete first loads. When a pipeline is down, a tool says so - found=false with a warning - instead of guessing. Provenance rides on every response: <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_explain_score_v1</code> (factor decomposition) and <code style="font-size:11px;color:var(--teal);background:none;border:none;padding:0;">norric_data_freshness_v1</code> (per-source data age).</div>
+      <div class="card-desc">Agent-facing surface of the rail: 42 registered functions over Streamable HTTP; some are partial or inactive. Discovery, status and freshness are free without an account. Wallet-paid Swedish company verification is quoted at $0.002 nominal test USDC and the Swedish changes feed at $0.02, settled per call over x402 on Base Sepolia testnet. Mainnet payments are not live. Sweden is queryable; Denmark, Norway and Finland have deployed paid routes, but national data loads need verification before those countries can be queried. Estonia and France are code-complete and gated. Check tool status and freshness before consequential use; unavailable data returns found=false with warnings rather than a guessed answer.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastMCP 3.2.3</span>
         <span class="tag">Railway</span>
         <span class="tag">Streamable HTTP</span>
         <span class="tag">Pydantic v2</span>
-        <span class="tag">42 tools</span>
+        <span class="tag">42 registered tools</span>
         <span class="tag">x402 per-call</span>
         <span class="tag">OrgnrStr · KommunkodStr</span>
       </div>
-      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Free discovery, status and freshness without an account · paid calls settle per call over x402 · API keys still supported for existing clients · Docs at <a href="/docs" style="color:var(--muted);">norric.io/docs</a>.</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--muted);line-height:1.6;">Free discovery, status and freshness without an account · x402 testnet only, not mainnet revenue · API keys still supported for existing clients · Docs at <a href="/docs" style="color:var(--muted);">norric.io/docs</a>.</div>
     </div>
   </div>
 
@@ -516,22 +516,22 @@
     <div class="moat-cell">
       <div class="moat-icon">📇</div>
       <div class="moat-name">Official registers only</div>
-      <div class="moat-desc">Every record comes from a national company register: Bolagsverket in Sweden, CVR in Denmark, Brønnøysund in Norway, PRH in Finland. No scraped guesses, no resold third-party data. Provenance an auditor can follow back to the source.</div>
+      <div class="moat-desc">The country connectors use official national company registers: Bolagsverket in Sweden, CVR in Denmark, Brønnøysund in Norway and PRH in Finland. Sweden is queryable; check freshness before relying on the other countries. Source and freshness are exposed to callers.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">💳</div>
       <div class="moat-name">Per-call, paid by the caller</div>
-      <div class="moat-desc">No seats, no contracts, no invoices. An agent pays for exactly the call it makes over x402: $0.002 to verify a company, $0.02 for the changes feed. The cheap verify call is the free sample; the feed is the subscription.</div>
+      <div class="moat-desc">Agents can discover the tools for free. Paid Swedish verify calls are quoted at $0.002 nominal test USDC; changes feed calls at $0.02. Each is a separate x402 payment on Base Sepolia testnet. Neither mainnet settlement nor a recurring subscription is live.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🔌</div>
       <div class="moat-name">Zero onboarding</div>
-      <div class="moat-desc">Machine-readable from the first byte: manifest, OpenAPI, llms.txt, free tools/list. An agent discovers, pays and gets an answer in one session. No account, no API key, no human in the loop.</div>
+      <div class="moat-desc">Machine-readable discovery through the x402 manifest, OpenAPI, llms.txt and free tools/list. An agent can discover the server without an account or API key. Wallet-paid calls need an x402-capable client and test USDC.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🇪🇺</div>
-      <div class="moat-name">EU-resident end to end</div>
-      <div class="moat-desc">Official EU sources, production database in Stockholm, compute and payment facilitator in Amsterdam. The compliance story a US data API cannot tell.</div>
+      <div class="moat-name">EU-resident data processing</div>
+      <div class="moat-desc">Production database in Stockholm; application compute and payment facilitator in Amsterdam. No personal data is ingested. For EU-only handling, a snapshot option is available. The public website currently uses Vercel CDN, so this claim covers the data-processing rail rather than every website request.</div>
     </div>
     <div class="moat-cell">
       <div class="moat-icon">🧭</div>
@@ -541,7 +541,7 @@
     <div class="moat-cell">
       <div class="moat-icon">🏛️</div>
       <div class="moat-name">Built for the operator too</div>
-      <div class="moat-desc">The human who funds the wallet gets what compliance needs: official sources only, per-call metering, and an audit trail on every score.</div>
+      <div class="moat-desc">The operator can inspect source provenance, status and freshness before using a response. Data loads are staged country by country, and warning-bearing results should not be treated as live intelligence.</div>
     </div>
   </div>
 
@@ -549,9 +549,9 @@
   <div class="section-label" style="margin-top:40px;">Thesis</div>
   <div class="ip-box" style="margin-bottom:40px;">
     <div class="ip-desc" style="line-height:1.75;">
-      Norric is becoming the rail agents use to check European companies. Each operating product (<strong style="color:var(--text);">Kreditvakt</strong> for corporate insolvency, <strong style="color:var(--text);">Sigvik</strong> for the BRF housing stock, <strong style="color:var(--text);">SIGNAL</strong> for municipal procurement) ingests from official primary sources and feeds the same pipes the rail sells by the call.
+      Norric is becoming the rail agents use to check European companies. Kreditvakt provides Swedish corporate risk intelligence and Sigvik covers BRF housing data. SIGNAL is still being built; its MCP tools are registered but its live-data activation is not complete.
       <br><br>
-      The bet is simple: agents do not read marketing, they read manifests, and their eval loops punish anything that guesses. So the rail earns trust the machine way - official registers only, freshness you can query, honest failures, provenance on every response. Snapshots do not compound; history and subscriptions do. Four countries are wired into production now, and every country added makes the rail harder to route around.
+      The bet is simple: agents do not read marketing, they read manifests, and their eval loops punish anything that guesses. So the rail earns trust the machine way - official registers only, freshness you can query, honest failures, provenance on every response. Snapshots do not compound; history and subscriptions do. Sweden is queryable now. Denmark, Norway and Finland have paid routes in production, while their national data coverage must be checked for freshness. Estonia and France remain gated until their first loads.
     </div>
   </div>
 

@@ -18,15 +18,16 @@ Official national registers only: Bolagsverket (Sweden), CVR (Denmark),
 Brønnøysund (Norway), PRH (Finland).
 
 - Sweden: live and queryable.
-- Denmark, Norway and Finland: paid routes live in production; Denmark's first
-  national data load starts next. Do not treat
-  DK/NO/FI company data as queryable until `norric_data_freshness_v1` shows
+- Denmark, Norway and Finland: paid routes deployed. Norway's data is loaded but
+  not yet verified end to end, Denmark's load is incomplete, and no Finnish data
+  is loaded. Do not treat DK/NO/FI company data as queryable until `norric_data_freshness_v1` shows
   live sources for those countries.
 - Estonia and France: code-complete and payment-gated. They open to queries
   after their first national loads complete.
 
-The rail is EU-resident end to end: official EU sources, the production
-database in Stockholm, and compute plus the payment facilitator in Amsterdam.
+Data processing is EU-resident: official EU sources, the production database in
+Stockholm, and compute plus the payment facilitator in Amsterdam. The public
+website is served through the Vercel CDN, which this claim does not cover.
 
 ## Zero-onboarding discovery
 

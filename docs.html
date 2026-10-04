@@ -569,8 +569,8 @@ curl -si <span class="string">"https://mcp.norric.io/x402/company/verify?orgnr_o
       <h2>Tools reference</h2>
       <p>42 functions are registered. Parameters vary by tool: company tools use orgnr or a search string, SIGNAL uses kommunkod and vertikal, Sigvik uses BRF IDs, and SiteLoop uses city or lead fields. Check each signature in your MCP client.</p>
 
-      <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt — Insolvency scoring <span class="version-pill">live</span></h3>
-      <p>18,438 companies are currently tracked according to live health. Companies are scored on a 0–20 scale from four independent signal sources: Skatteverket restanslängd, Kronofogden betalningsförelägganden, Bolagsverket ärenden (pre-registration leading indicator), and Bolagsverket konkursregister. Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors.</p>
+      <h3 id="tools-kreditvakt" style="scroll-margin-top:24px;">Kreditvakt - Experimental scoring <span class="version-pill">unvalidated</span></h3>
+      <p>The Kreditvakt public site is paused. The separate Norric API still exposes the tools listed below. Scoring pipeline status is available at <a href="https://mcp.norric.io/health">mcp.norric.io/health</a>; pipeline activity is not evidence of predictive accuracy. Early-warning performance and backtest results have not been verified. Scores must not be treated as validated insolvency predictions.</p>
 
       <table>
         <thead>
@@ -664,8 +664,8 @@ curl -si <span class="string">"https://mcp.norric.io/x402/company/verify?orgnr_o
 
       <hr>
 
-      <h3 id="tools-sigvik" style="scroll-margin-top:24px;">Sigvik — BRF intelligence <span class="version-pill">partial</span></h3>
-      <p><code>sigvik_score_brf_v1</code> is connected to the live downstream score API. Avgift and flag pipelines are not yet connected and currently return empty data with warnings. Live health reports 33,710 scored BRFs.</p>
+      <h3 id="tools-sigvik" style="scroll-margin-top:24px;">Sigvik - BRF tools <span class="version-pill">unverified</span></h3>
+      <p>The Sigvik public site is paused. The tool names below remain documented, but downstream availability, coverage and scoring performance have not been verified. No scored-BRF count or accuracy claim is offered.</p>
 
       <table>
         <thead>
@@ -674,7 +674,7 @@ curl -si <span class="string">"https://mcp.norric.io/x402/company/verify?orgnr_o
         <tbody>
           <tr>
             <td>sigvik_score_brf_v1</td>
-            <td>Financial health and renovation risk score 0–100.</td>
+            <td>Experimental BRF score tool; availability and scoring validity unverified.</td>
             <td>brf_id</td>
           </tr>
           <tr>
@@ -706,7 +706,7 @@ curl -si <span class="string">"https://mcp.norric.io/x402/company/verify?orgnr_o
         <tbody>
           <tr>
             <td>norric_company_profile_v1</td>
-            <td>Unified Kreditvakt company profile with early-warning signals.</td>
+            <td>Company profile tool with experimental Kreditvakt fields; predictive performance unverified.</td>
           </tr>
           <tr>
             <td>norric_explain_score_v1</td>
@@ -831,9 +831,7 @@ curl -si <span class="string">"https://mcp.norric.io/x402/company/verify?orgnr_o
         <li>Added <code>NORRIC_API_KEYS</code> authentication — all 401 errors point to <code>norric.io/api-keys</code></li>
         <li>Added <code>/health</code> endpoint returning status, tool count, and version</li>
         <li>Added Bolagsverket ärenden leading-indicator signal (<code>arende_ankommet_datum</code>, <code>arende_kanal</code>)</li>
-        <li>Kreditvakt warning horizon extended to 9–10 months (median 285 days)</li>
         <li>Fixed all <code>norric.se</code> references → <code>norric.io</code></li>
-        <li>Kreditvakt signal engine: deterministic 4-source scoring, 1000-company consistency validation</li>
         <li>Batch scoring (<code>kreditvakt_batch_score_v1</code>) now returns full portfolio risk summary</li>
         <li><code>norric_company_profile_v1</code> wired to Kreditvakt engine</li>
       </ul>

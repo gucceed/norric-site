@@ -391,7 +391,7 @@
     <div class="holding-stats">
       <div class="stat">
         <div class="stat-val">4</div>
-        <div class="stat-label">Country routes</div>
+        <div class="stat-label">Country routes (1 queryable)</div>
       </div>
       <div class="stat">
         <div class="stat-val">42</div>
@@ -411,7 +411,7 @@
   </div>
 
   <!-- PORTFOLIO -->
-  <div class="section-label">Operating portfolio · products riding the same rail</div>
+  <div class="section-label">Product projects · status</div>
   <div class="grid grid-2">
 
     <!-- Norric Kreditvakt -->
@@ -420,11 +420,11 @@
       <div class="card-top">
         <div>
           <div class="card-name">Norric Kreditvakt</div>
-          <div class="card-brand">Norric · corporate insolvency intelligence</div>
+          <div class="card-brand">Norric · corporate risk project</div>
         </div>
-        <span class="status-pill pill-blue">Live · ingestion operational</span>
+        <span class="status-pill pill-blue">Paused · public site</span>
       </div>
-      <div class="card-desc">Swedish corporate insolvency early-warning API, reading Kronofogden, Bolagsverket, and Skatteverket primary sources. Backtest validated: 6× lift factor, 9-month median warning lead time, 80% bankruptcy coverage, signal stable across 2003 and 2023 regimes. Risk score on a 0–20 scale (20 = severe, 0 = healthy). Early-warning tier includes F-skatt registration, building permits, and Bolagsverket ownership velocity sensors. Delivery: REST API plus email alerts. Ingestion live: 18,438 companies tracked, refreshed daily from primary sources. Live at <a href="https://kreditvakt.com" target="_blank" style="color:var(--teal);text-decoration:none;">kreditvakt.com</a>.</div>
+      <div class="card-desc">The Kreditvakt public site is paused. Its predictive performance has not been verified, and no validated early-warning or backtest claims are offered. The separate Norric API remains online; pipeline status is available at <a href="https://mcp.norric.io/health" style="color:var(--teal);text-decoration:none;">mcp.norric.io/health</a>.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">FastAPI</span>
@@ -442,11 +442,11 @@
       <div class="card-top">
         <div>
           <div class="card-name">Sigvik</div>
-          <div class="card-brand">Standalone · national BRF intelligence</div>
+          <div class="card-brand">Standalone · BRF data project</div>
         </div>
-        <span class="status-pill pill-teal">Live · national coverage</span>
+        <span class="status-pill pill-teal">Paused · public site</span>
       </div>
-      <div class="card-desc">National BRF intelligence platform covering 33,710 BRFs across 289 of 290 Swedish municipalities. Address-first search, verdict badge system, instant-delivery paid reports, and a Skåne map with intent-score overlays. Energiklass prediction ~83% accuracy. Backend on Railway against Supabase Pro; ingestion fans out nightly across all kommuner. Live at <a href="https://sigvik.com" target="_blank" style="color:var(--teal);text-decoration:none;">sigvik.com</a>.</div>
+      <div class="card-desc">The Sigvik public site is paused. Coverage, financial signals and prediction accuracy have not been verified. No public product or paid-report availability is claimed.</div>
       <div class="card-rule"></div>
       <div class="card-meta">
         <span class="tag">React / TypeScript</span>
@@ -549,7 +549,7 @@
   <div class="section-label" style="margin-top:40px;">Thesis</div>
   <div class="ip-box" style="margin-bottom:40px;">
     <div class="ip-desc" style="line-height:1.75;">
-      Norric is becoming the rail agents use to check European companies. Kreditvakt provides Swedish corporate risk intelligence and Sigvik covers BRF housing data. SIGNAL is still being built; its MCP tools are registered but its live-data activation is not complete.
+      Norric is becoming the rail agents use to check European companies. The Kreditvakt and Sigvik public sites are paused while their claims remain unverified. SIGNAL is still being built; its MCP tools are registered but its live-data activation is not complete.
       <br><br>
       The bet is simple: agents do not read marketing, they read manifests, and their eval loops punish anything that guesses. So the rail earns trust the machine way - official registers only, freshness you can query, honest failures, provenance on every response. Snapshots do not compound; history and subscriptions do. Sweden is queryable now. Denmark, Norway and Finland have paid routes in production, while their national data coverage must be checked for freshness. Estonia and France remain gated until their first loads.
     </div>
